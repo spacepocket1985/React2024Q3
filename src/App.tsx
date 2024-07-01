@@ -1,9 +1,10 @@
-import { Component, ReactNode } from 'react';
+import { Component } from 'react';
 
 import './App.css';
 import { AppStateType } from './types/AppStateType';
 import { ApiResponseType } from './types/ApiResponseType';
 import { PotterDbApi } from './service/potterDbApi';
+import { SearchBar } from './components/searchBar/SearchBar';
 
 class App extends Component<object, AppStateType> {
   constructor(props: object) {
@@ -19,7 +20,9 @@ class App extends Component<object, AppStateType> {
   }
 
   onRequest = (offset?: string, page?: string, filter = '') => {
-    this.potterDbApi.getCharacters(offset, page, filter).then(this.onСharactersListLoaded);
+    this.potterDbApi
+      .getCharacters(offset, page, filter)
+      .then(this.onСharactersListLoaded);
   };
 
   onСharactersListLoaded = (ApiResponse: ApiResponseType): void => {
@@ -27,10 +30,10 @@ class App extends Component<object, AppStateType> {
       charactersList: ApiResponse.data.map((char) => char),
     });
   };
-  render(): ReactNode {
+  render() {
     return (
       <div>
-        <h2>Hello world!</h2>
+        <SearchBar />
       </div>
     );
   }
