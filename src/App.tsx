@@ -1,10 +1,13 @@
 import { Component } from 'react';
 
-import './App.css';
-import { AppStateType } from './types/AppStateType';
-import { ApiResponseType } from './types/ApiResponseType';
 import { PotterDbApi } from './service/potterDbApi';
 import { SearchBar } from './components/searchBar/SearchBar';
+import { CardList } from './components/cardList/CardList';
+import { AppStateType } from './types/AppStateType';
+import { ApiResponseType } from './types/ApiResponseType';
+
+import './App.css';
+
 
 class App extends Component<object, AppStateType> {
   constructor(props: object) {
@@ -16,7 +19,7 @@ class App extends Component<object, AppStateType> {
   potterDbApi = new PotterDbApi();
 
   componentDidMount() {
-    //this.onRequest();
+    this.onRequest();
   }
 
   onRequest = (offset?: string, page?: string, filter = '') => {
@@ -25,15 +28,17 @@ class App extends Component<object, AppStateType> {
       .then(this.onСharactersListLoaded);
   };
 
-  onСharactersListLoaded = (ApiResponse: ApiResponseType): void => {
+  onСharactersListLoaded = (apiResponse: ApiResponseType): void => {
     this.setState({
-      charactersList: ApiResponse.data.map((char) => char),
+      charactersList: apiResponse.data.map((char) => char),
     });
   };
   render() {
+    const { charactersList } = this.state;
     return (
       <div>
         <SearchBar />
+        <CardList charactersList={charactersList} />
       </div>
     );
   }
