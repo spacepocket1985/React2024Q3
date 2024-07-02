@@ -7,7 +7,7 @@ export class SearchBar extends Component {
     return (
       <div className={styles.searhWrapper}>
         <img src={HarryPotterImg} alt="Harry Potter image" />
-        <form action="">
+        <form>
           <input type="text" />
           <button>Search</button>
         </form>

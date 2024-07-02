@@ -10,14 +10,19 @@ export class CardList extends Component<CardListPropsType> {
   }
   render() {
     const { charactersList } = this.props;
+    
+    const content =
+      charactersList.length > 0 ? (
+        charactersList.map((character) => (
+          <Card key={character.id} character={character} />
+        ))
+      ) : (
+        <h2>Sorry, we dont have any data</h2>
+      );
     return (
       <>
         <h2>CardList</h2>
-        <div className={styles.charactersWrapper}>
-          {charactersList.map((character) => (
-            <Card character={character} />
-          ))}
-        </div>
+        <div className={styles.charactersWrapper}>{content}</div>
       </>
     );
   }

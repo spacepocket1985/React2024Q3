@@ -7,6 +7,7 @@ const _Filter = '&filter[name_cont]=';
 
 const _DefaultOffset = '15'; 
 const _DefaultPage = '1'; 
+export const _DefaultFilterWord = ''; 
 
 export class PotterDbApi {
   getResource = async (url: string): Promise<ApiResponseType> => {
@@ -22,7 +23,7 @@ export class PotterDbApi {
   getCharacters = async (
     offsetNumber = _DefaultOffset,
     pageNumber = _DefaultPage,
-    filterWord: string
+    filterWord = _DefaultFilterWord
   ): Promise<ApiResponseType> =>
     this.getResource(
       _ApiBase +
