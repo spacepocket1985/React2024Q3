@@ -72,6 +72,10 @@ export type SearchBarStateType = {
   searchTerm: string;
 }
 
+export type ErrorMsgPropsType = {
+  errorMsg: string
+}
+
 export type EmptyPropsType = {
 }
 

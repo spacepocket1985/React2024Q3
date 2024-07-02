@@ -61,6 +61,13 @@ button:hover {
   transform: scale(1.1);
 }
 
+.buttonError {
+  background-color: #fdb130;
+  color: #272b33;
+  font-weight: 600;
+  
+}
+
 button:disabled {
   opacity: 0.5;
 }

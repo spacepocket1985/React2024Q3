@@ -3,6 +3,7 @@ import { Component } from 'react';
 import { _DefaultFilterWord } from '../../service/potterDbApi';
 import { SearchBarPropsType, SearchBarStateType } from '../../types';
 import { getSearchTerm, setSearchTerm } from '../../utils/localStorageActions';
+import { ErrorButton } from '../errorButton/ErrorButton';
 
 import HarryPotterImg from './harry_potter.png';
 import styles from './SearchBar.module.css';
@@ -50,6 +51,7 @@ export class SearchBar extends Component<
           >
             Search
           </button>
+          <ErrorButton/>
         </form>
       </div>
     );

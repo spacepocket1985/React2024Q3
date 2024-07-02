@@ -14,11 +14,11 @@ const Spinner = (): JSX.Element => {
       >
         <g>
           <circle
-            stroke-linecap="round"
+            strokeLinecap="round"
             fill="none"
-            stroke-dasharray="50.26548245743669 50.26548245743669"
+            strokeDasharray="50.26548245743669 50.26548245743669"
             stroke="#ff3f42"
-            stroke-width="8"
+            strokeWidth="8"
             r="32"
             cy="50"
             cx="50"
@@ -33,12 +33,12 @@ const Spinner = (): JSX.Element => {
             ></animateTransform>
           </circle>
           <circle
-            stroke-linecap="round"
+            strokeLinecap="round"
             fill="none"
-            stroke-dashoffset="36.12831551628262"
-            stroke-dasharray="36.12831551628262 36.12831551628262"
+            strokeDashoffset="36.12831551628262"
+            strokeDasharray="36.12831551628262 36.12831551628262"
             stroke="#fdb130"
-            stroke-width="8"
+            strokeWidth="8"
             r="23"
             cy="50"
             cx="50"

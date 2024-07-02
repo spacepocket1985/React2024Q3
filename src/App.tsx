@@ -13,6 +13,7 @@ import { AppStateType, ApiResponseType, EmptyPropsType } from './types';
 import './App.css';
 import { getSearchTerm } from './utils/localStorageActions';
 import Spinner from './components/spinner/Spinner';
+import ErrorMessage from './components/errorMessage/ErrorMessage';
 
 class App extends Component<EmptyPropsType, AppStateType> {
   constructor(props: EmptyPropsType) {
@@ -63,19 +64,19 @@ class App extends Component<EmptyPropsType, AppStateType> {
 
   render() {
     const { charactersList, error, isLoading } = this.state;
-    const errorMsg = error ? <h3>{error}</h3> : null;
+    const errorMsg = error ? <ErrorMessage errorMsg={error} /> : null;
     const spinner = isLoading ? <Spinner /> : null;
     const content = !(isLoading || error) ? (
       <CardList charactersList={charactersList} />
     ) : null;
 
     return (
-      <div>
+      <>
         <SearchBar onSearchSubmit={this.onSearchSubmit} />
         {errorMsg}
         {spinner}
         {content}
-      </div>
+      </>
     );
   }
 }

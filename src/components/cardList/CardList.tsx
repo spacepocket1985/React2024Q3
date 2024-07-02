@@ -17,11 +17,10 @@ export class CardList extends Component<CardListPropsType, EmptyStateType> {
           <Card key={character.id} character={character} />
         ))
       ) : (
-        <h2>Sorry, we dont have any data</h2>
+        <h2>No characters found for your last request!</h2>
       );
     return (
       <>
-        <h2>CardList</h2>
         <div className={styles.charactersWrapper}>{content}</div>
       </>
     );

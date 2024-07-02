@@ -5,9 +5,9 @@ const _Offset = '?page[size]=';
 const _Page = '&page[number]=';
 const _Filter = '&filter[name_cont]=';
 
-export const _DefaultOffset = '15'; 
-export const _DefaultPage = '1'; 
-export const _DefaultFilterWord = ''; 
+export const _DefaultOffset = '15';
+export const _DefaultPage = '1';
+export const _DefaultFilterWord = '';
 
 export class PotterDbApi {
   getResource = async (url: string): Promise<ApiResponseType> => {
