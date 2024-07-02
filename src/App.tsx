@@ -3,8 +3,8 @@ import { Component } from 'react';
 import { PotterDbApi, _DefaultFilterWord } from './service/potterDbApi';
 import { SearchBar } from './components/searchBar/SearchBar';
 import { CardList } from './components/cardList/CardList';
-import { AppStateType } from './types/AppStateType';
-import { ApiResponseType } from './types/ApiResponseType';
+import { AppStateType, ApiResponseType } from './types';
+
 
 import './App.css';
 

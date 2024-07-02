@@ -1,4 +1,4 @@
-import { ApiResponseType } from '../types/ApiResponseType';
+import { ApiResponseType } from '../types';
 
 const _ApiBase = 'https://api.potterdb.com/v1/characters';
 const _Offset = '?page[size]=';

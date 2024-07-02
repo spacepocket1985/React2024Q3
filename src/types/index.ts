@@ -29,3 +29,39 @@ export type CharacterType = {
     wiki: string;
   };
 }
+
+export type ApiResponseType = {
+  data: CharacterType [];
+  meta: {
+    pagination: {
+      current: number;
+      first: number;
+      prev: number;
+      next: number;
+      last: number;
+      records: number;
+    };
+  };
+  links: {
+    first: string;
+    last: string;
+    next: string;
+    prev: string;
+  };
+};
+
+export type AppStateType = {
+  charactersList: CharacterType[];
+  isLoading: boolean;
+  error: string;
+  searchTerm: string;
+};
+
+export type CardListPropsType = {
+  charactersList: CharacterType[];
+}
+
+export type CardPropsType = {
+  character: CharacterType;
+};
+
