@@ -26,7 +26,7 @@ class App extends Component<EmptyPropsType, AppStateType> {
   }
   potterDbApi = new PotterDbApi();
 
-  componentDidMount() {
+  componentDidMount(): void {
     const searchTerm = getSearchTerm();
     this.onRequest(
       _DefaultOffset,
@@ -51,7 +51,7 @@ class App extends Component<EmptyPropsType, AppStateType> {
     });
   };
 
-  onError = (error: Error) => {
+  onError = (error: Error): void => {
     this.setState({
       isLoading: false,
       error: error.message,
@@ -62,7 +62,7 @@ class App extends Component<EmptyPropsType, AppStateType> {
     this.onRequest(_DefaultOffset, _DefaultPage, searchTerm);
   };
 
-  render() {
+  render(): JSX.Element {
     const { charactersList, error, isLoading } = this.state;
     const errorMsg = error ? <ErrorMessage errorMsg={error} /> : null;
     const spinner = isLoading ? <Spinner /> : null;

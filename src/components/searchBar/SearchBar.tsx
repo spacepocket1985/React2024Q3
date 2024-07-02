@@ -31,7 +31,7 @@ export class SearchBar extends Component<
     this.props.onSearchSubmit(this.state.searchTerm);
   };
 
-  render() {
+  render(): JSX.Element {
     const { searchTerm } = this.state;
 
     return (
@@ -51,7 +51,7 @@ export class SearchBar extends Component<
           >
             Search
           </button>
-          <ErrorButton/>
+          <ErrorButton />
         </form>
       </div>
     );

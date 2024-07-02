@@ -19,10 +19,14 @@ export class ErrorButton extends Component<
   onClickError = (): void => {
     this.setState({ hasError: true });
   };
-  render() {
+  render(): JSX.Element {
     if (this.state.hasError) {
       throw new Error('Ooppps! We have some problems!');
     }
-    return <button className='buttonError' onClick={this.onClickError}>Get an Error</button>;
+    return (
+      <button className="buttonError" onClick={this.onClickError}>
+        Get an Error
+      </button>
+    );
   }
 }

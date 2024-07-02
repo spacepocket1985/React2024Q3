@@ -8,9 +8,9 @@ export class CardList extends Component<CardListPropsType, EmptyStateType> {
   constructor(props: CardListPropsType) {
     super(props);
   }
-  render() {
+  render(): JSX.Element {
     const { charactersList } = this.props;
-    
+
     const content =
       charactersList.length > 0 ? (
         charactersList.map((character) => (

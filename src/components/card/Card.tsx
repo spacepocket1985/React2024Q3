@@ -8,7 +8,7 @@ export class Card extends Component<CardPropsType, EmptyStateType> {
   constructor(props: CardPropsType) {
     super(props);
   }
-  render() {
+  render(): JSX.Element {
     const { image, name, gender } = this.props.character.attributes;
     return (
       <div className={styles.characterWrapper}>

@@ -28,10 +28,10 @@ export type CharacterType = {
     weight: string | null;
     wiki: string;
   };
-}
+};
 
 export type ApiResponseType = {
-  data: CharacterType [];
+  data: CharacterType[];
   meta: {
     pagination: {
       current: number;
@@ -58,7 +58,7 @@ export type AppStateType = {
 
 export type CardListPropsType = {
   charactersList: CharacterType[];
-}
+};
 
 export type CardPropsType = {
   character: CharacterType;
@@ -66,17 +66,16 @@ export type CardPropsType = {
 
 export type SearchBarPropsType = {
   onSearchSubmit: (searchTerm: string) => void;
-}
+};
 
 export type SearchBarStateType = {
   searchTerm: string;
-}
+};
 
 export type ErrorMsgPropsType = {
-  errorMsg: string
-}
+  errorMsg: string;
+};
 
-export type EmptyPropsType = {
-}
+export type EmptyPropsType = object;
 
-export type EmptyStateType = {}
+export type EmptyStateType = object;
