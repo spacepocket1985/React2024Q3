@@ -54,7 +54,6 @@ export type AppStateType = {
   charactersList: CharacterType[];
   isLoading: boolean;
   error: string;
-  searchTerm: string;
 };
 
 export type CardListPropsType = {
@@ -65,3 +64,15 @@ export type CardPropsType = {
   character: CharacterType;
 };
 
+export type SearchBarPropsType = {
+  onSearchSubmit: (searchTerm: string) => void;
+}
+
+export type SearchBarStateType = {
+  searchTerm: string;
+}
+
+export type EmptyPropsType = {
+}
+
+export type EmptyStateType = {}

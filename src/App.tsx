@@ -1,27 +1,36 @@
 import { Component } from 'react';
 
-import { PotterDbApi, _DefaultFilterWord } from './service/potterDbApi';
+import {
+  PotterDbApi,
+  _DefaultFilterWord,
+  _DefaultOffset,
+  _DefaultPage,
+} from './service/potterDbApi';
 import { SearchBar } from './components/searchBar/SearchBar';
 import { CardList } from './components/cardList/CardList';
-import { AppStateType, ApiResponseType } from './types';
-
+import { AppStateType, ApiResponseType, EmptyPropsType } from './types';
 
 import './App.css';
+import { getSearchTerm } from './utils/localStorageActions';
 
-class App extends Component<object, AppStateType> {
-  constructor(props: object) {
+class App extends Component<EmptyPropsType, AppStateType> {
+  constructor(props: EmptyPropsType) {
     super(props);
     this.state = {
       charactersList: [],
-      isLoading: true,
+      isLoading: false,
       error: '',
-      searchTerm: _DefaultFilterWord,
     };
   }
   potterDbApi = new PotterDbApi();
 
   componentDidMount() {
-    this.onRequest();
+    const searchTerm = getSearchTerm();
+    this.onRequest(
+      _DefaultOffset,
+      _DefaultPage,
+      searchTerm || _DefaultFilterWord
+    );
   }
 
   onRequest = (offset?: string, page?: string, filter = ''): void => {
@@ -36,7 +45,7 @@ class App extends Component<object, AppStateType> {
     this.setState({
       charactersList: apiResponse.data.map((char) => char),
       isLoading: false,
-      error: ''
+      error: '',
     });
   };
 
@@ -44,15 +53,18 @@ class App extends Component<object, AppStateType> {
     this.setState({
       isLoading: false,
       error: error.message,
-      searchTerm: _DefaultFilterWord,
     });
+  };
+
+  onSearchSubmit = (searchTerm: string): void => {
+    this.onRequest(_DefaultOffset, _DefaultPage, searchTerm);
   };
 
   render() {
     const { charactersList } = this.state;
     return (
       <div>
-        <SearchBar />
+        <SearchBar onSearchSubmit={this.onSearchSubmit} />
         <CardList charactersList={charactersList} />
       </div>
     );

@@ -1,11 +1,10 @@
 import { Component } from 'react';
 
-import { CardPropsType } from '../../types';
+import { CardPropsType, EmptyStateType } from '../../types';
 import NoImage from './no-image.png';
 import styles from './Card.module.css';
 
-
-export class Card extends Component<CardPropsType> {
+export class Card extends Component<CardPropsType, EmptyStateType> {
   constructor(props: CardPropsType) {
     super(props);
   }
