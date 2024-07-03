@@ -38,16 +38,6 @@ export class PotterDbApi {
     return this.updateResponseData(res);
   };
 
-
-
-
-
-
-
-
-
-
-  
   updateResponseData(responseData: ApiResponseType): ApiResponseType {
     return {
       data: responseData.data.map((character) => {

@@ -47,7 +47,7 @@
     "*.{js,jsx,ts,tsx}": [
       "eslint  --max-warnings=0"
     ],
-    "*.{html,css,scss}": [
+    "*.{html,css,ts,tsx}": [
       "npx prettier --write ."
     ]
   }
