@@ -15,7 +15,6 @@
     "test": "vitest",
     "coverage": "vitest run --coverage"
   },
-
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
@@ -47,7 +46,7 @@
     "*.{js,jsx,ts,tsx}": [
       "eslint  --max-warnings=0"
     ],
-    "*.{html,css,ts,tsx}": [
+    "*.{html,css,ts,tsx,json}": [
       "npx prettier --write ."
     ]
   }
