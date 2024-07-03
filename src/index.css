@@ -8,7 +8,7 @@
   flex-direction: column;
   margin: auto;
   background-color: var(--white);
-  
+
   --white: #fff;
   --main-color: #272b33;
   --secondary-color: #fdb130;

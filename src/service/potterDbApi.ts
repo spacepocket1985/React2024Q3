@@ -42,10 +42,10 @@ export class PotterDbApi {
       data: responseData.data.map((character) => {
         const updatedCharacter = character;
         if (character.attributes.gender === null) {
-          updatedCharacter.attributes.gender = "Unknown";
+          updatedCharacter.attributes.gender = 'Unknown';
         }
         if (character.attributes.image === null) {
-          updatedCharacter.attributes.image = "src/assets/no-image.png";
+          updatedCharacter.attributes.image = './src/assets/no-image.png';
         }
         return updatedCharacter;
       }),

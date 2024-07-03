@@ -8,7 +8,7 @@
     "build": "tsc --noEmit && vite build --base=./",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "lint:fix": "eslint ./src --fix --color",
-    "lint-staged": "lint-staged",     
+    "lint-staged": "lint-staged",
     "preview": "vite preview",
     "format:fix": "prettier --write .",
     "prepare": "husky install",
@@ -18,7 +18,7 @@
   "lint-staged": {
     "*.{jsx,ts,tsx}": "npx eslint",
     "*.{jsx,ts,tsx,html,css}": "npx prettier --fix"
-  },   
+  },
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
