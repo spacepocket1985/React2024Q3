@@ -24,8 +24,8 @@ export class PotterDbApi {
     offsetNumber = _DefaultOffset,
     pageNumber = _DefaultPage,
     filterWord = _DefaultFilterWord
-  ): Promise<ApiResponseType> =>
-    this.getResource(
+  ): Promise<ApiResponseType> => {
+    const res = await this.getResource(
       _ApiBase +
         _Offset +
         offsetNumber +
@@ -34,4 +34,23 @@ export class PotterDbApi {
         _Filter +
         filterWord
     );
+    return this.updateResponseData(res);
+  };
+
+  updateResponseData(responseData: ApiResponseType): ApiResponseType {
+    return {
+      data: responseData.data.map((character) => {
+        const updatedCharacter = character;
+        if (character.attributes.gender === null) {
+          updatedCharacter.attributes.gender = "Unknown";
+        }
+        if (character.attributes.image === null) {
+          updatedCharacter.attributes.image = "src/assets/no-image.png";
+        }
+        return updatedCharacter;
+      }),
+      meta: responseData.meta,
+      links: responseData.links,
+    };
+  }
 }

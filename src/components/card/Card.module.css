@@ -1,13 +1,15 @@
 .characterWrapper {
   width: 23rem;
-  height: 16rem;
+  height: 30.5rem;
   display: flex;
+  flex-direction: column;
   overflow: hidden;
-  background: #3c3e44;
+  background: var(--main-color);
   border-radius: 0.8rem;
   margin: 0.75rem;
   transition: all 0.3s;
   border: 0.15rem solid rgba(207, 201, 201, 0.5);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
 .characterWrapper:hover {
@@ -15,14 +17,14 @@
 }
 
 .characterImgWrapper {
-  flex: 2 1 0%;
   width: 100%;
+  height: 20rem;
 }
 .characterImgWrapper img {
   width: 100%;
   height: 100%;
   transition: opacity 0.5s ease 0s;
-  object-position: center center;
+  object-position: top center;
   object-fit: cover;
 }
 

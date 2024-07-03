@@ -44,6 +44,7 @@ class App extends Component<EmptyPropsType, AppStateType> {
   };
 
   onСharactersListLoaded = (apiResponse: ApiResponseType): void => {
+
     this.setState({
       charactersList: apiResponse.data.map((char) => char),
       isLoading: false,
