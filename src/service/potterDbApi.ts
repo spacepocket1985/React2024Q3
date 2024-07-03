@@ -1,4 +1,5 @@
 import { ApiResponseType } from '../types';
+import NoImage from '../assets/no-image.png';
 
 const _ApiBase = 'https://api.potterdb.com/v1/characters';
 const _Offset = '?page[size]=';
@@ -40,12 +41,12 @@ export class PotterDbApi {
   updateResponseData(responseData: ApiResponseType): ApiResponseType {
     return {
       data: responseData.data.map((character) => {
-        const updatedCharacter = character;
+        const updatedCharacter = { ...character };
         if (character.attributes.gender === null) {
           updatedCharacter.attributes.gender = 'Unknown';
         }
         if (character.attributes.image === null) {
-          updatedCharacter.attributes.image = './src/assets/no-image.png';
+          updatedCharacter.attributes.image = NoImage;
         }
         return updatedCharacter;
       }),

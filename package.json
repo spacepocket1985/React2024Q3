@@ -1,5 +1,5 @@
 {
-  "name": "React2024Q3",
+  "name": "react2024q4",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -35,10 +35,10 @@
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-react": "^7.29.4",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "typescript": "5.2.2",
-    "vite": "^5.1.0",
     "husky": "^7.0.4",
-    "lint-staged": "^12.4.1",
-    "prettier": "^2.6.2"
+    "lint-staged": "^12.5.0",
+    "prettier": "^2.6.2",
+    "typescript": "5.2.2",
+    "vite": "^5.1.0"
   }
 }
