@@ -12,8 +12,9 @@ import { AppStateType, ApiResponseType, EmptyPropsType } from './types';
 
 import './App.css';
 import { getSearchTerm } from './utils/localStorageActions';
-import Spinner from './components/spinner/Spinner';
+
 import ErrorMessage from './components/errorMessage/ErrorMessage';
+import { Spinner } from './components/spinner/Spinner';
 
 class App extends Component<EmptyPropsType, AppStateType> {
   constructor(props: EmptyPropsType) {
