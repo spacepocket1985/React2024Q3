@@ -1,5 +1,6 @@
-import { ApiResponseType } from '../types';
+import { ApiResponseType, CharacterType } from '../types';
 import NoImage from '../assets/no-image.png';
+import { useHttp } from '../hooks/useHttp';
 
 export const PotterDbApi = (): {
   getCharacters: (
@@ -11,6 +12,9 @@ export const PotterDbApi = (): {
   _DefaultPage: string;
   _DefaultOffset: string;
   _DefaultFilterWord: string;
+  loading: boolean;
+  error: string;
+  clearError: () => void;
 } => {
   const _ApiBase = 'https://api.potterdb.com/v1/characters';
   const _Offset = '?page[size]=';
@@ -21,22 +25,14 @@ export const PotterDbApi = (): {
   const _DefaultPage = '1';
   const _DefaultFilterWord = '';
 
-  const getResource = async (url: string): Promise<ApiResponseType> => {
-    const response = await fetch(url);
-
-    if (!response.ok) {
-      throw new Error(`Could not fetch ${url}, status: ${response.status}`);
-    }
-
-    return await response.json();
-  };
+  const { loading, request, error, clearError } = useHttp();
 
   const getCharacters = async (
+    filterWord = _DefaultFilterWord,
     offsetNumber = _DefaultOffset,
-    pageNumber = _DefaultPage,
-    filterWord = _DefaultFilterWord
+    pageNumber = _DefaultPage
   ): Promise<ApiResponseType> => {
-    const res = await getResource(
+    const res = await request(
       _ApiBase +
         _Offset +
         offsetNumber +
@@ -45,11 +41,15 @@ export const PotterDbApi = (): {
         _Filter +
         filterWord
     );
-    return updateResponseData(res);
+    const updateData = {
+      ...res,
+      data: res.data.map((item) => transformCharacter(item)),
+    };
+    return updateData;
   };
 
   const getCharacter = async (id: string): Promise<ApiResponseType> => {
-    const res = await getResource(`${_ApiBase}/${id}`);
+    const res = await request(`${_ApiBase}/${id}`);
     return updateResponseData(res);
   };
 
@@ -72,7 +72,21 @@ export const PotterDbApi = (): {
     };
   };
 
+  const transformCharacter = (character: CharacterType): CharacterType => {
+    const updatedCharacter = { ...character };
+    if (character.attributes.gender === null) {
+      updatedCharacter.attributes.gender = 'Unknown';
+    }
+    if (character.attributes.image === null) {
+      updatedCharacter.attributes.image = NoImage;
+    }
+    return updatedCharacter;
+  };
+
   return {
+    loading,
+    error,
+    clearError,
     getCharacters,
     getCharacter,
     _DefaultPage,

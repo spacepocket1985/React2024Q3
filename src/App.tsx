@@ -13,56 +13,41 @@ import './App.css';
 const App = (): JSX.Element => {
   const [appData, setAppData] = useState<AppStateType>({
     charactersList: [],
-    isLoading: false,
-    error: '',
   });
 
-  const { _DefaultOffset, _DefaultFilterWord, _DefaultPage, getCharacters } =
-    PotterDbApi();
+  const { getCharacters, loading, error } = PotterDbApi();
 
   const onСharactersListLoaded = useCallback(
     (apiResponse: ApiResponseType): void => {
       setAppData({
-        ...appData,
         charactersList: apiResponse.data.map((char) => char),
-        isLoading: false,
-        error: '',
       });
     },
-    [appData]
-  );
-
-  const onError = useCallback(
-    (error: Error): void => {
-      setAppData({ ...appData, isLoading: false, error: error.message });
-    },
-    [appData]
+    []
   );
 
   const onRequest = useCallback(
-    (offset?: string, page?: string, filter = ''): void => {
-      setAppData({ ...appData, isLoading: true });
-
-      getCharacters(offset, page, filter)
-        .then(onСharactersListLoaded)
-        .catch(onError);
+    (query: string): void => {
+      getCharacters(query).then(onСharactersListLoaded);
     },
-    [appData, getCharacters, onError, onСharactersListLoaded]
+    [getCharacters, onСharactersListLoaded]
   );
 
   useEffect(() => {
+    const _DefaultFilterWord = '';
     const searchTerm = getSearchTerm();
-    onRequest(_DefaultOffset, _DefaultPage, searchTerm || _DefaultFilterWord);
-  }, [_DefaultFilterWord, _DefaultOffset, _DefaultPage, onRequest]);
+
+    onRequest(searchTerm || _DefaultFilterWord);
+  }, [onRequest]);
 
   const onSearchSubmit = (searchTerm: string): void => {
-    onRequest(_DefaultOffset, _DefaultPage, searchTerm);
+    onRequest(searchTerm);
   };
 
-  const { charactersList, error, isLoading } = appData;
+  const { charactersList } = appData;
   const errorMsg = error ? <ErrorMessage errorMsg={error} /> : null;
-  const spinner = isLoading ? <Spinner /> : null;
-  const content = !(isLoading || error) ? (
+  const spinner = loading ? <Spinner /> : null;
+  const content = !(loading || error) ? (
     <CardList charactersList={charactersList} />
   ) : null;
 

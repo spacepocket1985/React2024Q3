@@ -52,8 +52,6 @@ export type ApiResponseType = {
 
 export type AppStateType = {
   charactersList: CharacterType[];
-  isLoading: boolean;
-  error: string;
 };
 
 export type CardListPropsType = {
