@@ -1,0 +1,8 @@
+.charactersWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 70vw;
+  margin-bottom: 1rem;
+}

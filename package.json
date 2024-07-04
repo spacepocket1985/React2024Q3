@@ -1,0 +1,54 @@
+{
+  "name": "react2024q4",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build --base=./",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "lint:fix": "eslint ./src --fix --color",
+    "lint-staged": "lint-staged",
+    "preview": "vite preview",
+    "format:fix": "prettier --write .",
+    "prepare": "husky install",
+    "test": "vitest",
+    "coverage": "vitest run --coverage"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.55",
+    "@types/react-dom": "^18.2.19",
+    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "@typescript-eslint/parser": "^6.21.0",
+    "@vitejs/plugin-react": "^4.2.1",
+    "eslint": "^8.14.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-import-resolver-typescript": "^2.7.1",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-react": "^7.29.4",
+    "eslint-plugin-react-compiler": "^0.0.0-experimental-0998c1e-20240625",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "husky": "^7.0.4",
+    "lint-staged": "^12.5.0",
+    "prettier": "^2.6.2",
+    "typescript": "5.2.2",
+    "vite": "^5.1.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint  --max-warnings=0"
+    ],
+    "*.{html,css,ts,tsx,json}": [
+      "npx prettier --write ."
+    ]
+  }
+}
