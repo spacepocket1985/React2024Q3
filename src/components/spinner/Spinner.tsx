@@ -1,6 +1,6 @@
 import styles from './Spinner.module.css';
 
-const Spinner = (): JSX.Element => {
+export const Spinner = (): JSX.Element => {
   return (
     <div className={styles.spinner}>
       <h2>Loading ...</h2>
@@ -58,5 +58,3 @@ const Spinner = (): JSX.Element => {
     </div>
   );
 };
-
-export default Spinner;

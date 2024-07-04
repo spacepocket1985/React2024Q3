@@ -1,17 +1,27 @@
 import { ApiResponseType } from '../types';
 import NoImage from '../assets/no-image.png';
 
-const _ApiBase = 'https://api.potterdb.com/v1/characters';
-const _Offset = '?page[size]=';
-const _Page = '&page[number]=';
-const _Filter = '&filter[name_cont]=';
+export const PotterDbApi = (): {
+  getCharacters: (
+    offsetNumber?: string,
+    pageNumber?: string,
+    filterWord?: string
+  ) => Promise<ApiResponseType>;
+  getCharacter: (id: string) => Promise<ApiResponseType>;
+  _DefaultPage: string;
+  _DefaultOffset: string;
+  _DefaultFilterWord: string;
+} => {
+  const _ApiBase = 'https://api.potterdb.com/v1/characters';
+  const _Offset = '?page[size]=';
+  const _Page = '&page[number]=';
+  const _Filter = '&filter[name_cont]=';
 
-export const _DefaultOffset = '15';
-export const _DefaultPage = '1';
-export const _DefaultFilterWord = '';
+  const _DefaultOffset = '15';
+  const _DefaultPage = '1';
+  const _DefaultFilterWord = '';
 
-export class PotterDbApi {
-  getResource = async (url: string): Promise<ApiResponseType> => {
+  const getResource = async (url: string): Promise<ApiResponseType> => {
     const response = await fetch(url);
 
     if (!response.ok) {
@@ -21,12 +31,12 @@ export class PotterDbApi {
     return await response.json();
   };
 
-  getCharacters = async (
+  const getCharacters = async (
     offsetNumber = _DefaultOffset,
     pageNumber = _DefaultPage,
     filterWord = _DefaultFilterWord
   ): Promise<ApiResponseType> => {
-    const res = await this.getResource(
+    const res = await getResource(
       _ApiBase +
         _Offset +
         offsetNumber +
@@ -35,10 +45,17 @@ export class PotterDbApi {
         _Filter +
         filterWord
     );
-    return this.updateResponseData(res);
+    return updateResponseData(res);
   };
 
-  updateResponseData(responseData: ApiResponseType): ApiResponseType {
+  const getCharacter = async (id: string): Promise<ApiResponseType> => {
+    const res = await getResource(`${_ApiBase}/${id}`);
+    return updateResponseData(res);
+  };
+
+  const updateResponseData = (
+    responseData: ApiResponseType
+  ): ApiResponseType => {
     return {
       data: responseData.data.map((character) => {
         const updatedCharacter = { ...character };
@@ -53,5 +70,13 @@ export class PotterDbApi {
       meta: responseData.meta,
       links: responseData.links,
     };
-  }
-}
+  };
+
+  return {
+    getCharacters,
+    getCharacter,
+    _DefaultPage,
+    _DefaultOffset,
+    _DefaultFilterWord,
+  };
+};
