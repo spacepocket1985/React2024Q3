@@ -89,11 +89,7 @@ export type CardPropsType = {
 };
 
 export type SearchBarPropsType = {
-  onSearchSubmit: () => void;
-};
-
-export type SearchBarStateType = {
-  searchTerm: string;
+  onSearchSubmit: (query: string) => void;
 };
 
 export type ErrorMsgPropsType = {

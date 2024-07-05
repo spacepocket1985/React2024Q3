@@ -6,15 +6,16 @@ import { Spinner } from './components/spinner/Spinner';
 import { ErrorMessage } from './components/errorMessage/ErrorMessage';
 import { AppStateType, ApiResponseType } from './types';
 import { PotterDbApi } from './service/potterDbApi';
-import { getSearchTerm } from './utils/localStorageActions';
 
 import './App.css';
+import { useLocalStorage } from './hooks/useLocalStorage';
 
 const App = (): JSX.Element => {
   const [appData, setAppData] = useState<AppStateType>({
     charactersList: [],
   });
 
+  const [searchTerm, setSearchTerm] = useLocalStorage();
   const { getCharacters, loading, error, _DefaultFilterWord } = PotterDbApi();
 
   const onСharactersListLoaded = useCallback(
@@ -27,15 +28,17 @@ const App = (): JSX.Element => {
   );
 
   const onRequest = useCallback(() => {
-    const searchTerm = getSearchTerm() || _DefaultFilterWord;
-    getCharacters(searchTerm).then(onСharactersListLoaded);
-  }, [getCharacters, onСharactersListLoaded, _DefaultFilterWord]);
+    getCharacters(searchTerm || _DefaultFilterWord).then(
+      onСharactersListLoaded
+    );
+  }, [getCharacters, onСharactersListLoaded, _DefaultFilterWord, searchTerm]);
 
   useEffect(() => {
     onRequest();
   }, [onRequest]);
 
-  const onSearchSubmit = (): void => {
+  const onSearchSubmit = (query: string): void => {
+    setSearchTerm(query);
     onRequest();
   };
 

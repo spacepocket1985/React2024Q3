@@ -1,29 +1,28 @@
 import { useState } from 'react';
 
+import { useLocalStorage } from '../../hooks/useLocalStorage';
 import { PotterDbApi } from '../../service/potterDbApi';
-import { SearchBarPropsType, SearchBarStateType } from '../../types';
-import { getSearchTerm, setSearchTerm } from '../../utils/localStorageActions';
+import { SearchBarPropsType } from '../../types';
 
 import HarryPotterImg from './harry_potter.png';
 import styles from './SearchBar.module.css';
 
 export const SearchBar = (props: SearchBarPropsType): JSX.Element => {
   const { _DefaultFilterWord } = PotterDbApi();
-  const [searchBarData, setSearchBarData] = useState<SearchBarStateType>({
-    searchTerm: getSearchTerm() || _DefaultFilterWord,
-  });
 
-  const { searchTerm } = searchBarData;
+  const [searchTerm] = useLocalStorage();
+  const [searchBarData, setSearchBarData] = useState(
+    searchTerm || _DefaultFilterWord
+  );
 
   const onUpdateSearch = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const searchTerm = event.target.value.trim();
-    setSearchBarData({ ...searchBarData, searchTerm });
+    setSearchBarData(searchTerm);
   };
 
   const onSubmit = (event: React.MouseEvent): void => {
     event.preventDefault();
-    setSearchTerm(searchTerm);
-    props.onSearchSubmit();
+    props.onSearchSubmit(searchBarData);
   };
 
   return (
@@ -34,7 +33,7 @@ export const SearchBar = (props: SearchBarPropsType): JSX.Element => {
           type="text"
           placeholder="name for search"
           onChange={onUpdateSearch}
-          value={searchTerm}
+          value={searchBarData}
         />
         <button
           onClick={(event) => {
