@@ -15,7 +15,7 @@ const App = (): JSX.Element => {
     charactersList: [],
   });
 
-  const { getCharacters, loading, error } = PotterDbApi();
+  const { getCharacters, loading, error, _DefaultFilterWord } = PotterDbApi();
 
   const onСharactersListLoaded = useCallback(
     (apiResponse: ApiResponseType): void => {
@@ -26,22 +26,17 @@ const App = (): JSX.Element => {
     []
   );
 
-  const onRequest = useCallback(
-    (query: string): void => {
-      getCharacters(query).then(onСharactersListLoaded);
-    },
-    [getCharacters, onСharactersListLoaded]
-  );
+  const onRequest = useCallback(() => {
+    const searchTerm = getSearchTerm() || _DefaultFilterWord;
+    getCharacters(searchTerm).then(onСharactersListLoaded);
+  }, [getCharacters, onСharactersListLoaded, _DefaultFilterWord]);
 
   useEffect(() => {
-    const _DefaultFilterWord = '';
-    const searchTerm = getSearchTerm();
-
-    onRequest(searchTerm || _DefaultFilterWord);
+    onRequest();
   }, [onRequest]);
 
-  const onSearchSubmit = (searchTerm: string): void => {
-    onRequest(searchTerm);
+  const onSearchSubmit = (): void => {
+    onRequest();
   };
 
   const { charactersList } = appData;

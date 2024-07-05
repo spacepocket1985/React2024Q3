@@ -1,16 +1,17 @@
 import { useState, useCallback } from 'react';
-import { ApiResponseType } from '../types';
 
-export const useHttp = (): {
+type UseHttpReturnType<T> = {
   loading: boolean;
-  request: (url: string) => Promise<ApiResponseType>;
+  request: (url: string) => Promise<T>;
   error: string;
   clearError: () => void;
-} => {
+};
+
+export const useHttp = <T>(): UseHttpReturnType<T> => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const request = useCallback(async (url: string): Promise<ApiResponseType> => {
+  const request = useCallback(async (url: string): Promise<T> => {
     setLoading(true);
 
     try {
@@ -20,7 +21,7 @@ export const useHttp = (): {
         throw new Error(`Could not fetch ${url}, status: ${response.status}`);
       }
 
-      const data: ApiResponseType = await response.json();
+      const data: T = await response.json();
 
       setLoading(false);
       return data;

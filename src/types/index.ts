@@ -50,6 +50,32 @@ export type ApiResponseType = {
   };
 };
 
+export type ApiResponseForCharType = {
+  data: CharacterType;
+  meta: {
+    copyright: string;
+    generated_at: string;
+  };
+  links: {
+    self: string;
+  };
+};
+
+export type PotterDbApiReturnType = {
+  getCharacters: (
+    offsetNumber?: string,
+    pageNumber?: string,
+    filterWord?: string
+  ) => Promise<ApiResponseType>;
+  getCharacter: (id: string) => Promise<ApiResponseForCharType>;
+  _DefaultPage: string;
+  _DefaultOffset: string;
+  _DefaultFilterWord: string;
+  loading: boolean;
+  error: string;
+  clearError: () => void;
+};
+
 export type AppStateType = {
   charactersList: CharacterType[];
 };
@@ -63,7 +89,7 @@ export type CardPropsType = {
 };
 
 export type SearchBarPropsType = {
-  onSearchSubmit: (searchTerm: string) => void;
+  onSearchSubmit: () => void;
 };
 
 export type SearchBarStateType = {

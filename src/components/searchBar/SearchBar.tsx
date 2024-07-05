@@ -23,7 +23,7 @@ export const SearchBar = (props: SearchBarPropsType): JSX.Element => {
   const onSubmit = (event: React.MouseEvent): void => {
     event.preventDefault();
     setSearchTerm(searchTerm);
-    props.onSearchSubmit(searchTerm);
+    props.onSearchSubmit();
   };
 
   return (
