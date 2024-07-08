@@ -100,6 +100,18 @@ export type SearchBarPropsType = {
   onSearchSubmit: (query: string) => void;
 };
 
+export type PaginationPropsType = {
+  seachTerm: string;
+  pagination: {
+    current: number;
+    first: number;
+    prev: number;
+    next: number;
+    last: number;
+    records: number;
+  };
+};
+
 export type ErrorMsgPropsType = {
   errorMsg: string;
 };

@@ -9,13 +9,17 @@ import { PotterDbApi } from '../service/potterDbApi';
 import { ApiResponseType, AppStateType } from '../types';
 
 import './App.css';
+import Pagination from '../components/pagination/Pagination';
 
 export const SearchPage = (): JSX.Element => {
   const { search } = useLocation();
   const params = new URLSearchParams(search);
 
+  const { getCharacters, loading, error, _DefaultFilterWord, _DefaultPage } =
+    PotterDbApi();
+
   const pageNumber = params.get('pageNumber');
-  const filterWord = params.get('filter');
+  const filterWord = params.get('filter') || _DefaultFilterWord;
 
   const [appData, setAppData] = useState<AppStateType>({
     charactersList: [],
@@ -30,8 +34,6 @@ export const SearchPage = (): JSX.Element => {
   });
 
   const [searchTerm, setSearchTerm] = useLocalStorage();
-  const { getCharacters, loading, error, _DefaultFilterWord, _DefaultPage } =
-    PotterDbApi();
 
   const onСharactersListLoaded = useCallback(
     (apiResponse: ApiResponseType): void => {
@@ -45,13 +47,13 @@ export const SearchPage = (): JSX.Element => {
 
   const onRequest = useCallback(() => {
     getCharacters(
-      searchTerm || _DefaultFilterWord,
+      searchTerm || filterWord,
       Number(pageNumber) || _DefaultPage
     ).then(onСharactersListLoaded);
   }, [
     getCharacters,
     onСharactersListLoaded,
-    _DefaultFilterWord,
+    filterWord,
     _DefaultPage,
     searchTerm,
     pageNumber,
@@ -63,10 +65,9 @@ export const SearchPage = (): JSX.Element => {
 
   const onSearchSubmit = (query: string): void => {
     setSearchTerm(query);
-    //onRequest();
   };
 
-  const { charactersList } = appData;
+  const { charactersList, pagination } = appData;
   const errorMsg = error ? <ErrorMessage errorMsg={error} /> : null;
   const spinner = loading ? <Spinner /> : null;
   const content = !(loading || error) ? (
@@ -75,11 +76,11 @@ export const SearchPage = (): JSX.Element => {
 
   return (
     <div>
-      <h2>Search Page</h2>
-      <p>Page Number: {pageNumber}</p>
-      <p>Filter Word: {filterWord}</p>
-
       <SearchBar onSearchSubmit={onSearchSubmit} />
+      <Pagination
+        pagination={pagination}
+        seachTerm={searchTerm || filterWord}
+      />
       {errorMsg}
       {spinner}
       {content}
