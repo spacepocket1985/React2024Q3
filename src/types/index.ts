@@ -64,11 +64,11 @@ export type ApiResponseForCharType = {
 export type PotterDbApiReturnType = {
   getCharacters: (
     offsetNumber?: string,
-    pageNumber?: string,
+    pageNumber?: number,
     filterWord?: string
   ) => Promise<ApiResponseType>;
   getCharacter: (id: string) => Promise<ApiResponseForCharType>;
-  _DefaultPage: string;
+  _DefaultPage: number;
   _DefaultOffset: string;
   _DefaultFilterWord: string;
   loading: boolean;
@@ -78,6 +78,14 @@ export type PotterDbApiReturnType = {
 
 export type AppStateType = {
   charactersList: CharacterType[];
+  pagination: {
+    current: number;
+    first: number;
+    prev: number;
+    next: number;
+    last: number;
+    records: number;
+  };
 };
 
 export type CardListPropsType = {

@@ -15,7 +15,7 @@ export const PotterDbApi = (): PotterDbApiReturnType => {
   const _Filter = '&filter[name_cont]=';
 
   const _DefaultOffset = '15';
-  const _DefaultPage = '1';
+  const _DefaultPage = 1;
   const _DefaultFilterWord = '';
 
   const { loading, request, error, clearError } = useHttp();
@@ -23,8 +23,8 @@ export const PotterDbApi = (): PotterDbApiReturnType => {
   const getCharacters = useCallback(
     async (
       filterWord = _DefaultFilterWord,
-      offsetNumber = _DefaultOffset,
-      pageNumber = _DefaultPage
+      pageNumber = _DefaultPage,
+      offsetNumber = _DefaultOffset
     ): Promise<ApiResponseType> => {
       const res = (await request(
         _ApiBase +

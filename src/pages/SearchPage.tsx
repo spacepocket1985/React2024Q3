@@ -19,14 +19,24 @@ export const SearchPage = (): JSX.Element => {
 
   const [appData, setAppData] = useState<AppStateType>({
     charactersList: [],
+    pagination: {
+      current: 1,
+      first: 1,
+      prev: 1,
+      next: 1,
+      last: 1,
+      records: 0,
+    },
   });
 
   const [searchTerm, setSearchTerm] = useLocalStorage();
-  const { getCharacters, loading, error, _DefaultFilterWord } = PotterDbApi();
+  const { getCharacters, loading, error, _DefaultFilterWord, _DefaultPage } =
+    PotterDbApi();
 
   const onСharactersListLoaded = useCallback(
     (apiResponse: ApiResponseType): void => {
       setAppData({
+        pagination: apiResponse.meta.pagination,
         charactersList: apiResponse.data.map((char) => char),
       });
     },
@@ -34,10 +44,18 @@ export const SearchPage = (): JSX.Element => {
   );
 
   const onRequest = useCallback(() => {
-    getCharacters(searchTerm || _DefaultFilterWord).then(
-      onСharactersListLoaded
-    );
-  }, [getCharacters, onСharactersListLoaded, _DefaultFilterWord, searchTerm]);
+    getCharacters(
+      searchTerm || _DefaultFilterWord,
+      Number(pageNumber) || _DefaultPage
+    ).then(onСharactersListLoaded);
+  }, [
+    getCharacters,
+    onСharactersListLoaded,
+    _DefaultFilterWord,
+    _DefaultPage,
+    searchTerm,
+    pageNumber,
+  ]);
 
   useEffect(() => {
     onRequest();
@@ -45,7 +63,7 @@ export const SearchPage = (): JSX.Element => {
 
   const onSearchSubmit = (query: string): void => {
     setSearchTerm(query);
-    onRequest();
+    //onRequest();
   };
 
   const { charactersList } = appData;
