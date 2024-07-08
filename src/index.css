@@ -12,12 +12,13 @@
   --white: #fff;
   --main-color: #272b33;
   --secondary-color: #fdb130;
+  --third-color: #ee4268;
 }
 
 html {
   box-sizing: border-box;
   font-size: 10px;
-  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
 h1,
