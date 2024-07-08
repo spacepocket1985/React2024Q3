@@ -97,7 +97,7 @@ export type CardPropsType = {
 };
 
 export type SearchBarPropsType = {
-  onSearchSubmit: (query: string) => void;
+  loading: boolean;
 };
 
 export type PaginationPropsType = {

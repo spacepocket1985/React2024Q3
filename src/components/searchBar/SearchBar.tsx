@@ -1,7 +1,6 @@
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
 import { useLocalStorage } from '../../hooks/useLocalStorage';
+
 import { PotterDbApi } from '../../service/potterDbApi';
 import { SearchBarPropsType } from '../../types';
 
@@ -9,23 +8,20 @@ import HarryPotterImg from './harry_potter.png';
 import styles from './SearchBar.module.css';
 
 export const SearchBar = (props: SearchBarPropsType): JSX.Element => {
-  const { _DefaultFilterWord, _DefaultPage } = PotterDbApi();
+  const { _DefaultPage } = PotterDbApi();
   const navigate = useNavigate();
 
-  const [searchTerm] = useLocalStorage();
-  const [searchBarData, setSearchBarData] = useState(
-    searchTerm || _DefaultFilterWord
-  );
+  const [searchTerm, setSearchTerm] = useLocalStorage();
 
   const onUpdateSearch = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const searchTerm = event.target.value.trim();
-    setSearchBarData(searchTerm);
+    setSearchTerm(searchTerm);
   };
 
   const onSubmit = (event: React.MouseEvent): void => {
     event.preventDefault();
-    props.onSearchSubmit(searchBarData);
-    navigate(`/searchPage?pageNumber=${_DefaultPage}&filter=${searchBarData}`);
+
+    navigate(`/searchPage?pageNumber=${_DefaultPage}&filter=${searchTerm}`);
   };
 
   return (
@@ -36,9 +32,10 @@ export const SearchBar = (props: SearchBarPropsType): JSX.Element => {
           type="text"
           placeholder="name for search"
           onChange={onUpdateSearch}
-          value={searchBarData}
+          value={searchTerm || ''}
         />
         <button
+          disabled={!!props.loading}
           onClick={(event) => {
             onSubmit(event);
           }}

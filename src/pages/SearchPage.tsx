@@ -19,7 +19,6 @@ export const SearchPage = (): JSX.Element => {
     PotterDbApi();
 
   const pageNumber = params.get('pageNumber');
-  const filterWord = params.get('filter') || _DefaultFilterWord;
 
   const [appData, setAppData] = useState<AppStateType>({
     charactersList: [],
@@ -33,7 +32,9 @@ export const SearchPage = (): JSX.Element => {
     },
   });
 
-  const [searchTerm, setSearchTerm] = useLocalStorage();
+  const [searchTerm] = useLocalStorage();
+
+  const filterWord = params.get('filter') || searchTerm || _DefaultFilterWord;
 
   const onСharactersListLoaded = useCallback(
     (apiResponse: ApiResponseType): void => {
@@ -46,26 +47,20 @@ export const SearchPage = (): JSX.Element => {
   );
 
   const onRequest = useCallback(() => {
-    getCharacters(
-      searchTerm || filterWord,
-      Number(pageNumber) || _DefaultPage
-    ).then(onСharactersListLoaded);
+    getCharacters(filterWord, Number(pageNumber) || _DefaultPage).then(
+      onСharactersListLoaded
+    );
   }, [
     getCharacters,
     onСharactersListLoaded,
     filterWord,
     _DefaultPage,
-    searchTerm,
     pageNumber,
   ]);
 
   useEffect(() => {
     onRequest();
   }, [onRequest]);
-
-  const onSearchSubmit = (query: string): void => {
-    setSearchTerm(query);
-  };
 
   const { charactersList, pagination } = appData;
   const errorMsg = error ? <ErrorMessage errorMsg={error} /> : null;
@@ -76,11 +71,8 @@ export const SearchPage = (): JSX.Element => {
 
   return (
     <div>
-      <SearchBar onSearchSubmit={onSearchSubmit} />
-      <Pagination
-        pagination={pagination}
-        seachTerm={searchTerm || filterWord}
-      />
+      <SearchBar loading={loading} />
+      <Pagination pagination={pagination} seachTerm={filterWord} />
       {errorMsg}
       {spinner}
       {content}

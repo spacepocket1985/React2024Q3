@@ -11,7 +11,7 @@ export const useLocalStorage = (): [
   });
 
   useEffect(() => {
-    localStorage.setItem(storageKey, searchTerm || '');
+    if (searchTerm) localStorage.setItem(storageKey, searchTerm);
   }, [searchTerm]);
 
   return [searchTerm, setSearchTerm];
