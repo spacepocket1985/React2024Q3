@@ -95,6 +95,7 @@ export type CardListPropsType = {
 
 export type CardPropsType = {
   character: CharacterType;
+  index: number;
 };
 
 export type SearchBarPropsType = {

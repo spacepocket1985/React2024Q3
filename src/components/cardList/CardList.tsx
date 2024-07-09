@@ -8,8 +8,8 @@ export const CardList = (props: CardListPropsType): JSX.Element => {
 
   const content =
     charactersList.length > 0 ? (
-      charactersList.map((character) => (
-        <Card key={character.id} character={character} />
+      charactersList.map((character, index) => (
+        <Card key={character.id} character={character} index={index} />
       ))
     ) : (
       <h2>No characters found for your last request!</h2>

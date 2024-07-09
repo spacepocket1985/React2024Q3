@@ -18,7 +18,7 @@ export const SearchPage = (): JSX.Element => {
   const { search } = useLocation();
   const params = new URLSearchParams(search);
   const pageNumber = params.get('pageNumber');
-  const characterId = params.get('id');
+  const details = params.get('details');
   const filter = params.get('filter');
 
   const navigate = useNavigate();
@@ -76,16 +76,18 @@ export const SearchPage = (): JSX.Element => {
   };
 
   useEffect(() => {
-    if (characterId) return;
+    if (details) return;
     onRequest();
-  }, [onRequest, characterId]);
+  }, [onRequest, details]);
 
   const errorMsg = error ? <ErrorMessage errorMsg={error} /> : null;
   const spinner = loading ? <Spinner /> : null;
   const content = !(loading || error) ? (
     <div className="contentWrap">
       <CardList charactersList={charactersList} />
-      {characterId && <CardDetails characterId={characterId} />}
+      {details && (
+        <CardDetails characterId={charactersList[Number(details) - 1].id} />
+      )}
     </div>
   ) : null;
 

@@ -1,5 +1,7 @@
 import { Component, ReactNode } from 'react';
 import { ErrorMessage } from '../errorMessage/ErrorMessage';
+import { Link } from 'react-router-dom';
+import { RoutePaths } from '../../routes/routePaths';
 
 type ErrorBoundaryPropsType = {
   children?: ReactNode;
@@ -39,14 +41,9 @@ class ErrorBoundary extends Component<
         <>
           <ErrorMessage errorMsg={this.state.error.toString()} />
           <h2>ErrorBoundary is working</h2>
-          <button
-            className="buttonError"
-            onClick={() => {
-              this.setState({ hasError: false });
-            }}
-          >
+          <Link className="buttonError" to={RoutePaths.SEARCHPAGE}>
             Go back
-          </button>
+          </Link>
         </>
       );
     }

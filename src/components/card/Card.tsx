@@ -5,14 +5,13 @@ import styles from './Card.module.css';
 export const Card = (props: CardPropsType): JSX.Element => {
   const {
     attributes: { image, name, gender },
-    id,
   } = props.character;
 
   const location = useLocation();
   const { search } = location;
 
   return (
-    <Link to={`${search}&id=${id}`}>
+    <Link to={`${search}&details=${props.index + 1}`}>
       <div className={styles.characterWrapper}>
         <div className={styles.characterImgWrapper}>
           <img src={image!} alt={name} />
