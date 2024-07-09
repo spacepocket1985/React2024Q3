@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { PotterDbApi } from '../../service/potterDbApi';
 import { ErrorMessage } from '../errorMessage/ErrorMessage';
@@ -7,18 +8,17 @@ import { RoutePaths } from '../../routes/routePaths';
 
 import { ApiResponseForCharType, CharacterType } from '../../types';
 import styles from './cardDetails.module.css';
-import { Link } from 'react-router-dom';
 
-type cardDetailsType = {
+type cardDetailsPropsType = {
   characterId: string;
 };
 
-export const CardDetails = (props: cardDetailsType): JSX.Element => {
+export const CardDetails = (props: cardDetailsPropsType): JSX.Element => {
   const [character, setCharacter] = useState<null | CharacterType>(null);
 
   const { characterId } = props;
-
   const { getCharacter, error, loading } = PotterDbApi();
+  const navigate = useNavigate();
 
   const showCharacter = useCallback(() => {
     if (!characterId) {
@@ -36,6 +36,10 @@ export const CardDetails = (props: cardDetailsType): JSX.Element => {
     setCharacter(apiResponse.data);
   };
 
+  const onHideCardDetails = () => {
+    navigate(RoutePaths.SEARCHPAGE);
+  };
+
   const errorMessage = error ? (
     <ErrorMessage errorMsg={error.toString()} />
   ) : null;
@@ -45,15 +49,21 @@ export const CardDetails = (props: cardDetailsType): JSX.Element => {
   ) : null;
 
   return (
-    <div className={styles.characterWrapper}>
-      <Link to={RoutePaths.SEARCHPAGE}>
-        <button className={styles.characterTitleButton}>X</button>
-      </Link>
+    <>
+      <div className={styles.backdrop} onClick={onHideCardDetails}></div>
+      <div className={styles.characterWrapper}>
+        <button
+          className={styles.characterTitleButton}
+          onClick={onHideCardDetails}
+        >
+          X
+        </button>
 
-      {errorMessage}
-      {spinner}
-      {content}
-    </div>
+        {errorMessage}
+        {spinner}
+        {content}
+      </div>
+    </>
   );
 };
 

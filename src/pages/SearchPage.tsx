@@ -85,7 +85,7 @@ export const SearchPage = (): JSX.Element => {
   const content = !(loading || error) ? (
     <div className="contentWrap">
       <CardList charactersList={charactersList} />
-      {characterId ? <CardDetails characterId={characterId} /> : null}
+      {characterId && <CardDetails characterId={characterId} />}
     </div>
   ) : null;
 
