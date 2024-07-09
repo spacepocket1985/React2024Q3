@@ -86,6 +86,7 @@ export type AppStateType = {
     last: number;
     records: number;
   };
+  filterWord: string;
 };
 
 export type CardListPropsType = {
@@ -98,10 +99,11 @@ export type CardPropsType = {
 
 export type SearchBarPropsType = {
   loading: boolean;
+  onSearchSubmit: (searchTerm: string) => void;
 };
 
 export type PaginationPropsType = {
-  seachTerm: string;
+  onPaginationClick: (page: number) => void;
   pagination: {
     current: number;
     first: number;

@@ -1,19 +1,29 @@
+import { Link, useLocation } from 'react-router-dom';
 import { CardPropsType } from '../../types';
 import styles from './Card.module.css';
 
 export const Card = (props: CardPropsType): JSX.Element => {
-  const { image, name, gender } = props.character.attributes;
+  const {
+    attributes: { image, name, gender },
+    id,
+  } = props.character;
+
+  const location = useLocation();
+  const { search } = location;
+
   return (
-    <div className={styles.characterWrapper}>
-      <div className={styles.characterImgWrapper}>
-        <img src={image!} alt={name} />
-      </div>
-      <div className={styles.characterContentWrapper}>
-        <div className={styles.characterName}>{name}</div>
-        <div>
-          <span className={styles.heading}>Gender - </span> {gender}
+    <Link to={`${search}&id=${id}`}>
+      <div className={styles.characterWrapper}>
+        <div className={styles.characterImgWrapper}>
+          <img src={image!} alt={name} />
+        </div>
+        <div className={styles.characterContentWrapper}>
+          <div className={styles.characterName}>{name}</div>
+          <div>
+            <span className={styles.heading}>Gender - </span> {gender}
+          </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };

@@ -1,33 +1,30 @@
-import { useNavigate } from 'react-router-dom';
 import { PaginationPropsType } from '../../types';
 
 import styles from './Pagination.module.css';
 
-const Pagination = (props: PaginationPropsType): JSX.Element => {
+export const Pagination = (props: PaginationPropsType): JSX.Element => {
   const {
     pagination: { prev, next, current },
-    seachTerm,
+    onPaginationClick,
   } = props;
 
-  const navigate = useNavigate();
+  const paginationHandler = (page: number) => {
+    onPaginationClick(page);
+  };
 
   return (
     <div className={styles.paginationWrapper}>
       <div className={styles.pagesBtnsWrapper}>
         <button
           disabled={!(prev - current)}
-          onClick={() =>
-            navigate(`/searchPage?pageNumber=${prev}&filter=${seachTerm}`)
-          }
+          onClick={() => paginationHandler(prev)}
         >
           Previous page
         </button>
         <div className={styles.pageInformer}>{current}</div>
         <button
           disabled={!(next - current)}
-          onClick={() =>
-            navigate(`/searchPage?pageNumber=${next}&filter=${seachTerm}`)
-          }
+          onClick={() => paginationHandler(next)}
         >
           Next page
         </button>
@@ -35,5 +32,3 @@ const Pagination = (props: PaginationPropsType): JSX.Element => {
     </div>
   );
 };
-
-export default Pagination;

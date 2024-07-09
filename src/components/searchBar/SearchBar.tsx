@@ -1,4 +1,3 @@
-import { useNavigate } from 'react-router-dom';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 
 import { PotterDbApi } from '../../service/potterDbApi';
@@ -8,8 +7,9 @@ import HarryPotterImg from './harry_potter.png';
 import styles from './SearchBar.module.css';
 
 export const SearchBar = (props: SearchBarPropsType): JSX.Element => {
-  const { _DefaultPage } = PotterDbApi();
-  const navigate = useNavigate();
+  const { _DefaultFilterWord } = PotterDbApi();
+
+  const { loading, onSearchSubmit } = props;
 
   const [searchTerm, setSearchTerm] = useLocalStorage();
 
@@ -18,10 +18,9 @@ export const SearchBar = (props: SearchBarPropsType): JSX.Element => {
     setSearchTerm(searchTerm);
   };
 
-  const onSubmit = (event: React.MouseEvent): void => {
+  const onSubmitHandler = (event: React.MouseEvent): void => {
     event.preventDefault();
-
-    navigate(`/searchPage?pageNumber=${_DefaultPage}&filter=${searchTerm}`);
+    onSearchSubmit(searchTerm || _DefaultFilterWord);
   };
 
   return (
@@ -35,9 +34,9 @@ export const SearchBar = (props: SearchBarPropsType): JSX.Element => {
           value={searchTerm || ''}
         />
         <button
-          disabled={!!props.loading}
+          disabled={!!loading}
           onClick={(event) => {
-            onSubmit(event);
+            onSubmitHandler(event);
           }}
         >
           Search
