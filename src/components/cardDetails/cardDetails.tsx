@@ -1,4 +1,3 @@
-import { useNavigate } from 'react-router';
 import { useCallback, useEffect, useState } from 'react';
 
 import { PotterDbApi } from '../../service/potterDbApi';
@@ -8,6 +7,7 @@ import { RoutePaths } from '../../routes/routePaths';
 
 import { ApiResponseForCharType, CharacterType } from '../../types';
 import styles from './cardDetails.module.css';
+import { Link } from 'react-router-dom';
 
 type cardDetailsType = {
   characterId: string;
@@ -17,8 +17,6 @@ export const CardDetails = (props: cardDetailsType): JSX.Element => {
   const [character, setCharacter] = useState<null | CharacterType>(null);
 
   const { characterId } = props;
-
-  const navigate = useNavigate();
 
   const { getCharacter, error, loading } = PotterDbApi();
 
@@ -48,14 +46,10 @@ export const CardDetails = (props: cardDetailsType): JSX.Element => {
 
   return (
     <div className={styles.characterWrapper}>
-      <button
-        className={styles.characterTitleButton}
-        onClick={() => {
-          navigate(RoutePaths.MAINPAGE);
-        }}
-      >
-        X
-      </button>
+      <Link to={RoutePaths.SEARCHPAGE}>
+        <button className={styles.characterTitleButton}>X</button>
+      </Link>
+
       {errorMessage}
       {spinner}
       {content}
