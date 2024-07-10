@@ -1,5 +1,5 @@
-import { useLocation, useNavigate } from 'react-router-dom';
 import { useState, useEffect, useCallback } from 'react';
+import { useLocation, useSearchParams } from 'react-router-dom';
 
 import { useLocalStorage } from '../hooks/useLocalStorage';
 import { PotterDbApi } from '../service/potterDbApi';
@@ -8,20 +8,15 @@ import { ErrorMessage } from '../components/errorMessage/ErrorMessage';
 import { SearchBar } from '../components/searchBar/SearchBar';
 import { Spinner } from '../components/spinner/Spinner';
 import { Pagination } from '../components/pagination/Pagination';
-import { CardDetails } from '../components/cardDetails/cardDetails';
 
 import { ApiResponseType, AppStateType } from '../types';
 
 import './App.css';
 
 export const SearchPage = (): JSX.Element => {
-  const { search } = useLocation();
-  const params = new URLSearchParams(search);
-  const pageNumber = params.get('pageNumber');
-  const details = params.get('details');
-  const filter = params.get('filter');
+  const location = useLocation();
 
-  const navigate = useNavigate();
+  const [, setSearchParams] = useSearchParams();
 
   const { getCharacters, loading, error, _DefaultFilterWord, _DefaultPage } =
     PotterDbApi();
@@ -30,21 +25,21 @@ export const SearchPage = (): JSX.Element => {
   const [appData, setAppData] = useState<AppStateType>({
     charactersList: [],
     pagination: {
-      current: pageNumber ? Number(pageNumber) : _DefaultPage,
+      current: _DefaultPage,
       first: _DefaultPage,
       prev: _DefaultPage,
       next: _DefaultPage,
       last: _DefaultPage,
       records: 0,
     },
-    filterWord: filter || searchTerm || _DefaultFilterWord,
+    filterWord: searchTerm || _DefaultFilterWord,
   });
 
   const {
-    filterWord,
     pagination: { current },
     charactersList,
     pagination,
+    filterWord,
   } = appData;
 
   const onСharactersListLoaded = useCallback(
@@ -56,45 +51,61 @@ export const SearchPage = (): JSX.Element => {
           charactersList: apiResponse.data.map((char) => char),
         };
       });
-      const filterParam = filterWord === '' ? '' : `&filter=${filterWord}`;
-      const detailsParam =
-        !details || !apiResponse.data[Number(details)]
-          ? ''
-          : `&details=${details}`;
 
-      navigate(
-        `/searchPage?pageNumber=${current}${filterParam}${detailsParam}`
-      );
+      setSearchParams({ filter: filterWord, pageNumber: String(current) });
     },
-    [navigate, current, filterWord, details]
+    [setSearchParams, filterWord, current]
   );
 
   const onRequest = useCallback(() => {
     getCharacters(filterWord, current).then(onСharactersListLoaded);
-  }, [getCharacters, onСharactersListLoaded, filterWord, current]);
+  }, [filterWord, current, getCharacters, onСharactersListLoaded]);
 
-  const onSearchSubmit = (searchTerm: string) => {
-    setAppData({ ...appData, filterWord: searchTerm });
-  };
+  const onSearchSubmit = useCallback((searchTerm: string) => {
+    setAppData((prevData) => ({
+      ...prevData,
+      filterWord: searchTerm,
+      pagination: { ...prevData.pagination, current: 1 },
+    }));
+  }, []);
 
-  const onPaginationClick = (page: number): void => {
-    setAppData({
-      ...appData,
-      pagination: { ...appData.pagination, current: page },
-    });
-  };
+  const onPaginationClick = useCallback((page: number): void => {
+    setAppData((prevData) => ({
+      ...prevData,
+      pagination: { ...prevData.pagination, current: page },
+    }));
+  }, []);
 
   useEffect(() => {
-    if (details && charactersList.length > 0) return;
     onRequest();
-  }, [onRequest, details, charactersList.length]);
+  }, [onRequest]);
+
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const filter = searchParams.get('filter');
+    const pageNumber = searchParams.get('pageNumber');
+
+    if (filter) {
+      setAppData((prevAppData) => ({
+        ...prevAppData,
+        filterWord: filter,
+      }));
+    }
+
+    if (pageNumber) {
+      setAppData((prevAppData) => ({
+        ...prevAppData,
+        pagination: {
+          ...prevAppData.pagination,
+          current: Number(pageNumber),
+        },
+      }));
+    }
+  }, [location.search]);
 
   const content = !(loading || error) ? (
     <div className="contentWrap">
       <CardList charactersList={charactersList} />
-      {details && charactersList[Number(details)] && (
-        <CardDetails characterId={charactersList[Number(details) - 1].id} />
-      )}
     </div>
   ) : null;
 
