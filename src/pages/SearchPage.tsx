@@ -1,4 +1,4 @@
-import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useState, useEffect, useCallback } from 'react';
 
 import { useLocalStorage } from '../hooks/useLocalStorage';
@@ -49,15 +49,24 @@ export const SearchPage = (): JSX.Element => {
 
   const onСharactersListLoaded = useCallback(
     (apiResponse: ApiResponseType): void => {
-      setAppData({
-        filterWord,
-        pagination: apiResponse.meta.pagination,
-        charactersList: apiResponse.data.map((char) => char),
+      setAppData((prevAppData) => {
+        return {
+          ...prevAppData,
+          pagination: apiResponse.meta.pagination,
+          charactersList: apiResponse.data.map((char) => char),
+        };
       });
+      const filterParam = filterWord === '' ? '' : `&filter=${filterWord}`;
+      const detailsParam =
+        !details || !apiResponse.data[Number(details)]
+          ? ''
+          : `&details=${details}`;
 
-      navigate(`/searchPage?pageNumber=${current}&filter=${filterWord}`);
+      navigate(
+        `/searchPage?pageNumber=${current}${filterParam}${detailsParam}`
+      );
     },
-    [navigate, current, filterWord]
+    [navigate, current, filterWord, details]
   );
 
   const onRequest = useCallback(() => {
@@ -76,16 +85,14 @@ export const SearchPage = (): JSX.Element => {
   };
 
   useEffect(() => {
-    if (details) return;
+    if (details && charactersList.length > 0) return;
     onRequest();
-  }, [onRequest, details]);
+  }, [onRequest, details, charactersList.length]);
 
-  const errorMsg = error ? <ErrorMessage errorMsg={error} /> : null;
-  const spinner = loading ? <Spinner /> : null;
   const content = !(loading || error) ? (
     <div className="contentWrap">
       <CardList charactersList={charactersList} />
-      {details && (
+      {details && charactersList[Number(details)] && (
         <CardDetails characterId={charactersList[Number(details) - 1].id} />
       )}
     </div>
@@ -98,10 +105,9 @@ export const SearchPage = (): JSX.Element => {
         pagination={pagination}
         onPaginationClick={onPaginationClick}
       />
-      {errorMsg}
-      {spinner}
+      {error && <ErrorMessage errorMsg={error} />}
+      {loading && <Spinner />}
       {content}
-      <Outlet />
     </div>
   );
 };

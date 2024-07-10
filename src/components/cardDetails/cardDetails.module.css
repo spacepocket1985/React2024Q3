@@ -1,4 +1,8 @@
+.hidden {
+  display: none;
+}
 .backdrop {
+  display: block;
   position: fixed;
   top: 0;
   left: 0;
@@ -9,6 +13,7 @@
 }
 
 .characterWrapper {
+  display: block;
   position: fixed;
   top: 10vh;
   right: 5%;

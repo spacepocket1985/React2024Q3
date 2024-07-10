@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import { PotterDbApi } from '../../service/potterDbApi';
 import { ErrorMessage } from '../errorMessage/ErrorMessage';
 import { Spinner } from '../spinner/Spinner';
-import { RoutePaths } from '../../routes/routePaths';
 
 import { ApiResponseForCharType, CharacterType } from '../../types';
 import styles from './cardDetails.module.css';
@@ -37,7 +36,7 @@ export const CardDetails = (props: cardDetailsPropsType): JSX.Element => {
   };
 
   const onHideCardDetails = () => {
-    navigate(RoutePaths.SEARCHPAGE);
+    navigate('/');
   };
 
   const errorMessage = error ? (
@@ -50,19 +49,23 @@ export const CardDetails = (props: cardDetailsPropsType): JSX.Element => {
 
   return (
     <>
-      <div className={styles.backdrop} onClick={onHideCardDetails}></div>
-      <div className={styles.characterWrapper}>
-        <button
-          className={styles.characterTitleButton}
-          onClick={onHideCardDetails}
-        >
-          X
-        </button>
+      {character && (
+        <div>
+          <div className={styles.backdrop} onClick={onHideCardDetails}></div>
+          <div className={styles.characterWrapper}>
+            <button
+              className={styles.characterTitleButton}
+              onClick={onHideCardDetails}
+            >
+              X
+            </button>
 
-        {errorMessage}
-        {spinner}
-        {content}
-      </div>
+            {errorMessage}
+            {spinner}
+            {content}
+          </div>
+        </div>
+      )}
     </>
   );
 };
