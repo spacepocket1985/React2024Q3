@@ -11,11 +11,13 @@ import { Pagination } from '../components/pagination/Pagination';
 
 import { ApiResponseType, AppStateType } from '../types';
 
-import './App.css';
+import styles from './SearchPage.module.css';
+import { CardDetails } from '../components/cardDetails/cardDetails';
 
 export const SearchPage = (): JSX.Element => {
   const [searchParams, setSearchParams] = useSearchParams();
   const pageNumberSearchParam = searchParams.get('pageNumber');
+  const detailsSearchParam = searchParams.get('details');
 
   const { getCharacters, loading, error, _DefaultFilterWord, _DefaultPage } =
     PotterDbApi();
@@ -32,6 +34,7 @@ export const SearchPage = (): JSX.Element => {
       records: 0,
     },
     filterWord: searchTerm || _DefaultFilterWord,
+    cardDetails: detailsSearchParam || '',
   });
 
   const {
@@ -39,6 +42,7 @@ export const SearchPage = (): JSX.Element => {
     charactersList,
     pagination,
     filterWord,
+    cardDetails,
   } = appData;
 
   const onСharactersListLoaded = useCallback(
@@ -51,9 +55,13 @@ export const SearchPage = (): JSX.Element => {
         };
       });
 
-      setSearchParams({ filter: filterWord, pageNumber: String(current) });
+      setSearchParams({
+        filter: filterWord,
+        pageNumber: String(current),
+        details: cardDetails,
+      });
     },
-    [setSearchParams, filterWord, current]
+    [setSearchParams, filterWord, current, cardDetails]
   );
 
   const onRequest = useCallback(() => {
@@ -75,13 +83,38 @@ export const SearchPage = (): JSX.Element => {
     }));
   }, []);
 
+  const onCardClick = useCallback((index: number) => {
+    setAppData((prevData) => ({
+      ...prevData,
+      cardDetails: String(index),
+    }));
+  }, []);
+
+  const onHideCardDetails = useCallback(() => {
+    setAppData((prevData) => ({
+      ...prevData,
+      cardDetails: '',
+    }));
+    setSearchParams({
+      filter: filterWord,
+      pageNumber: String(current),
+      details: '',
+    });
+  }, [current, filterWord, setSearchParams]);
+
   useEffect(() => {
     onRequest();
   }, [onRequest]);
 
   const content = !(loading || error) ? (
-    <div className="contentWrap">
-      <CardList charactersList={charactersList} />
+    <div className={styles.contentWrap}>
+      <CardList charactersList={charactersList} onCardClick={onCardClick} />
+      {charactersList[Number(cardDetails)] && cardDetails && (
+        <CardDetails
+          characterId={charactersList[Number(cardDetails)].id}
+          onHideCardDetails={onHideCardDetails}
+        />
+      )}
     </div>
   ) : null;
 

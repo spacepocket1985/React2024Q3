@@ -4,12 +4,17 @@ import { Card } from '../card/Card';
 import styles from './CardList.module.css';
 
 export const CardList = (props: CardListPropsType): JSX.Element => {
-  const { charactersList } = props;
+  const { charactersList, onCardClick } = props;
 
   const content =
     charactersList.length > 0 ? (
       charactersList.map((character, index) => (
-        <Card key={character.id} character={character} index={index} />
+        <Card
+          key={character.id}
+          character={character}
+          index={index}
+          onCardClick={onCardClick}
+        />
       ))
     ) : (
       <h2>No characters found for your last request!</h2>

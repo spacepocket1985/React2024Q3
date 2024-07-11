@@ -87,15 +87,18 @@ export type AppStateType = {
     records: number;
   };
   filterWord: string;
+  cardDetails: string;
 };
 
 export type CardListPropsType = {
   charactersList: CharacterType[];
+  onCardClick: (index: number) => void;
 };
 
 export type CardPropsType = {
   character: CharacterType;
   index: number;
+  onCardClick: (index: number) => void;
 };
 
 export type SearchBarPropsType = {

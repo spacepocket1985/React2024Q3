@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 import { PotterDbApi } from '../../service/potterDbApi';
 import { ErrorMessage } from '../errorMessage/ErrorMessage';
@@ -10,6 +9,7 @@ import styles from './cardDetails.module.css';
 
 type cardDetailsPropsType = {
   characterId: string;
+  onHideCardDetails: () => void;
 };
 
 export const CardDetails = (props: cardDetailsPropsType): JSX.Element => {
@@ -17,7 +17,6 @@ export const CardDetails = (props: cardDetailsPropsType): JSX.Element => {
 
   const { characterId } = props;
   const { getCharacter, error, loading } = PotterDbApi();
-  const navigate = useNavigate();
 
   const showCharacter = useCallback(() => {
     if (!characterId) {
@@ -35,8 +34,9 @@ export const CardDetails = (props: cardDetailsPropsType): JSX.Element => {
     setCharacter(apiResponse.data);
   };
 
-  const onHideCardDetails = () => {
-    navigate('/');
+  const handleHideCardDetails = () => {
+    setCharacter(null);
+    props.onHideCardDetails();
   };
 
   const errorMessage = error ? (
@@ -51,11 +51,14 @@ export const CardDetails = (props: cardDetailsPropsType): JSX.Element => {
     <>
       {character && (
         <div>
-          <div className={styles.backdrop} onClick={onHideCardDetails}></div>
+          <div
+            className={styles.backdrop}
+            onClick={handleHideCardDetails}
+          ></div>
           <div className={styles.characterWrapper}>
             <button
               className={styles.characterTitleButton}
-              onClick={onHideCardDetails}
+              onClick={handleHideCardDetails}
             >
               X
             </button>
