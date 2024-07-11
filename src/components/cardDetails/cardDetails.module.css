@@ -1,6 +1,7 @@
 .hidden {
   display: none;
 }
+
 .backdrop {
   display: block;
   position: fixed;

@@ -40,37 +40,29 @@ export const CardDetails = (props: cardDetailsPropsType): JSX.Element => {
     onHideCardDetails();
   };
 
-  const errorMessage = error ? (
-    <ErrorMessage errorMsg={error.toString()} />
-  ) : null;
-  const spinner = loading ? <Spinner /> : null;
   const content = !(loading || error || !character) ? (
     <View character={character} cardDetails={cardDetails} />
   ) : null;
 
   return (
-    <>
-      {character && (
-        <div>
-          <div
-            className={styles.backdrop}
-            onClick={handleHideCardDetails}
-          ></div>
-          <div className={styles.characterWrapper}>
-            <button
-              className={styles.characterTitleButton}
-              onClick={handleHideCardDetails}
-            >
-              X
-            </button>
+    <div className={styles.cardMainContainer}>
+      {error && <ErrorMessage errorMsg={error} />}
+      {loading && <Spinner />}
 
-            {errorMessage}
-            {spinner}
-            {content}
-          </div>
+      <div>
+        <div className={styles.backdrop} onClick={handleHideCardDetails}></div>
+        <div className={styles.characterWrapper}>
+          <button
+            className={styles.characterTitleButton}
+            onClick={handleHideCardDetails}
+          >
+            X
+          </button>
+
+          {content}
         </div>
-      )}
-    </>
+      </div>
+    </div>
   );
 };
 
