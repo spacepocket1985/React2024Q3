@@ -16,7 +16,6 @@ import './App.css';
 export const SearchPage = (): JSX.Element => {
   const [searchParams, setSearchParams] = useSearchParams();
   const pageNumberSearchParam = searchParams.get('pageNumber');
-  const filterSearchParam = searchParams.get('filter');
 
   const { getCharacters, loading, error, _DefaultFilterWord, _DefaultPage } =
     PotterDbApi();
@@ -32,7 +31,7 @@ export const SearchPage = (): JSX.Element => {
       last: _DefaultPage,
       records: 0,
     },
-    filterWord: filterSearchParam || searchTerm || _DefaultFilterWord,
+    filterWord: searchTerm || _DefaultFilterWord,
   });
 
   const {
