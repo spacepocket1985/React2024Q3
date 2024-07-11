@@ -54,14 +54,8 @@ export const SearchPage = (): JSX.Element => {
           charactersList: apiResponse.data.map((char) => char),
         };
       });
-
-      setSearchParams({
-        filter: filterWord,
-        pageNumber: String(current),
-        details: cardDetails,
-      });
     },
-    [setSearchParams, filterWord, current, cardDetails]
+    []
   );
 
   const onRequest = useCallback(() => {
@@ -90,21 +84,24 @@ export const SearchPage = (): JSX.Element => {
     }));
   }, []);
 
-  const onHideCardDetails = useCallback(() => {
+  const onHideCardDetails = () => {
     setAppData((prevData) => ({
       ...prevData,
       cardDetails: '',
     }));
-    setSearchParams({
-      filter: filterWord,
-      pageNumber: String(current),
-      details: '',
-    });
-  }, [current, filterWord, setSearchParams]);
+  };
 
   useEffect(() => {
     onRequest();
   }, [onRequest]);
+
+  useEffect(() => {
+    setSearchParams({
+      filter: filterWord,
+      pageNumber: String(current),
+      details: cardDetails,
+    });
+  }, [filterWord, current, cardDetails, setSearchParams]);
 
   const content = !(loading || error) ? (
     <div className={styles.contentWrap}>
