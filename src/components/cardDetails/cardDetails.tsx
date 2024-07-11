@@ -10,12 +10,13 @@ import styles from './cardDetails.module.css';
 type cardDetailsPropsType = {
   characterId: string;
   onHideCardDetails: () => void;
+  cardDetails: string;
 };
 
 export const CardDetails = (props: cardDetailsPropsType): JSX.Element => {
   const [character, setCharacter] = useState<null | CharacterType>(null);
 
-  const { characterId } = props;
+  const { characterId, onHideCardDetails, cardDetails } = props;
   const { getCharacter, error, loading } = PotterDbApi();
 
   const showCharacter = useCallback(() => {
@@ -36,7 +37,7 @@ export const CardDetails = (props: cardDetailsPropsType): JSX.Element => {
 
   const handleHideCardDetails = () => {
     setCharacter(null);
-    props.onHideCardDetails();
+    onHideCardDetails();
   };
 
   const errorMessage = error ? (
@@ -44,7 +45,7 @@ export const CardDetails = (props: cardDetailsPropsType): JSX.Element => {
   ) : null;
   const spinner = loading ? <Spinner /> : null;
   const content = !(loading || error || !character) ? (
-    <View character={character} />
+    <View character={character} cardDetails={cardDetails} />
   ) : null;
 
   return (
@@ -75,6 +76,7 @@ export const CardDetails = (props: cardDetailsPropsType): JSX.Element => {
 
 type CharacterViewPropsType = {
   character: CharacterType;
+  cardDetails: string;
 };
 const View = (props: CharacterViewPropsType) => {
   const { name, gender, image, species, born, blood_status, eye_color } =
@@ -82,7 +84,7 @@ const View = (props: CharacterViewPropsType) => {
   return (
     <>
       <div className={styles.characterTitle}>
-        <h2>Character info</h2>
+        <h2>Character details - {props.cardDetails}</h2>
       </div>
       <div className={styles.characterImgWrapper}>
         <img src={image!} alt={name} />

@@ -12,7 +12,7 @@ export const CardList = (props: CardListPropsType): JSX.Element => {
         <Card
           key={character.id}
           character={character}
-          index={index}
+          index={index + 1}
           onCardClick={onCardClick}
         />
       ))

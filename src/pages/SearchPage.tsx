@@ -8,11 +8,11 @@ import { ErrorMessage } from '../components/errorMessage/ErrorMessage';
 import { SearchBar } from '../components/searchBar/SearchBar';
 import { Spinner } from '../components/spinner/Spinner';
 import { Pagination } from '../components/pagination/Pagination';
+import { CardDetails } from '../components/cardDetails/cardDetails';
 
 import { ApiResponseType, AppStateType } from '../types';
 
 import styles from './SearchPage.module.css';
-import { CardDetails } from '../components/cardDetails/cardDetails';
 
 export const SearchPage = (): JSX.Element => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -87,7 +87,7 @@ export const SearchPage = (): JSX.Element => {
   const onHideCardDetails = () => {
     setAppData((prevData) => ({
       ...prevData,
-      cardDetails: '',
+      cardDetails: _DefaultFilterWord,
     }));
   };
 
@@ -99,17 +99,27 @@ export const SearchPage = (): JSX.Element => {
     setSearchParams({
       filter: filterWord,
       pageNumber: String(current),
-      details: cardDetails,
+      details: charactersList[Number(cardDetails)]
+        ? String(cardDetails)
+        : _DefaultFilterWord,
     });
-  }, [filterWord, current, cardDetails, setSearchParams]);
+  }, [
+    filterWord,
+    current,
+    cardDetails,
+    setSearchParams,
+    charactersList,
+    _DefaultFilterWord,
+  ]);
 
   const content = !(loading || error) ? (
     <div className={styles.contentWrap}>
       <CardList charactersList={charactersList} onCardClick={onCardClick} />
       {charactersList[Number(cardDetails)] && cardDetails && (
         <CardDetails
-          characterId={charactersList[Number(cardDetails)].id}
+          characterId={charactersList[Number(cardDetails) - 1].id}
           onHideCardDetails={onHideCardDetails}
+          cardDetails={cardDetails}
         />
       )}
     </div>
