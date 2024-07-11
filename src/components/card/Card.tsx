@@ -10,7 +10,11 @@ export const Card = (props: CardPropsType): JSX.Element => {
     props.onCardClick(props.index);
   };
   return (
-    <div className={styles.characterWrapper} onClick={handleCardClick}>
+    <div
+      className={styles.characterWrapper}
+      onClick={handleCardClick}
+      data-testid="card"
+    >
       <div className={styles.characterImgWrapper}>
         <img src={image!} alt={name} />
       </div>
