@@ -99,7 +99,6 @@ export type CardPropsType = {
 };
 
 export type SearchBarPropsType = {
-  loading: boolean;
   onSearchSubmit: (searchTerm: string) => void;
 };
 

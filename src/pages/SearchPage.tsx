@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { useLocation, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 
 import { useLocalStorage } from '../hooks/useLocalStorage';
 import { PotterDbApi } from '../service/potterDbApi';
@@ -14,9 +14,9 @@ import { ApiResponseType, AppStateType } from '../types';
 import './App.css';
 
 export const SearchPage = (): JSX.Element => {
-  const location = useLocation();
-
-  const [, setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const pageNumberSearchParam = searchParams.get('pageNumber');
+  const filterSearchParam = searchParams.get('filter');
 
   const { getCharacters, loading, error, _DefaultFilterWord, _DefaultPage } =
     PotterDbApi();
@@ -25,14 +25,14 @@ export const SearchPage = (): JSX.Element => {
   const [appData, setAppData] = useState<AppStateType>({
     charactersList: [],
     pagination: {
-      current: _DefaultPage,
+      current: Number(pageNumberSearchParam) || _DefaultPage,
       first: _DefaultPage,
       prev: _DefaultPage,
       next: _DefaultPage,
       last: _DefaultPage,
       records: 0,
     },
-    filterWord: searchTerm || _DefaultFilterWord,
+    filterWord: filterSearchParam || searchTerm || _DefaultFilterWord,
   });
 
   const {
@@ -80,29 +80,6 @@ export const SearchPage = (): JSX.Element => {
     onRequest();
   }, [onRequest]);
 
-  useEffect(() => {
-    const searchParams = new URLSearchParams(location.search);
-    const filter = searchParams.get('filter');
-    const pageNumber = searchParams.get('pageNumber');
-
-    if (filter) {
-      setAppData((prevAppData) => ({
-        ...prevAppData,
-        filterWord: filter,
-      }));
-    }
-
-    if (pageNumber) {
-      setAppData((prevAppData) => ({
-        ...prevAppData,
-        pagination: {
-          ...prevAppData.pagination,
-          current: Number(pageNumber),
-        },
-      }));
-    }
-  }, [location.search]);
-
   const content = !(loading || error) ? (
     <div className="contentWrap">
       <CardList charactersList={charactersList} />
@@ -111,7 +88,7 @@ export const SearchPage = (): JSX.Element => {
 
   return (
     <div>
-      <SearchBar loading={loading} onSearchSubmit={onSearchSubmit} />
+      <SearchBar onSearchSubmit={onSearchSubmit} />
       <Pagination
         pagination={pagination}
         onPaginationClick={onPaginationClick}

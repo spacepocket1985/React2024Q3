@@ -7,9 +7,9 @@ import HarryPotterImg from './harry_potter.png';
 import styles from './SearchBar.module.css';
 
 export const SearchBar = (props: SearchBarPropsType): JSX.Element => {
-  const { _DefaultFilterWord } = PotterDbApi();
+  const { _DefaultFilterWord, loading } = PotterDbApi();
 
-  const { loading, onSearchSubmit } = props;
+  const { onSearchSubmit } = props;
 
   const [searchTerm, setSearchTerm] = useLocalStorage();
 
