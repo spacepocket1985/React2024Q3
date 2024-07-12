@@ -22,7 +22,9 @@ export const Pagination = (props: PaginationPropsType): JSX.Element => {
         >
           Previous page
         </button>
-        <div className={styles.pageInformer}>{current}</div>
+        <div className={styles.pageInformer} data-testid="informer">
+          {current}
+        </div>
         <button
           disabled={!(next - current)}
           onClick={() => paginationHandler(next)}

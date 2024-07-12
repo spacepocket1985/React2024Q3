@@ -8,11 +8,11 @@ import { ErrorMessage } from '../components/errorMessage/ErrorMessage';
 import { SearchBar } from '../components/searchBar/SearchBar';
 import { Spinner } from '../components/spinner/Spinner';
 import { Pagination } from '../components/pagination/Pagination';
-import { CardDetails } from '../components/cardDetails/CardDetails';
 
 import { ApiResponseType, AppStateType } from '../types';
 
 import styles from './SearchPage.module.css';
+import { CardDetails } from '../components/cardDetails/CardDetails';
 
 export const SearchPage = (): JSX.Element => {
   const [searchParams, setSearchParams] = useSearchParams();

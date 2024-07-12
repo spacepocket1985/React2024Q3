@@ -1,13 +1,19 @@
-import { render, screen } from '@testing-library/react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import '@testing-library/jest-dom';
-import { CardDetails } from '../components/cardDetails/CardDetails';
-import { responseDataForChar } from './mocs/mocsData';
+
+import {
+  responseDataForChar,
+  responseDataForCharSecond,
+} from './mocs/mocsData';
 import { PotterDbApiReturnType } from '../types';
+import { CardDetails } from '../components/cardDetails/CardDetails';
 
 describe('Tests for the CardList component', () => {
+  const onHideCardDetails = vi.fn();
+
   it('Check that a loading indicator is displayed while fetching data;', async () => {
-    vitest.mock('../service/potterDbApi', () => ({
+    vitest.mock('../../service/potterDbApi', () => ({
       PotterDbApi: vitest.fn(
         (): PotterDbApiReturnType => ({
           getCharacter: vitest
@@ -34,14 +40,13 @@ describe('Tests for the CardList component', () => {
     );
     expect(screen.getByText('Loading ...')).toBeInTheDocument();
   });
-  /*it('Ensure that clicking the close button hides the component', async () => {
-    const onHideCardDetails = vi.fn();
-    vitest.mock('../service/potterDbApi', () => ({
+  it('Ensure that clicking the close button hides the component', async () => {
+    vitest.mock('../../service/potterDbApi', () => ({
       PotterDbApi: vitest.fn(
         (): PotterDbApiReturnType => ({
           getCharacter: vitest
             .fn()
-            .mockResolvedValueOnce(responseDataForChar.data),
+            .mockResolvedValueOnce(responseDataForCharSecond.data),
           getCharacters: vitest.fn(),
           loading: false,
           error: '',
@@ -52,22 +57,22 @@ describe('Tests for the CardList component', () => {
         })
       ),
     }));
-    
+
     render(
       <Router>
         <CardDetails
           characterId={responseDataForChar.data.id}
-          onHideCardDetails={function (): void {}}
+          onHideCardDetails={onHideCardDetails}
           cardDetails={'0'}
         />
       </Router>
     );
-   
+
     const closeBtn = await screen.findByTestId('closeDetailsBtn');
     await act(async () => {
       await fireEvent.click(closeBtn);
     });
-    console.log(closeBtn)
-    //expect(onHideCardDetails).toHaveBeenCalledTimes(1);
-  });*/
+
+    expect(onHideCardDetails).toHaveBeenCalledTimes(1);
+  });
 });

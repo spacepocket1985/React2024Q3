@@ -568,6 +568,49 @@ export const responseDataForChar: ApiResponseForCharType = {
   },
 };
 
+export const responseDataForCharSecond: ApiResponseForCharType = {
+  data: {
+    id: '20448207-20d2-48cb-85b4-d61ee8f50f97',
+
+    attributes: {
+      slug: '1992-gryffindor-vs-slytherin-quidditch-match-spectators',
+      alias_names: [],
+      animagus: null,
+      blood_status: null,
+      boggart: null,
+      born: null,
+      died: null,
+      eye_color: null,
+      family_members: [],
+      gender: null,
+      hair_color: null,
+      height: null,
+      house: null,
+      image: null,
+      jobs: [],
+      marital_status: null,
+      name: '1992 Gryffindor vs Slytherin Quidditch match spectators',
+      nationality: null,
+      patronus: null,
+      romances: [],
+      skin_color: null,
+      species: null,
+      titles: [],
+      wands: [],
+      weight: null,
+      wiki: 'https://harrypotter.fandom.com/wiki/1992_Gryffindor_vs_Slytherin_Quidditch_match_spectators',
+    },
+  },
+
+  meta: {
+    copyright: '',
+    generated_at: '',
+  },
+  links: {
+    self: '',
+  },
+};
+
 export const paginationMockState = {
   current: 1,
   first: 1,
