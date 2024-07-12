@@ -9,6 +9,7 @@ import { PotterDbApiReturnType } from '../types';
 describe('Tests for the CardList component', () => {
   it('Make sure the detailed card component correctly displays the detailed card data', async () => {
     const mockCharacter = responseData.data[0];
+
     vitest.mock('../../service/potterDbApi', () => ({
       PotterDbApi: vitest.fn(),
     }));
@@ -16,7 +17,8 @@ describe('Tests for the CardList component', () => {
     mockPotterDbApi.getCharacter = vitest
       .fn()
       .mockResolvedValue({ data: mockCharacter });
-    //mockPotterDbApi.loading = vitest.fn().mockResolvedValue({loading: false})
+    mockPotterDbApi.error = '';
+    mockPotterDbApi.loading = false;
 
     vitest.mock('../../service/potterDbApi', () => mockPotterDbApi);
     render(
