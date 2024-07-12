@@ -8,7 +8,7 @@ import { ErrorMessage } from '../components/errorMessage/ErrorMessage';
 import { SearchBar } from '../components/searchBar/SearchBar';
 import { Spinner } from '../components/spinner/Spinner';
 import { Pagination } from '../components/pagination/Pagination';
-import { CardDetails } from '../components/cardDetails/cardDetails';
+import { CardDetails } from '../components/cardDetails/CardDetails';
 
 import { ApiResponseType, AppStateType } from '../types';
 

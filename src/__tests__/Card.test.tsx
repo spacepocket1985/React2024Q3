@@ -1,13 +1,13 @@
-import { render, screen } from '@testing-library/react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import '@testing-library/jest-dom';
 import { Card } from '../components/card/Card';
 import { responseData } from './mocs/responseData';
-import { SearchPage } from '../pages/SearchPage';
+
+const mockCharacter = responseData.data[0];
 
 describe('Tests for the Card component', () => {
   it('Ensure that the card component renders the relevant card data', async () => {
-    const mockCharacter = responseData.data[0];
     render(
       <Router>
         <Card
@@ -24,25 +24,23 @@ describe('Tests for the Card component', () => {
     expect(title).toBeInTheDocument();
   });
   it('Validate that clicking on a card opens a detailed card component', async () => {
-    // const initialState = {
-    //   appData: {
-    //     charactersList: responseData.data,
-    //     pagination: {
-    //       current: 1,
-    //       first: 1,
-    //       prev: 1,
-    //       next: 1,
-    //       last: 1,
-    //       records: 15,
-    //     },
-    //     filterWord: '',
-    //     cardDetails: '',
-    //   },
-    // };
+    const onCardClick = vi.fn();
+    const index = 1;
     render(
       <Router>
-        <SearchPage />
+        <Card
+          character={mockCharacter}
+          index={index}
+          onCardClick={onCardClick}
+        />
       </Router>
     );
+    const card = await screen.findByTestId('card');
+    await act(async () => {
+      await fireEvent.click(card);
+    });
+
+    expect(onCardClick).toHaveBeenCalledTimes(1);
+    expect(onCardClick).toHaveBeenCalledWith(index);
   });
 });
