@@ -55,6 +55,7 @@ export const CardDetails = (props: cardDetailsPropsType): JSX.Element => {
           <button
             className={styles.characterTitleButton}
             onClick={handleHideCardDetails}
+            data-testid="closeDetailsBtn"
           >
             X
           </button>

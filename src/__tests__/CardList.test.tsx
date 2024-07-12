@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import '@testing-library/jest-dom';
 import { CardList } from '../components/cardList/CardList';
-import { responseData } from './mocs/responseData';
+import { responseData } from './mocs/mocsData';
 
 describe('Tests for the CardList component', () => {
   it('Check that an appropriate message is displayed if no cards are present', () => {

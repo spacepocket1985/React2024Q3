@@ -15,7 +15,7 @@ export const responseData: ApiResponseType = {
         died: null,
         eye_color: null,
         family_members: [],
-        gender: null,
+        gender: 'No one knows',
         hair_color: null,
         height: null,
         house: null,
@@ -509,11 +509,11 @@ export const responseData: ApiResponseType = {
   ],
   meta: {
     pagination: {
-      current: 1,
+      current: 2,
       first: 1,
       prev: 1,
-      next: 1,
-      last: 1,
+      next: 3,
+      last: 3,
       records: 20,
     },
   },
@@ -566,4 +566,13 @@ export const responseDataForChar: ApiResponseForCharType = {
   links: {
     self: '',
   },
+};
+
+export const paginationMockState = {
+  current: 1,
+  first: 1,
+  prev: 1,
+  next: 2,
+  last: 5,
+  records: 100,
 };

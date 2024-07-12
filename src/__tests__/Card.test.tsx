@@ -2,7 +2,7 @@ import { act, fireEvent, render, screen } from '@testing-library/react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import '@testing-library/jest-dom';
 import { Card } from '../components/card/Card';
-import { responseData } from './mocs/responseData';
+import { responseData } from './mocs/mocsData';
 
 const mockCharacter = responseData.data[0];
 
@@ -39,8 +39,9 @@ describe('Tests for the Card component', () => {
     await act(async () => {
       await fireEvent.click(card);
     });
-
+    const genderInformation = await screen.findByText('No one knows');
     expect(onCardClick).toHaveBeenCalledTimes(1);
     expect(onCardClick).toHaveBeenCalledWith(index);
+    expect(genderInformation).toBeInTheDocument;
   });
 });

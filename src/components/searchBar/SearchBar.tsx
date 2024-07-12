@@ -32,8 +32,10 @@ export const SearchBar = (props: SearchBarPropsType): JSX.Element => {
           placeholder="name for search"
           onChange={onUpdateSearch}
           value={searchTerm || ''}
+          data-testid="searchInput"
         />
         <button
+          data-testid="serachSubmit"
           disabled={!!loading}
           onClick={(event) => {
             onSubmitHandler(event);

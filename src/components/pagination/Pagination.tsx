@@ -18,6 +18,7 @@ export const Pagination = (props: PaginationPropsType): JSX.Element => {
         <button
           disabled={!(prev - current)}
           onClick={() => paginationHandler(prev)}
+          data-testid="prevBtn"
         >
           Previous page
         </button>
@@ -25,6 +26,7 @@ export const Pagination = (props: PaginationPropsType): JSX.Element => {
         <button
           disabled={!(next - current)}
           onClick={() => paginationHandler(next)}
+          data-testid="nextBtn"
         >
           Next page
         </button>
