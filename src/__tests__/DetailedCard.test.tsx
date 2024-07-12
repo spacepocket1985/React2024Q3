@@ -34,11 +34,13 @@ describe('Tests for the CardList component', () => {
         <CardDetails
           characterId={responseDataForChar.data.id}
           onHideCardDetails={function (): void {}}
-          cardDetails={'0'}
+          cardDetails={'1'}
         />
       </Router>
     );
     expect(screen.getByText('Loading ...')).toBeInTheDocument();
+    expect(screen.queryByTestId('spinner')).not.toBeNull();
+    expect(screen.queryByTestId('errorMessage')).toBeNull();
   });
   it('Ensure that clicking the close button hides the component', async () => {
     vitest.mock('../../service/potterDbApi', () => ({
@@ -63,7 +65,7 @@ describe('Tests for the CardList component', () => {
         <CardDetails
           characterId={responseDataForChar.data.id}
           onHideCardDetails={onHideCardDetails}
-          cardDetails={'0'}
+          cardDetails={'1'}
         />
       </Router>
     );

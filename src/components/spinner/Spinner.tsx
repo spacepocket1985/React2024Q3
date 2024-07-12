@@ -2,7 +2,7 @@ import styles from './Spinner.module.css';
 
 export const Spinner = (): JSX.Element => {
   return (
-    <div className={styles.spinner}>
+    <div className={styles.spinner} data-testid="spinner">
       <h2>Loading ...</h2>
       <svg
         xmlns="http://www.w3.org/2000/svg"
