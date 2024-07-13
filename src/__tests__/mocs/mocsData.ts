@@ -539,7 +539,7 @@ export const responseDataForChar: ApiResponseForCharType = {
       died: null,
       eye_color: null,
       family_members: [],
-      gender: null,
+      gender: 'unknown',
       hair_color: null,
       height: null,
       house: null,

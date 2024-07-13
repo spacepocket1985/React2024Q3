@@ -33,13 +33,40 @@ describe('Tests for the CardList component', () => {
       <Router>
         <CardDetails
           characterId={responseDataForChar.data.id}
-          onHideCardDetails={function (): void {}}
+          onHideCardDetails={onHideCardDetails}
           cardDetails={'1'}
         />
       </Router>
     );
     expect(screen.getByText('Loading ...')).toBeInTheDocument();
     expect(screen.queryByTestId('spinner')).not.toBeNull();
+    expect(screen.queryByTestId('errorMessage')).toBeNull();
+  });
+  it('Check detailed info', async () => {
+    vitest.mock('../../service/potterDbApi', () => ({
+      PotterDbApi: vitest.fn(() => ({
+        getCharacter: vitest.fn().mockResolvedValue(responseDataForChar),
+        loading: false, // Значение loading для тестирования
+      })),
+    }));
+
+    render(
+      <Router>
+        <CardDetails
+          characterId={responseDataForChar.data.id}
+          onHideCardDetails={onHideCardDetails}
+          cardDetails={'1'}
+        />
+      </Router>
+    );
+
+    const charName = await screen.findByText(
+      '1992 Gryffindor vs Slytherin Quidditch match spectators'
+    );
+    const detailedCardTitle = await screen.findByText(/Character details - 1/);
+    expect(charName).toBeInTheDocument();
+    expect(detailedCardTitle).toBeInTheDocument();
+
     expect(screen.queryByTestId('errorMessage')).toBeNull();
   });
   it('Ensure that clicking the close button hides the component', async () => {
