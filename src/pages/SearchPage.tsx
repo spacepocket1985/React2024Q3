@@ -99,7 +99,7 @@ export const SearchPage = (): JSX.Element => {
     setSearchParams({
       filter: filterWord,
       pageNumber: String(current),
-      details: charactersList[Number(cardDetails)]
+      details: charactersList[Number(cardDetails) - 1]
         ? String(cardDetails)
         : _DefaultFilterWord,
     });
@@ -115,7 +115,7 @@ export const SearchPage = (): JSX.Element => {
   const content = !(loading || error) ? (
     <div className={styles.contentWrap}>
       <CardList charactersList={charactersList} onCardClick={onCardClick} />
-      {charactersList[Number(cardDetails)] && cardDetails && (
+      {charactersList[Number(cardDetails) - 1] && cardDetails && (
         <CardDetails
           characterId={charactersList[Number(cardDetails) - 1].id}
           onHideCardDetails={onHideCardDetails}
