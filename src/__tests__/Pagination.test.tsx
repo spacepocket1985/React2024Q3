@@ -1,5 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import '@testing-library/jest-dom';
 import { Pagination } from '../components/pagination/Pagination';
 import { paginationMockState } from './mocs/mocsData';
@@ -8,12 +8,12 @@ describe('Tests for the Pagination  component', () => {
   const onPaginationClick = vi.fn();
   it('Check the status of the pagnation buttons, depending on whether there is a next or previous page.', async () => {
     render(
-      <MemoryRouter>
+      <BrowserRouter>
         <Pagination
           onPaginationClick={onPaginationClick}
           pagination={paginationMockState}
         />
-      </MemoryRouter>
+      </BrowserRouter>
     );
 
     const prevBtn = await screen.findByTestId('prevBtn');
@@ -26,14 +26,14 @@ describe('Tests for the Pagination  component', () => {
     expect(prevBtn).toBeDisabled();
     expect(nextBtn).not.toBeDisabled();
   });
-  it('Check that component updates URL query parameter when page changes.', async () => {
+  it('Check that function onPaginationClick is called when the pagination button is clicked.', async () => {
     render(
-      <MemoryRouter>
+      <BrowserRouter>
         <Pagination
           onPaginationClick={onPaginationClick}
           pagination={paginationMockState}
         />
-      </MemoryRouter>
+      </BrowserRouter>
     );
 
     const nextBtn = await screen.findByTestId('nextBtn');
