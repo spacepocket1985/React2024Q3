@@ -1,4 +1,10 @@
-import { act, fireEvent, render, screen } from '@testing-library/react';
+import {
+  act,
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+} from '@testing-library/react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import '@testing-library/jest-dom';
 
@@ -22,22 +28,24 @@ describe('Tests for the SearchPage component', () => {
         })
       ),
     }));
-
-    render(
-      <Router>
-        <SearchPage />
-      </Router>
-    );
-
-    const nextBtn = await screen.findByTestId('nextBtn');
-    expect(nextBtn).toBeInTheDocument();
-
     act(() => {
-      fireEvent.click(nextBtn);
+      render(
+        <Router>
+          <SearchPage />
+        </Router>
+      );
     });
 
-    expect(window.location.search).toBe(
-      '?filter=RingoStar&pageNumber=3&details='
-    );
+    const nextBtn = await screen.findByTestId('nextBtn');
+
+    act(async () => {
+      await fireEvent.click(nextBtn);
+    });
+
+    await waitFor(() => {
+      expect(window.location.search).toBe(
+        '?filter=RingoStar&pageNumber=3&details='
+      );
+    });
   });
 });

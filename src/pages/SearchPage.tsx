@@ -101,7 +101,7 @@ export const SearchPage = (): JSX.Element => {
       pageNumber: String(current),
       details: charactersList[Number(cardDetails) - 1]
         ? String(cardDetails)
-        : _DefaultFilterWord,
+        : '',
     });
   }, [
     filterWord,
