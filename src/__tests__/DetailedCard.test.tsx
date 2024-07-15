@@ -4,7 +4,7 @@ import '@testing-library/jest-dom';
 
 import { responseDataForChar } from './mocs/mocsData';
 
-import { CardDetails } from '../components/cardDetails/CardDetails';
+import { CardDetails } from '../components/cardDetails/cardDetails';
 
 describe('Tests for the CardList component', () => {
   const onHideCardDetails = vi.fn();

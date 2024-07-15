@@ -12,7 +12,7 @@ import { Pagination } from '../components/pagination/Pagination';
 import { ApiResponseType, AppStateType } from '../types';
 
 import styles from './SearchPage.module.css';
-import { CardDetails } from '../components/cardDetails/CardDetails';
+import { CardDetails } from '../components/cardDetails/cardDetails';
 
 export const SearchPage = (): JSX.Element => {
   const [searchParams, setSearchParams] = useSearchParams();
