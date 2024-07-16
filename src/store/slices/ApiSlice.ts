@@ -23,14 +23,14 @@ export const potterDbApiSlice = createApi({
   endpoints: (builder) => ({
     getAllCharacters: builder.query<
       transformApiResponseType,
-      { offset: string; pageNum: string; filter: string }
+      { pageNum: string; filter: string }
     >({
       query: ({
-        offset = _DefaultOffset,
+        
         pageNum = _DefaultPage,
         filter = _DefaultFilterWord,
       }) => {
-        let queryString = `${_Offset}${offset}${_Page}${pageNum}`;
+        let queryString = `${_Offset}${_DefaultOffset}${_Page}${pageNum}`;
         if (filter) {
           queryString += `${_Filter}${filter}`;
         }

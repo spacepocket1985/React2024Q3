@@ -1,8 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { combineReducers } from 'redux';
-import { potterDbApiSlice } from './slices/apiSlice';
+
 import charactersReducer from './slices/charactersSlice';
 import appDataReducer from './slices/appDataSlice';
+import { potterDbApiSlice } from './slices/apiSlice';
 
 const rootReducer = combineReducers({
   [potterDbApiSlice.reducerPath]: potterDbApiSlice.reducer,

@@ -9,8 +9,6 @@ import { SearchBar } from '../components/searchBar/SearchBar';
 import { Spinner } from '../components/spinner/Spinner';
 import { Pagination } from '../components/pagination/Pagination';
 
-import { ApiResponseType, AppStateType } from '../types';
-
 import styles from './SearchPage.module.css';
 import { CardDetails } from '../components/cardDetails/cardDetails';
 import { useAppDispatch, useAppSelector } from '../hooks/storeHooks';
@@ -95,26 +93,27 @@ export const SearchPage = (): JSX.Element => {
   // }, [onRequest]);
 
   const dispatch = useDispatch();
-  const offset = useAppSelector((state) => state.appData.offset);
+ 
+  const filter = useAppSelector((state) => state.appData.filterWord);
+  const cardDetails = useAppSelector((state) => state.appData.cardDetails);
   const pageNum = String(
     useAppSelector((state) => state.appData.pagination.current)
   );
-  const filter = useAppSelector((state) => state.appData.filterWord);
-  const cardDetails = useAppSelector((state) => state.appData.cardDetails);
+
+ 
 
   const { data: results, isFetching } = useGetAllCharactersQuery({
-    offset,
     pageNum,
     filter,
   });
-
+  console.log(results?.сharacters)
   useEffect(() => {
     dispatch(setLoading(isFetching));
     if (results) {
       dispatch(setCharacters(results.сharacters));
       dispatch(setPagination(results.pagination));
     }
-  }, [results, isFetching]);
+  }, [results, isFetching, dispatch]);
 
   useEffect(() => {
     setSearchParams({
@@ -139,6 +138,7 @@ export const SearchPage = (): JSX.Element => {
 
   return (
     <div>
+
       <SearchBar />
       <Pagination />
       <CardList />

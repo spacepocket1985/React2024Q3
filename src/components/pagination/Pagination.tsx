@@ -17,7 +17,7 @@ export const Pagination = (): JSX.Element => {
       <div className={styles.pagesBtnsWrapper}>
         <button
           disabled={!(prev - current)}
-          onClick={() => paginationHandler(prev)}
+          onClick={() => paginationHandler(current - 1)}
           data-testid="prevBtn"
         >
           Previous page
@@ -27,7 +27,7 @@ export const Pagination = (): JSX.Element => {
         </div>
         <button
           disabled={!(next - current)}
-          onClick={() => paginationHandler(next)}
+          onClick={() => paginationHandler(current + 1)}
           data-testid="nextBtn"
         >
           Next page
