@@ -50,6 +50,18 @@ export type ApiResponseType = {
   };
 };
 
+export type transformApiResponseType = {
+  сharacters: CharacterType[];
+  pagination: {
+    current: number;
+    first: number;
+    prev: number;
+    next: number;
+    last: number;
+    records: number;
+  };
+};
+
 export type ApiResponseForCharType = {
   data: CharacterType;
   meta: {

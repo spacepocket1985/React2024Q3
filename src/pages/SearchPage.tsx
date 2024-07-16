@@ -13,11 +13,18 @@ import { ApiResponseType, AppStateType } from '../types';
 
 import styles from './SearchPage.module.css';
 import { CardDetails } from '../components/cardDetails/cardDetails';
+import {
+  useGetAllCharactersQuery,
+  useGetCharacterQuery,
+} from '../store/slices/ApiSlice';
 
 export const SearchPage = (): JSX.Element => {
   const [searchParams, setSearchParams] = useSearchParams();
   const pageNumberSearchParam = searchParams.get('pageNumber');
   const detailsSearchParam = searchParams.get('details');
+
+  const { data } = useGetCharacterQuery('17333532-5d00-4b71-b8b1-8e762a12c793');
+  console.log(data);
 
   const { getCharacters, loading, error, _DefaultFilterWord, _DefaultPage } =
     PotterDbApi();
