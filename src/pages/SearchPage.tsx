@@ -13,135 +13,144 @@ import { ApiResponseType, AppStateType } from '../types';
 
 import styles from './SearchPage.module.css';
 import { CardDetails } from '../components/cardDetails/cardDetails';
-import {
-  useGetAllCharactersQuery,
-  useGetCharacterQuery,
-} from '../store/slices/ApiSlice';
+import { useAppDispatch, useAppSelector } from '../hooks/storeHooks';
+import { useGetAllCharactersQuery } from '../store/slices/apiSlice';
+import { useDispatch } from 'react-redux';
+import { setCharacters } from '../store/slices/charactersSlice';
+import { setLoading, setPagination } from '../store/slices/appDataSlice';
 
 export const SearchPage = (): JSX.Element => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const pageNumberSearchParam = searchParams.get('pageNumber');
-  const detailsSearchParam = searchParams.get('details');
+  const [, setSearchParams] = useSearchParams();
 
-  const { data } = useGetCharacterQuery('17333532-5d00-4b71-b8b1-8e762a12c793');
-  console.log(data);
+  // const [appData, setAppData] = useState<AppStateType>({
+  //   charactersList: [],
+  //   pagination: {
+  //     current: Number(pageNumberSearchParam) || _DefaultPage,
+  //     first: _DefaultPage,
+  //     prev: _DefaultPage,
+  //     next: _DefaultPage,
+  //     last: _DefaultPage,
+  //     records: 0,
+  //   },
+  //   filterWord: searchTerm || _DefaultFilterWord,
+  //   cardDetails: detailsSearchParam || '',
+  // });
 
-  const { getCharacters, loading, error, _DefaultFilterWord, _DefaultPage } =
-    PotterDbApi();
-  const [searchTerm] = useLocalStorage();
+  // const {
+  //   pagination: { current },
+  //   charactersList,
+  //   pagination,
+  //   filterWord,
+  //   cardDetails,
+  // } = appData;
 
-  const [appData, setAppData] = useState<AppStateType>({
-    charactersList: [],
-    pagination: {
-      current: Number(pageNumberSearchParam) || _DefaultPage,
-      first: _DefaultPage,
-      prev: _DefaultPage,
-      next: _DefaultPage,
-      last: _DefaultPage,
-      records: 0,
-    },
-    filterWord: searchTerm || _DefaultFilterWord,
-    cardDetails: detailsSearchParam || '',
+  // const onСharactersListLoaded = useCallback(
+  //   (apiResponse: ApiResponseType): void => {
+  //     setAppData((prevAppData) => {
+  //       return {
+  //         ...prevAppData,
+  //         pagination: apiResponse.meta.pagination,
+  //         charactersList: apiResponse.data.map((char) => char),
+  //       };
+  //     });
+  //   },
+  //   []
+  // );
+
+  // const onRequest = useCallback(() => {
+  //   getCharacters(filterWord, current).then(onСharactersListLoaded);
+  // }, [filterWord, current, getCharacters, onСharactersListLoaded]);
+
+  // const onSearchSubmit = useCallback((searchTerm: string) => {
+  //   setAppData((prevData) => ({
+  //     ...prevData,
+  //     filterWord: searchTerm,
+  //     pagination: { ...prevData.pagination, current: 1 },
+  //   }));
+  // }, []);
+
+  // const onPaginationClick = useCallback((page: number): void => {
+  //   setAppData((prevData) => ({
+  //     ...prevData,
+  //     pagination: { ...prevData.pagination, current: page },
+  //   }));
+  // }, []);
+
+  // const onCardClick = useCallback((index: number) => {
+  //   setAppData((prevData) => ({
+  //     ...prevData,
+  //     cardDetails: String(index),
+  //   }));
+  // }, []);
+
+  // const onHideCardDetails = () => {
+  //   setAppData((prevData) => ({
+  //     ...prevData,
+  //     cardDetails: _DefaultFilterWord,
+  //   }));
+  // };
+
+  // useEffect(() => {
+  //   onRequest();
+  // }, [onRequest]);
+
+  const dispatch = useDispatch();
+  const offset = useAppSelector((state) => state.appData.offset);
+  const pageNum = String(
+    useAppSelector((state) => state.appData.pagination.current)
+  );
+  const filter = useAppSelector((state) => state.appData.filterWord);
+  const cardDetails = useAppSelector((state) => state.appData.cardDetails);
+
+  const { data: results, isFetching } = useGetAllCharactersQuery({
+    offset,
+    pageNum,
+    filter,
   });
 
-  const {
-    pagination: { current },
-    charactersList,
-    pagination,
-    filterWord,
-    cardDetails,
-  } = appData;
-
-  const onСharactersListLoaded = useCallback(
-    (apiResponse: ApiResponseType): void => {
-      setAppData((prevAppData) => {
-        return {
-          ...prevAppData,
-          pagination: apiResponse.meta.pagination,
-          charactersList: apiResponse.data.map((char) => char),
-        };
-      });
-    },
-    []
-  );
-
-  const onRequest = useCallback(() => {
-    getCharacters(filterWord, current).then(onСharactersListLoaded);
-  }, [filterWord, current, getCharacters, onСharactersListLoaded]);
-
-  const onSearchSubmit = useCallback((searchTerm: string) => {
-    setAppData((prevData) => ({
-      ...prevData,
-      filterWord: searchTerm,
-      pagination: { ...prevData.pagination, current: 1 },
-    }));
-  }, []);
-
-  const onPaginationClick = useCallback((page: number): void => {
-    setAppData((prevData) => ({
-      ...prevData,
-      pagination: { ...prevData.pagination, current: page },
-    }));
-  }, []);
-
-  const onCardClick = useCallback((index: number) => {
-    setAppData((prevData) => ({
-      ...prevData,
-      cardDetails: String(index),
-    }));
-  }, []);
-
-  const onHideCardDetails = () => {
-    setAppData((prevData) => ({
-      ...prevData,
-      cardDetails: _DefaultFilterWord,
-    }));
-  };
-
   useEffect(() => {
-    onRequest();
-  }, [onRequest]);
+    dispatch(setLoading(isFetching));
+    if (results) {
+      dispatch(setCharacters(results.сharacters));
+      dispatch(setPagination(results.pagination));
+    }
+  }, [results, isFetching]);
 
   useEffect(() => {
     setSearchParams({
-      filter: filterWord,
-      pageNumber: String(current),
-      details: charactersList[Number(cardDetails) - 1]
-        ? String(cardDetails)
-        : '',
+      filter,
+      pageNumber: String(pageNum),
+      details: cardDetails,
     });
-  }, [
-    filterWord,
-    current,
-    cardDetails,
-    setSearchParams,
-    charactersList,
-    _DefaultFilterWord,
-  ]);
+  }, [filter, pageNum, cardDetails, setSearchParams]);
 
-  const content = !(loading || error) ? (
-    <div className={styles.contentWrap}>
-      <CardList charactersList={charactersList} onCardClick={onCardClick} />
-      {charactersList[Number(cardDetails) - 1] && cardDetails && (
-        <CardDetails
-          characterId={charactersList[Number(cardDetails) - 1].id}
-          onHideCardDetails={onHideCardDetails}
-          cardDetails={cardDetails}
-        />
-      )}
-    </div>
-  ) : null;
+  // const content = !(loading || error) ? (
+  //   <div className={styles.contentWrap}>
+  //     <CardList charactersList={charactersList} onCardClick={onCardClick} />
+  //     { {charactersList[Number(cardDetails) - 1] && cardDetails && (
+  //       <CardDetails
+  //         characterId={charactersList[Number(cardDetails) - 1].id}
+  //         onHideCardDetails={onHideCardDetails}
+  //         cardDetails={cardDetails}
+  //       />
+  //     )} }
+  //   </div>
+  // ) : null;
 
   return (
     <div>
-      <SearchBar onSearchSubmit={onSearchSubmit} />
+      <SearchBar />
+      <Pagination />
+      <CardList />
+
+      {/* 
       <Pagination
         pagination={pagination}
         onPaginationClick={onPaginationClick}
       />
       {error && <ErrorMessage errorMsg={error} />}
       {loading && <Spinner />}
-      {content}
+      {content} */}
     </div>
   );
 };

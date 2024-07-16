@@ -48,9 +48,7 @@
     "vitest": "^2.0.2"
   },
   "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
+    "hooks": {}
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [

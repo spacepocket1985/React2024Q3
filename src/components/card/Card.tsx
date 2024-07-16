@@ -7,7 +7,7 @@ export const Card = (props: CardPropsType): JSX.Element => {
   } = props.character;
 
   const handleCardClick = () => {
-    props.onCardClick(props.index);
+    // props.onCardClick(props.index);
   };
   return (
     <div

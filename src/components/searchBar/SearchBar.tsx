@@ -1,18 +1,15 @@
+import { useAppDispatch, useAppSelector } from '../../hooks/storeHooks';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 
-import { PotterDbApi } from '../../service/potterDbApi';
-import { SearchBarPropsType } from '../../types';
+import { setFilterWord } from '../../store/slices/appDataSlice';
 
 import HarryPotterImg from './harry_potter.png';
 import styles from './SearchBar.module.css';
 
-export const SearchBar = (props: SearchBarPropsType): JSX.Element => {
-  const { _DefaultFilterWord, loading } = PotterDbApi();
-
-  const { onSearchSubmit } = props;
-
+export const SearchBar = (): JSX.Element => {
+  const dispatch = useAppDispatch();
   const [searchTerm, setSearchTerm] = useLocalStorage();
-
+  const isLoading = useAppSelector((state) => state.appData.isLoading);
   const onUpdateSearch = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const searchTerm = event.target.value.trim();
     setSearchTerm(searchTerm);
@@ -20,7 +17,7 @@ export const SearchBar = (props: SearchBarPropsType): JSX.Element => {
 
   const onSubmitHandler = (event: React.MouseEvent): void => {
     event.preventDefault();
-    onSearchSubmit(searchTerm || _DefaultFilterWord);
+    dispatch(setFilterWord(searchTerm || ''));
   };
 
   return (
@@ -36,10 +33,10 @@ export const SearchBar = (props: SearchBarPropsType): JSX.Element => {
         />
         <button
           data-testid="serachSubmit"
-          disabled={!!loading}
           onClick={(event) => {
             onSubmitHandler(event);
           }}
+          disabled={isLoading}
         >
           Search
         </button>

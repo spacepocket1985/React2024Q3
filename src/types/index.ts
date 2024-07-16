@@ -110,7 +110,7 @@ export type CardListPropsType = {
 export type CardPropsType = {
   character: CharacterType;
   index: number;
-  onCardClick: (index: number) => void;
+  onCardClick?: (index: number) => void;
 };
 
 export type SearchBarPropsType = {

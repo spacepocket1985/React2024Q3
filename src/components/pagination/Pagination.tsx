@@ -1,15 +1,15 @@
-import { PaginationPropsType } from '../../types';
+import { useAppSelector, useAppDispatch } from '../../hooks/storeHooks';
 
+import { setCurrentPage } from '../../store/slices/appDataSlice';
 import styles from './Pagination.module.css';
 
-export const Pagination = (props: PaginationPropsType): JSX.Element => {
-  const {
-    pagination: { prev, next, current },
-    onPaginationClick,
-  } = props;
-
+export const Pagination = (): JSX.Element => {
+  const { prev, next, current } = useAppSelector(
+    (state) => state.appData.pagination
+  );
+  const dispatch = useAppDispatch();
   const paginationHandler = (page: number) => {
-    onPaginationClick(page);
+    dispatch(setCurrentPage(page));
   };
 
   return (
