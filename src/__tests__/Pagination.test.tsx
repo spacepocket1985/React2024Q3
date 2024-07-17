@@ -1,45 +1,30 @@
 import { fireEvent, render, screen } from '@testing-library/react';
+import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import '@testing-library/jest-dom';
+import { store } from '../store/store';
 import { Pagination } from '../components/pagination/Pagination';
-import { paginationMockState } from './mocs/mocsData';
 
-describe('Tests for the Pagination  component', () => {
-  const onPaginationClick = vi.fn();
-  it('Check the status of the pagnation buttons, depending on whether there is a next or previous page.', async () => {
-    render(
-      <BrowserRouter>
-        <Pagination
-          onPaginationClick={onPaginationClick}
-          pagination={paginationMockState}
-        />
-      </BrowserRouter>
-    );
+it('Check for the presence of pagination elements and update the informer after clicking the NextButton/PrevButton', async () => {
+  render(
+    <BrowserRouter>
+      <Provider store={store}>
+        <Pagination />
+      </Provider>
+    </BrowserRouter>
+  );
 
-    const prevBtn = await screen.findByTestId('prevBtn');
-    const nextBtn = await screen.findByTestId('nextBtn');
+  const prevBtn = await screen.findByTestId('prevBtn');
+  const nextBtn = await screen.findByTestId('nextBtn');
+  const informer = await screen.findByTestId('informer');
 
-    fireEvent.click(nextBtn);
+  expect(prevBtn).toBeInTheDocument;
+  expect(nextBtn).toBeInTheDocument;
+  expect(informer).toBeInTheDocument;
 
-    expect(prevBtn).toBeInTheDocument;
-    expect(nextBtn).toBeInTheDocument;
-    expect(prevBtn).toBeDisabled();
-    expect(nextBtn).not.toBeDisabled();
-  });
-  it('Check that function onPaginationClick is called when the pagination button is clicked.', async () => {
-    render(
-      <BrowserRouter>
-        <Pagination
-          onPaginationClick={onPaginationClick}
-          pagination={paginationMockState}
-        />
-      </BrowserRouter>
-    );
+  await fireEvent.click(nextBtn);
+  expect(informer.textContent).toBe('2');
 
-    const nextBtn = await screen.findByTestId('nextBtn');
-
-    await fireEvent.click(nextBtn);
-
-    expect(onPaginationClick).toHaveBeenCalled();
-  });
+  await fireEvent.click(prevBtn);
+  expect(informer.textContent).toBe('1');
 });

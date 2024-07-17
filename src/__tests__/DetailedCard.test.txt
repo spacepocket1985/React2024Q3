@@ -1,0 +1,51 @@
+import {  render, screen } from '@testing-library/react';
+import { BrowserRouter as Router } from 'react-router-dom';
+import configureMockStore from 'redux-mock-store';
+
+import '@testing-library/jest-dom';
+import { Provider } from 'react-redux';
+import { CardDetails } from '../components/cardDetails/cardDetails';
+import { mockUseGetCharactersQuery, mockUseGetAllCharactersQuery } from './mocks/mocksData';
+import { mockInitialState} from './mocks/mocksData';
+import {ReduxApiMockType} from '../types'
+
+const mockStore = configureMockStore();
+const mockDataStore = mockStore(mockInitialState);
+
+
+
+
+describe('Tests for the CardList component', () => {
+  beforeAll(() => {
+    vi.mock('..', async () => {
+      const actual: { reduxApi: ReduxApiMockType} = (await vi.importActual(
+        '../store/slices/apiSlice'
+      )) as { reduxApi: ReduxApiMockType};
+      return {
+        ...actual,
+        useGetCharacterQuery: vi.fn(() => mockUseGetCharactersQuery),
+        useGetAllCharactersQuery: vi.fn(() => mockUseGetAllCharactersQuery),
+      };
+    });
+  });
+
+  afterAll(() => {
+    vi.clearAllMocks();
+    vi.resetAllMocks();
+  });
+  it('Check that a loading indicator is displayed while fetching data;', async () => {
+    render(
+      <Router>
+        <Provider store={mockDataStore }>
+        <CardDetails />
+        </Provider>
+      </Router>
+    );
+    expect(screen.getByText('Loading ...')).toBeInTheDocument();
+    expect(screen.queryByTestId('spinner')).not.toBeNull();
+    expect(screen.queryByTestId('errorMessage')).toBeNull();
+  });
+
+
+});
+

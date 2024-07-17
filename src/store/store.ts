@@ -5,7 +5,7 @@ import charactersReducer from './slices/charactersSlice';
 import appDataReducer from './slices/appDataSlice';
 import { potterDbApiSlice } from './slices/apiSlice';
 
-const rootReducer = combineReducers({
+export const rootReducer = combineReducers({
   [potterDbApiSlice.reducerPath]: potterDbApiSlice.reducer,
   characters: charactersReducer,
   appData: appDataReducer,
@@ -18,4 +18,5 @@ export const store = configureStore({
 });
 
 export type AppRootState = ReturnType<typeof store.getState>;
+export type AppStore = typeof store;
 export type AppDispatch = typeof store.dispatch;

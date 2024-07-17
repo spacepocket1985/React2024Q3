@@ -25,11 +25,7 @@ export const potterDbApiSlice = createApi({
       transformApiResponseType,
       { pageNum: string; filter: string }
     >({
-      query: ({
-        
-        pageNum = _DefaultPage,
-        filter = _DefaultFilterWord,
-      }) => {
+      query: ({ pageNum = _DefaultPage, filter = _DefaultFilterWord }) => {
         let queryString = `${_Offset}${_DefaultOffset}${_Page}${pageNum}`;
         if (filter) {
           queryString += `${_Filter}${filter}`;

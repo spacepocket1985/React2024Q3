@@ -1,15 +1,20 @@
 import { describe, expect, it } from 'vitest';
+import { Provider } from 'react-redux';
+
 import '@testing-library/jest-dom';
-import { fireEvent, render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { SearchBar } from '../components/searchBar/SearchBar';
+import { store } from '../store/store';
 
 describe('Tests for the Search component', () => {
   const storageKey = 'searchTermForHarryPotterDB';
   it('Clicking the Search button saves the entered value to the local storage', async () => {
     render(
       <MemoryRouter>
-        <SearchBar onSearchSubmit={function (): void {}} />
+        <Provider store={store}>
+          <SearchBar />
+        </Provider>
       </MemoryRouter>
     );
 
@@ -25,13 +30,18 @@ describe('Tests for the Search component', () => {
     expect(localStorage.getItem(storageKey)).toBe('RedTiger');
   });
 
-  it('The component retrieves the value from the local storage upon mounting.', async () => {
-    const localStorageValue = localStorage.getItem(storageKey);
+  it('Check that the component retrieves the value from the local storage upon mounting.', async () => {
+    localStorage.setItem(storageKey, JSON.stringify('BulbaZawr'));
+
     render(
       <MemoryRouter>
-        <SearchBar onSearchSubmit={function (): void {}} />
+        <Provider store={store}>
+          <SearchBar />
+        </Provider>
       </MemoryRouter>
     );
-    expect(screen.getByTestId('searchInput')).toHaveValue(localStorageValue);
+
+    const input: HTMLInputElement = screen.getByTestId('searchInput');
+    expect(input.value.replace(/"/g, '')).toBe('BulbaZawr');
   });
 });

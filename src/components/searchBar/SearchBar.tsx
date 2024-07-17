@@ -37,7 +37,6 @@ export const SearchBar = (): JSX.Element => {
             onSubmitHandler(event);
           }}
           disabled={isLoading}
-          
         >
           Search
         </button>

@@ -28,6 +28,7 @@
     "@types/react": "^18.2.55",
     "@types/react-dom": "^18.2.19",
     "@types/react-redux": "^7.1.33",
+    "@types/redux-mock-store": "^1.0.6",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^6.21.0",
     "@vitejs/plugin-react": "^4.2.1",
@@ -43,12 +44,16 @@
     "jsdom": "^24.1.0",
     "lint-staged": "^12.5.0",
     "prettier": "^2.6.2",
+    "redux-mock-store": "^1.5.4",
     "typescript": "5.2.2",
     "vite": "^5.1.0",
-    "vitest": "^2.0.2"
+    "vitest": "^2.0.2",
+    "vitest-fetch-mock": "^0.3.0"
   },
   "husky": {
-    "hooks": {}
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [

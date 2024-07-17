@@ -15,7 +15,7 @@ export const CardDetails = (): JSX.Element => {
   const characterList = useAppSelector(
     (state) => state.characters.characterList
   );
-  const characterId = characterList[Number(cardDetails)-1].id;
+  const characterId = characterList[Number(cardDetails) - 1].id;
   const {
     data: character,
     isFetching,

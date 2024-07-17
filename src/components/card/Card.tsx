@@ -7,9 +7,9 @@ export const Card = (props: CardPropsType): JSX.Element => {
   const {
     attributes: { image, name, gender },
   } = props.character;
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
   const handleCardClick = () => {
-    dispatch(setCardDetails(String(props.index)))
+    dispatch(setCardDetails(String(props.index)));
     // props.onCardClick(props.index);
   };
   return (

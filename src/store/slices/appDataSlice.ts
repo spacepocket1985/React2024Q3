@@ -30,8 +30,8 @@ const initialState: AppDataStateType = {
   pagination: {
     current: pageNumberSearchParam,
     first: 1,
-    prev: pageNumberSearchParam > 1 ? pageNumberSearchParam - 1 : 1,  
-    next: pageNumberSearchParam + 1,  
+    prev: pageNumberSearchParam > 1 ? pageNumberSearchParam - 1 : 1,
+    next: pageNumberSearchParam + 1,
     last: 1,
     records: 0,
   },
@@ -46,9 +46,9 @@ const appDataSlice = createSlice({
       state.pagination = action.payload;
     },
     setCurrentPage: (state, action: PayloadAction<number>) => {
-      state.pagination.current = action.payload;  
-      state.pagination.prev = action.payload > 1 ? action.payload - 1 : 1;  
-      state.pagination.next = action.payload + 1;  
+      state.pagination.current = action.payload;
+      state.pagination.prev = action.payload > 1 ? action.payload - 1 : 1;
+      state.pagination.next = action.payload + 1;
     },
     setFilterWord: (state, action: PayloadAction<string>) => {
       state.filterWord = action.payload;

@@ -1,3 +1,9 @@
+import {
+  potterDbApiSlice,
+  useGetAllCharactersQuery,
+  useGetCharacterQuery,
+} from '../store/slices/apiSlice';
+
 export type CharacterType = {
   id: string;
   attributes: {
@@ -136,3 +142,10 @@ export type ErrorMsgPropsType = {
 export type EmptyPropsType = object;
 
 export type EmptyStateType = object;
+
+export type ReduxApiMockType = {
+  useGetAllCharactersQuery: typeof useGetAllCharactersQuery;
+  useGetCharacterQuery: typeof useGetCharacterQuery;
+  reducer: ReturnType<typeof potterDbApiSlice.reducer>;
+  reducerPath: string;
+};
