@@ -1,3 +1,5 @@
+import { useAppDispatch } from '../../hooks/storeHooks';
+import { setCardDetails } from '../../store/slices/appDataSlice';
 import { CardPropsType } from '../../types';
 import styles from './Card.module.css';
 
@@ -5,8 +7,9 @@ export const Card = (props: CardPropsType): JSX.Element => {
   const {
     attributes: { image, name, gender },
   } = props.character;
-
+  const dispatch = useAppDispatch()
   const handleCardClick = () => {
+    dispatch(setCardDetails(String(props.index)))
     // props.onCardClick(props.index);
   };
   return (

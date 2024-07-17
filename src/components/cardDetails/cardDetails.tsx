@@ -1,53 +1,39 @@
-import { useCallback, useEffect, useState } from 'react';
-
-import { PotterDbApi } from '../../service/potterDbApi';
 import { ErrorMessage } from '../errorMessage/ErrorMessage';
 import { Spinner } from '../spinner/Spinner';
 
-import { ApiResponseForCharType, CharacterType } from '../../types';
+import { CharacterType } from '../../types';
 import styles from './cardDetails.module.css';
+import { useGetCharacterQuery } from '../../store/slices/apiSlice';
+import { useAppSelector } from '../../hooks/storeHooks';
+import { useDispatch } from 'react-redux';
+import { setCardDetails } from '../../store/slices/appDataSlice';
 
-type cardDetailsPropsType = {
-  characterId: string;
-  onHideCardDetails: () => void;
-  cardDetails: string;
-};
+export const CardDetails = (): JSX.Element => {
+  const dispatch = useDispatch();
 
-export const CardDetails = (props: cardDetailsPropsType): JSX.Element => {
-  const [character, setCharacter] = useState<null | CharacterType>(null);
-
-  const { characterId, onHideCardDetails, cardDetails } = props;
-  const { getCharacter, error, loading } = PotterDbApi();
-
-  const showCharacter = useCallback(() => {
-    if (!characterId) {
-      return;
-    }
-
-    getCharacter(characterId).then(onCharacterLoaded);
-  }, [characterId, getCharacter]);
-
-  useEffect(() => {
-    showCharacter();
-  }, [showCharacter, characterId]);
-
-  const onCharacterLoaded = (apiResponse: ApiResponseForCharType) => {
-    setCharacter(apiResponse.data);
-  };
+  const cardDetails = useAppSelector((state) => state.appData.cardDetails);
+  const characterList = useAppSelector(
+    (state) => state.characters.characterList
+  );
+  const characterId = characterList[Number(cardDetails)-1].id;
+  const {
+    data: character,
+    isFetching,
+    isError,
+  } = useGetCharacterQuery(characterId);
 
   const handleHideCardDetails = () => {
-    setCharacter(null);
-    onHideCardDetails();
+    dispatch(setCardDetails(''));
   };
 
-  const content = !(loading || error || !character) ? (
+  const content = !(isFetching || isError || !character) ? (
     <View character={character} cardDetails={cardDetails} />
   ) : null;
 
   return (
     <div className={styles.cardMainContainer}>
-      {error && <ErrorMessage errorMsg={error} />}
-      {loading && <Spinner />}
+      {isError && <ErrorMessage errorMsg={isError.toString()} />}
+      {isFetching && <Spinner />}
 
       <div>
         <div className={styles.backdrop} onClick={handleHideCardDetails}></div>
@@ -69,8 +55,9 @@ export const CardDetails = (props: cardDetailsPropsType): JSX.Element => {
 
 type CharacterViewPropsType = {
   character: CharacterType;
-  cardDetails: string;
+  cardDetails: string | null;
 };
+
 const View = (props: CharacterViewPropsType) => {
   const { name, gender, image, species, born, blood_status, eye_color } =
     props.character.attributes;

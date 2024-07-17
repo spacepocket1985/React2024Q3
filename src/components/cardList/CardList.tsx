@@ -1,6 +1,5 @@
-import { useAppDispatch, useAppSelector } from '../../hooks/storeHooks';
-import { useGetAllCharactersQuery } from '../../store/slices/apiSlice';
-import { setLoading, setPagination } from '../../store/slices/appDataSlice';
+import { useAppSelector } from '../../hooks/storeHooks';
+
 import { Card } from '../card/Card';
 import { Spinner } from '../spinner/Spinner';
 

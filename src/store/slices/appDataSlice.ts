@@ -21,7 +21,6 @@ type AppDataStateType = {
   filterWord: string;
   cardDetails: string;
   pagination: PaginationType;
-  offset: string;
   isLoading: boolean;
 };
 
@@ -36,7 +35,6 @@ const initialState: AppDataStateType = {
     last: 1,
     records: 0,
   },
-  offset: '15',
   isLoading: false,
 };
 

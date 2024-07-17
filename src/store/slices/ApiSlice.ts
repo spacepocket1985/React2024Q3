@@ -12,7 +12,7 @@ const _Offset = '?page[size]=';
 const _Page = '&page[number]=';
 const _Filter = '&filter[name_cont]=';
 
-const _DefaultOffset = '15';
+const _DefaultOffset = '10';
 const _DefaultPage = 1;
 const _DefaultFilterWord = '';
 
