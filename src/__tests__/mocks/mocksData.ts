@@ -1335,6 +1335,26 @@ export const mockInitialState = {
   },
 };
 
+export const mockState2 =  {  
+  potterDbApi: {  
+    queries: {},  
+    mutations: {},  
+    provided: {},  
+    subscriptions: {},  
+    getAllCharacters: {  
+      data: null,  
+      isLoading: false,  
+      error: null,  
+      queryKey: ['Characters', { pageNum: '', filter: '' }],  
+      meta: {},  
+    },  
+    getCharacter: {}, // example for getCharacter state  
+    config: {}, // adding config property  
+  },  
+  characters: {},  
+  appData: {},  
+};  
+
 export const mockResponseWithID = {
   data: {
     id: '71b093d9-f797-4cd2-acc9-e7f3d5f979d4',
@@ -1383,6 +1403,7 @@ export const mockResponseWithID = {
 export const mockUseGetAllCharactersQuery = {
   сharacters: responseData.data,
   pagination: responseData.meta.pagination,
+  refetch: vi.fn(),
 };
 export const mockUseGetCharactersQuery = {
   character: responseData.data[0],

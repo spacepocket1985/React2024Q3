@@ -5,12 +5,12 @@ import configureMockStore from 'redux-mock-store';
 import '@testing-library/jest-dom';
 import { Provider } from 'react-redux';
 import { CardDetails } from '../components/cardDetails/cardDetails';
-import { mockUseGetCharactersQuery, mockUseGetAllCharactersQuery } from './mocks/mocksData';
+import { mockUseGetCharactersQuery, mockUseGetAllCharactersQuery, mockState2 } from './mocks/mocksData';
 import { mockInitialState} from './mocks/mocksData';
 import {ReduxApiMockType} from '../types'
-
-const mockStore = configureMockStore();
-const mockDataStore = mockStore(mockInitialState);
+import {useGetAllCharactersQuery} from '../store/slices/apiSlice'
+import { configureStore } from '@reduxjs/toolkit';
+import { rootReducer } from '../store/store';
 
 
 
@@ -34,9 +34,14 @@ describe('Tests for the CardList component', () => {
     vi.resetAllMocks();
   });
   it('Check that a loading indicator is displayed while fetching data;', async () => {
+    vi.mocked(useGetAllCharactersQuery).mockReturnValue(mockUseGetAllCharactersQuery);
+    const mockStore = configureStore({
+      reducer: rootReducer,
+      preloadedState: mockState2,
+    });
     render(
       <Router>
-        <Provider store={mockDataStore }>
+        <Provider store={mockStore }>
         <CardDetails />
         </Provider>
       </Router>
