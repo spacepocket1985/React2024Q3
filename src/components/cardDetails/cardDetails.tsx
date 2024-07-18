@@ -1,12 +1,13 @@
 import { ErrorMessage } from '../errorMessage/ErrorMessage';
 import { Spinner } from '../spinner/Spinner';
 
-import { CharacterType } from '../../types';
+import { TransformCharacterType } from '../../types';
 import styles from './cardDetails.module.css';
 import { useGetCharacterQuery } from '../../store/slices/apiSlice';
 import { useAppSelector } from '../../hooks/storeHooks';
 import { useDispatch } from 'react-redux';
 import { setCardDetails } from '../../store/slices/appDataSlice';
+import { CardCheckBox } from '../cardCheckBox/CardCheckBox';
 
 export const CardDetails = (): JSX.Element => {
   const dispatch = useDispatch();
@@ -28,6 +29,8 @@ export const CardDetails = (): JSX.Element => {
     dispatch(setCardDetails(''));
   };
 
+  
+
   const content = !(isFetching || isError || !character) ? (
     <View character={character} cardDetails={cardDetails} />
   ) : null;
@@ -40,6 +43,8 @@ export const CardDetails = (): JSX.Element => {
       <div>
         <div className={styles.backdrop} onClick={handleHideCardDetails}></div>
         <div className={styles.characterWrapper}>
+        <CardCheckBox character={characterList[Number(cardDetails) - 1]}/>
+          
           <button
             className={styles.characterTitleButton}
             onClick={handleHideCardDetails}
@@ -56,7 +61,7 @@ export const CardDetails = (): JSX.Element => {
 };
 
 type CharacterViewPropsType = {
-  character: CharacterType;
+  character: TransformCharacterType;
   cardDetails: string | null;
 };
 

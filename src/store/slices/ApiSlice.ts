@@ -38,7 +38,7 @@ export const potterDbApiSlice = createApi({
         pagination: response.meta.pagination,
       }),
     }),
-    getCharacter: builder.query<CharacterType, string>({
+    getCharacter: builder.query<TransformCharacterType, string>({
       query: (id) => ({
         url: `/${id}`,
         method: 'GET',

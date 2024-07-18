@@ -6,7 +6,7 @@
   appearance: none;
   width: 20px;
   height: 20px;
-  border: 2px solid var(--white);
+  border: 2px solid var(--secondary-color);
   border-radius: 3px;
   cursor: pointer;
 }

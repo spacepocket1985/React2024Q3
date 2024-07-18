@@ -1,34 +1,28 @@
 import { useAppDispatch } from '../../hooks/storeHooks';
-import { useRef } from 'react';
+import { useState } from 'react';
 import { setCardDetails } from '../../store/slices/appDataSlice';
 import { CardCheckBox } from '../cardCheckBox/CardCheckBox';
 import { CardPropsType } from '../../types';
 import styles from './Card.module.css';
-import {
-  addSelectedChar,
-  removeSelectedChar,
-  selectCharacter,
-} from '../../store/slices/charactersSlice';
 
 export const Card = (props: CardPropsType): JSX.Element => {
+  const [ref, setRef] = useState<React.RefObject<HTMLInputElement> | null>(
+    null
+  );
   const {
     attributes: { image, name, gender },
   } = props.character;
   const dispatch = useAppDispatch();
+
+  const handleRefChange = (ref: React.RefObject<HTMLInputElement>) => {
+    setRef(ref);
+  };
+
   const handleCardClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (e.target !== checkboxRef.current)
+    if (e.target !== ref!.current)
       dispatch(setCardDetails(String(props.index)));
   };
 
-  const checkboxRef = useRef<HTMLInputElement>(null);
-
-  const handleCheckboxChange = () => {
-    if (checkboxRef.current === null) return;
-    const isChecked = checkboxRef.current.checked;
-    dispatch(selectCharacter(props.character.id));
-    if (isChecked) dispatch(addSelectedChar(props.character));
-    else dispatch(removeSelectedChar(props.character.id));
-  };
   return (
     <div
       className={styles.characterWrapper}
@@ -38,12 +32,10 @@ export const Card = (props: CardPropsType): JSX.Element => {
       data-testid="card"
     >
       <div>
-        <input
-          type="checkbox"
-          ref={checkboxRef}
-          onChange={handleCheckboxChange}
+        <CardCheckBox
+          character={props.character}
+          onRefChange={handleRefChange}
         />
-        <CardCheckBox character={props.character} />
       </div>
       <div className={styles.characterImgWrapper}>
         <img src={image!} alt={name} />
