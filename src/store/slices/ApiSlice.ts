@@ -4,6 +4,7 @@ import {
   ApiResponseType,
   CharacterType,
   transformApiResponseType,
+  TransformCharacterType,
 } from '../../types';
 import NoImage from '../../assets/no-image.png';
 
@@ -48,8 +49,8 @@ export const potterDbApiSlice = createApi({
   }),
 });
 
-function transformCharacter(character: CharacterType): CharacterType {
-  const updatedCharacter = { ...character };
+function transformCharacter(character: CharacterType): TransformCharacterType {
+  const updatedCharacter = { ...character, isSelected: false };
   if (character.attributes.gender === null) {
     updatedCharacter.attributes.gender = 'Unknown';
   }
