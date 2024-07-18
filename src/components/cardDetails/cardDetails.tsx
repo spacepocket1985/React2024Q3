@@ -15,8 +15,9 @@ export const CardDetails = (): JSX.Element => {
   const characterList = useAppSelector(
     (state) => state.characters.characterList
   );
+
   const characterId = characterList[Number(cardDetails) - 1].id;
-  
+
   const {
     data: character,
     isFetching,
@@ -30,7 +31,6 @@ export const CardDetails = (): JSX.Element => {
   const content = !(isFetching || isError || !character) ? (
     <View character={character} cardDetails={cardDetails} />
   ) : null;
-  
 
   return (
     <div className={styles.cardMainContainer}>

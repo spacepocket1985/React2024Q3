@@ -1,4 +1,4 @@
-import { ApiResponseForCharType, ApiResponseType } from '../../types';
+import { ApiResponseType } from '../../types';
 
 export const responseData: ApiResponseType = {
   data: [
@@ -522,113 +522,6 @@ export const responseData: ApiResponseType = {
     last: 'link',
     next: 'link',
     prev: 'link',
-  },
-};
-
-export const responseDataForChar: ApiResponseForCharType = {
-  data: {
-    id: '20448207-20d2-48cb-85b4-d61ee8f50f97',
-
-    attributes: {
-      slug: '1992-gryffindor-vs-slytherin-quidditch-match-spectators',
-      alias_names: [],
-      animagus: null,
-      blood_status: null,
-      boggart: null,
-      born: null,
-      died: null,
-      eye_color: null,
-      family_members: [],
-      gender: 'unknown',
-      hair_color: null,
-      height: null,
-      house: null,
-      image: null,
-      jobs: [],
-      marital_status: null,
-      name: '1992 Gryffindor vs Slytherin Quidditch match spectators',
-      nationality: null,
-      patronus: null,
-      romances: [],
-      skin_color: null,
-      species: null,
-      titles: [],
-      wands: [],
-      weight: null,
-      wiki: 'https://harrypotter.fandom.com/wiki/1992_Gryffindor_vs_Slytherin_Quidditch_match_spectators',
-    },
-  },
-
-  meta: {
-    copyright: '',
-    generated_at: '',
-  },
-  links: {
-    self: '',
-  },
-};
-
-export const responseDataForCharSecond: ApiResponseForCharType = {
-  data: {
-    id: '20448207-20d2-48cb-85b4-d61ee8f50f97',
-
-    attributes: {
-      slug: '1992-gryffindor-vs-slytherin-quidditch-match-spectators',
-      alias_names: [],
-      animagus: null,
-      blood_status: null,
-      boggart: null,
-      born: null,
-      died: null,
-      eye_color: null,
-      family_members: [],
-      gender: null,
-      hair_color: null,
-      height: null,
-      house: null,
-      image: null,
-      jobs: [],
-      marital_status: null,
-      name: '1992 Gryffindor vs Slytherin Quidditch match spectators',
-      nationality: null,
-      patronus: null,
-      romances: [],
-      skin_color: null,
-      species: null,
-      titles: [],
-      wands: [],
-      weight: null,
-      wiki: 'https://harrypotter.fandom.com/wiki/1992_Gryffindor_vs_Slytherin_Quidditch_match_spectators',
-    },
-  },
-
-  meta: {
-    copyright: '',
-    generated_at: '',
-  },
-  links: {
-    self: '',
-  },
-};
-
-export const mockResponse = {
-  data: [],
-  meta: {
-    pagination: {
-      current: 1,
-      next: 2,
-      last: 481,
-      records: 4804,
-    },
-    copyright: 'Copyright © Potter DB 2024',
-    generated_at: '2024-07-14T12:41:01.781Z',
-  },
-  links: {
-    self: 'https://api.potterdb.com/v1/characters?page[size]=10&page[number]=1',
-    current:
-      'https://api.potterdb.com/v1/characters?page[number]=1&page[size]=10',
-    next: 'https://api.potterdb.com/v1/characters?page[number]=2&page[size]=10',
-    last: 'https://api.potterdb.com/v1/characters?page[number]=481&page[size]=10',
   },
 };
 
@@ -1324,7 +1217,7 @@ export const mockInitialState = {
   },
   appData: {
     filterWord: '',
-    cardDetails: '1',
+    cardDetails: '2',
     pagination: {
       current: 1,
       next: 2,
@@ -1335,76 +1228,40 @@ export const mockInitialState = {
   },
 };
 
-export const mockState2 =  {  
-  potterDbApi: {  
-    queries: {},  
-    mutations: {},  
-    provided: {},  
-    subscriptions: {},  
-    getAllCharacters: {  
-      data: null,  
-      isLoading: false,  
-      error: null,  
-      queryKey: ['Characters', { pageNum: '', filter: '' }],  
-      meta: {},  
-    },  
-    getCharacter: {}, // example for getCharacter state  
-    config: {}, // adding config property  
-  },  
-  characters: {},  
-  appData: {},  
-};  
-
-export const mockResponseWithID = {
-  data: {
-    id: '71b093d9-f797-4cd2-acc9-e7f3d5f979d4',
-    type: 'character',
-    attributes: {
-      slug: 'unidentified-8-year-old-muggle-girl',
-      alias_names: [],
-      animagus: null,
-      blood_status: 'Muggle',
-      boggart: null,
-      born: '1983',
-      died: null,
-      eye_color: null,
-      family_members: [],
-      gender: 'Female',
-      hair_color: null,
-      height: null,
-      house: null,
-      image: null,
-      jobs: [],
-      marital_status: null,
-      name: '8-year-old Muggle girl',
-      nationality: null,
-      patronus: null,
-      romances: [],
-      skin_color: null,
-      species: 'Human',
-      titles: [],
-      wands: [],
-      weight: null,
-      wiki: 'https://harrypotter.fandom.com/wiki/Unidentified_8-year-old_Muggle_girl',
-    },
-    links: {
-      self: '/v1/characters/71b093d9-f797-4cd2-acc9-e7f3d5f979d4',
-    },
-  },
-  meta: {
-    copyright: 'Copyright © Potter DB 2024',
-    generated_at: '2024-07-14T12:41:01.781Z',
-  },
-  links: {
-    self: 'https://api.potterdb.com/v1/characters/71b093d9-f797-4cd2-acc9-e7f3d5f979d4',
-  },
-};
-
 export const mockUseGetAllCharactersQuery = {
-  сharacters: responseData.data,
-  pagination: responseData.meta.pagination,
+  data: {
+    сharacters: responseData.data,
+    pagination: responseData.meta.pagination,
+  },
   refetch: vi.fn(),
 };
-export const mockUseGetCharactersQuery = {
-  character: responseData.data[0],
+export const mockUseGetCharacterQuery = {
+  data: responseData.data[0],
+  refetch: vi.fn(),
+};
+
+export const mockUseGetCharacterQueryLoading = {
+  data: responseData.data[0],
+  refetch: vi.fn(),
+  isFetching: true,
+};
+
+export const mockStoreQueryData = {
+  characters: {
+    characterList: responseData.data,
+    selectedChacharacters: [],
+  },
+  appData: {
+    filterWord: '',
+    cardDetails: '2',
+    pagination: {
+      current: 2,
+      next: 3,
+      last: 481,
+      prev: 1,
+      first: 1,
+      records: 4804,
+    },
+    isLoading: false,
+  },
 };
