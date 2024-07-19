@@ -13,19 +13,14 @@ export const CardList = (): JSX.Element => {
   const content =
     results &&
     results.map((character, index) => (
-      <Card
-        key={character.id}
-        character={character}
-        index={index + 1}
-        //onCardClick={onCardClick}
-      />
+      <Card key={character.id} character={character} index={index + 1} />
     ));
 
   return (
     <div className={styles.charactersWrapper}>
       {isLoading && <Spinner />}
       {!isLoading && content}
-      <CardInformer/>
+      <CardInformer />
       {!isLoading && results.length === 0 && (
         <h2>No characters found for your last request!</h2>
       )}

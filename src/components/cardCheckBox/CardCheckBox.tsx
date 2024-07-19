@@ -37,7 +37,7 @@ export const CardCheckBox = (props: CardCheckBoxPropsType): JSX.Element => {
         type="checkbox"
         ref={checkboxRef}
         onChange={handleCheckboxChange}
-        checked={props.character.isSelected }
+        checked={props.character.isSelected}
       />
     </div>
   );

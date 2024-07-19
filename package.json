@@ -60,7 +60,8 @@
       "eslint  --max-warnings=0"
     ],
     "*.{html,css,ts,tsx,json}": [
-      "npx prettier --write ."
+      "npm run lint:fix",
+      "npm run format:fix"
     ]
   }
 }

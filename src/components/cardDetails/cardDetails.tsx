@@ -29,8 +29,6 @@ export const CardDetails = (): JSX.Element => {
     dispatch(setCardDetails(''));
   };
 
-  
-
   const content = !(isFetching || isError || !character) ? (
     <View character={character} cardDetails={cardDetails} />
   ) : null;
@@ -43,8 +41,8 @@ export const CardDetails = (): JSX.Element => {
       <div>
         <div className={styles.backdrop} onClick={handleHideCardDetails}></div>
         <div className={styles.characterWrapper}>
-        <CardCheckBox character={characterList[Number(cardDetails) - 1]}/>
-          
+          <CardCheckBox character={characterList[Number(cardDetails) - 1]} />
+
           <button
             className={styles.characterTitleButton}
             onClick={handleHideCardDetails}

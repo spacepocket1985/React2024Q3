@@ -90,7 +90,7 @@ export type ApiResponseType = {
 };
 
 export type transformApiResponseType = {
-  сharacters: CharacterType[];
+  сharacters: TransformCharacterType[];
   pagination: {
     current: number;
     first: number;

@@ -11,5 +11,5 @@ export const CardInformer = (): JSX.Element => {
     >{`Selected - ${countSelectedCards} cards`}</div>
   );
 
-  return <>{countSelectedCards && content}</>;
+  return <>{countSelectedCards > 0 && content}</>;
 };

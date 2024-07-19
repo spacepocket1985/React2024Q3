@@ -2,11 +2,11 @@ import { act, fireEvent, render, screen } from '@testing-library/react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import '@testing-library/jest-dom';
 import { Card } from '../components/card/Card';
-import { responseData } from './mocks/mocksData';
+import { mockTransformCharactersData } from './mocks/mocksData';
 import { Provider } from 'react-redux';
 import { store } from '../store/store';
 
-const mockCharacter = responseData.data[0];
+const mockCharacter = mockTransformCharactersData[0];
 
 describe('Tests for the Card component', () => {
   it('Ensure that the card component renders the relevant card data', async () => {
