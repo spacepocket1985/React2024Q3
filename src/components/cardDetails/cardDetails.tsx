@@ -30,30 +30,29 @@ export const CardDetails = (): JSX.Element => {
   };
 
   const content = !(isFetching || isError || !character) ? (
-    <View character={character} cardDetails={cardDetails} />
+    <div>
+      <div className={styles.backdrop} onClick={handleHideCardDetails}></div>
+      <div className={styles.characterWrapper}>
+        <CardCheckBox character={characterList[Number(cardDetails) - 1]} />
+
+        <button
+          className={styles.characterTitleButton}
+          onClick={handleHideCardDetails}
+          data-testid="closeDetailsBtn"
+        >
+          close
+        </button>
+
+        <View character={character} cardDetails={cardDetails} />
+      </div>
+    </div>
   ) : null;
 
   return (
     <div className={styles.cardMainContainer}>
       {isError && <ErrorMessage errorMsg={isError.toString()} />}
       {isFetching && <Spinner />}
-
-      <div>
-        <div className={styles.backdrop} onClick={handleHideCardDetails}></div>
-        <div className={styles.characterWrapper}>
-          <CardCheckBox character={characterList[Number(cardDetails) - 1]} />
-
-          <button
-            className={styles.characterTitleButton}
-            onClick={handleHideCardDetails}
-            data-testid="closeDetailsBtn"
-          >
-            X
-          </button>
-
-          {content}
-        </div>
-      </div>
+      {content}
     </div>
   );
 };

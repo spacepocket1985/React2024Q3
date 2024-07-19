@@ -33,12 +33,14 @@ export const CardCheckBox = (props: CardCheckBoxPropsType): JSX.Element => {
 
   return (
     <div className={styles.wrapper}>
-      <input
-        type="checkbox"
-        ref={checkboxRef}
-        onChange={handleCheckboxChange}
-        checked={props.character.isSelected}
-      />
+      <label className={styles.cardCheckBox}>
+        <input
+          type="checkbox"
+          ref={checkboxRef}
+          onChange={handleCheckboxChange}
+          checked={props.character.isSelected}
+        />
+      </label>
     </div>
   );
 };
