@@ -19,8 +19,13 @@ export const CardList = (): JSX.Element => {
   return (
     <div className={styles.charactersWrapper}>
       {isLoading && <Spinner />}
-      {!isLoading && content}
-      <CardInformer />
+      {!isLoading && (
+        <>
+          {content}
+          <CardInformer />
+        </>
+      )}
+
       {!isLoading && results.length === 0 && (
         <h2>No characters found for your last request!</h2>
       )}

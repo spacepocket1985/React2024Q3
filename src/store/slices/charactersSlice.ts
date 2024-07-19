@@ -37,6 +37,14 @@ const charactersSlice = createSlice({
         (item) => item.id !== action.payload
       );
     },
+    removeAllSelectedChars: (state) => {
+      state.selectedChacharacters = [];
+    },
+    unSelectAllCharacters: (state) => {
+      state.characterList.forEach((item) => {
+        item.isSelected = false;
+      });
+    },
   },
 });
 
@@ -45,6 +53,8 @@ export const {
   selectCharacter,
   addSelectedChar,
   removeSelectedChar,
+  removeAllSelectedChars,
+  unSelectAllCharacters,
 } = charactersSlice.actions;
 
 export default charactersSlice.reducer;

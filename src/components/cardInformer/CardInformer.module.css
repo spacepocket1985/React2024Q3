@@ -1,0 +1,47 @@
+.informweWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  max-width: 50rem;
+  padding: 2rem;
+  font-weight: 600;
+  margin: 2rem auto;
+  border-radius: 5%;
+  background-color: var(--secondary-color);
+  animation: informweWrapper-appear 1s ease-out forwards;
+}
+
+@keyframes informweWrapper-appear {
+  from {
+    opacity: 0;
+    transform: translateY(5rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.bump {
+  animation: bump 300ms ease-out;
+}
+
+@keyframes bump {
+  0% {
+    transform: scale(1);
+  }
+  10% {
+    transform: scale(0.9);
+  }
+  30% {
+    transform: scale(1.1);
+  }
+  50% {
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

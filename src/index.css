@@ -67,7 +67,7 @@ button:hover {
 }
 
 .buttonError {
-  background-color: #fdb130;
+  background-color: var(--secondary-color);
   color: #272b33;
   font-weight: 600;
 }
