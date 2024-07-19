@@ -558,7 +558,7 @@ export const mockTransformCharactersData: TransformCharacterType[] = [
       wiki: 'https://harrypotter.fandom.com/wiki/1992_Gryffindor_vs_Slytherin_Quidditch_match_spectators',
     },
 
-    isSelected: false,
+    isSelected: true,
   },
   {
     id: '8754cc34-552e-4f4a-baae-e78fa9487328',
@@ -1311,7 +1311,42 @@ export const mockInitialState = {
   },
   characters: {
     characterList: mockTransformCharactersData,
-    selectedChacharacters: [],
+    selectedChacharacters: [
+      {
+        id: '17333532-5d00-4b71-b8b1-8e762a12c793',
+
+        attributes: {
+          slug: '1992-gryffindor-vs-slytherin-quidditch-match-spectators',
+          alias_names: [],
+          animagus: null,
+          blood_status: null,
+          boggart: null,
+          born: null,
+          died: null,
+          eye_color: null,
+          family_members: [],
+          gender: 'No one knows',
+          hair_color: null,
+          height: null,
+          house: null,
+          image: '/src/assets/no-image.png',
+          jobs: [],
+          marital_status: null,
+          name: '1992 Gryffindor vs Slytherin Quidditch match spectators',
+          nationality: null,
+          patronus: null,
+          romances: [],
+          skin_color: null,
+          species: null,
+          titles: [],
+          wands: [],
+          weight: null,
+          wiki: 'https://harrypotter.fandom.com/wiki/1992_Gryffindor_vs_Slytherin_Quidditch_match_spectators',
+        },
+
+        isSelected: false,
+      },
+    ],
   },
   appData: {
     filterWord: '',
