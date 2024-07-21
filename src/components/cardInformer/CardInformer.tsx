@@ -5,6 +5,7 @@ import {
   unSelectAllCharacters,
 } from '../../store/slices/charactersSlice';
 import styles from './CardInformer.module.css';
+import InformerImg from '../../assets/informer.png'
 export const CardInformer = (): JSX.Element => {
   const countSelectedCards = useAppSelector(
     (state) => state.characters.selectedChacharacters.length
@@ -38,9 +39,12 @@ export const CardInformer = (): JSX.Element => {
 
   const content = (
     <div className={styles.informweWrapper}>
-      <div
-        className={informerClass}
-      >{`Selected - ${countSelectedCards} cards`}</div>
+      <div className={informerClass}>
+        <div className={styles.informerLIne}>
+          <img src={InformerImg} alt="" />
+          <span>{`Selected - ${countSelectedCards} cards`}</span>
+        </div>
+      </div>
       <button onClick={handlerUnselectAll}>Unselect all</button>
       <button>Download</button>
     </div>
