@@ -4,7 +4,7 @@ import { ThemeProvider } from '../context/ThemeContext';
 import { ThemeSwitcher } from '../components/themeSwitcher/ThemeSwitcher';
 
 describe('Tests for ThemeSwitcher component', () => {
-  it('checks some temp tests', async () => {
+  it('toggles theme when button is clicked', async () => {
     render(
       <ThemeProvider>
         <ThemeSwitcher />
