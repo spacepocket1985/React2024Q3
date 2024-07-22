@@ -6,11 +6,14 @@ import { store } from './store/store';
 import ErrorBoundary from './components/errorBoundary/ErrorBoundary';
 
 import './index.css';
+import { ThemeProvider } from './context/ThemeContext';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <ErrorBoundary>
     <Provider store={store}>
-      <App />
+      <ThemeProvider>
+        <App />
+      </ThemeProvider>
     </Provider>
   </ErrorBoundary>
 );

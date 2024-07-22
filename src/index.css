@@ -7,13 +7,6 @@
   display: flex;
   flex-direction: column;
   margin: auto;
-  background-color: var(--white);
-
-  --white: #fff;
-  --main-color: #272b33;
-  --secondary-color: #fdb130;
-  --third-color: #ba2130;
-  --fourth-color: #ee4268;
 }
 
 html {
@@ -24,9 +17,13 @@ html {
 
 h1,
 h2 {
-  color: #202329;
+  color: var(--title-color);
   text-align: center;
   padding: 1rem;
+}
+
+h3 {
+  color: var(--subTitle-color);
 }
 
 a {
@@ -42,9 +39,35 @@ body {
   margin: 0;
   display: flex;
   min-height: 100vh;
-  background-color: #fff;
   text-align: center;
   font-size: 1.4rem;
+  transition: background-color 0.3s;
+}
+
+.light {
+  background-color: var(--white);
+
+  --white: #fff;
+  --title-color: #202329;
+  --subTitle-color: #fff;
+  --main-color: #272b33;
+  --secondary-color: #fdb130;
+  --third-color: #ba2130;
+  --fourth-color: #fff;
+}
+
+.dark {
+  background-color: #272b33;
+  --white: rgb(59, 52, 52);
+  --main-color: rgb(119, 116, 114);
+  --secondary-color: #068144;
+  --third-color: #033e20;
+  --title-color: #fdb130;
+  color: #fff;
+}
+
+.dark button {
+  background-color: #0a67d8;
 }
 
 h1 {
