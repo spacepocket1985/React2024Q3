@@ -4,13 +4,13 @@ import { AppRouter } from './routes/AppRouter';
 import { ThemeSwitcher } from './components/themeSwitcher/ThemeSwitcher';
 
 import { useTheme } from './context/ThemeContext';
-import './App.css';
+import  './index.css';
 
 const App = (): JSX.Element => {
   const { theme } = useTheme(); 
   return (
     <Router>
-      <div className={theme}>
+      <div className={`${theme} base`}>
       <ThemeSwitcher />  
       <AppRouter />
       </div>
