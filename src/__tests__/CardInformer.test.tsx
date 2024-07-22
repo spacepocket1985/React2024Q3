@@ -1,6 +1,6 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import configureMockStore from 'redux-mock-store';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { MemoryRouter as Router } from 'react-router-dom';
 import '@testing-library/jest-dom';
 
 import { mockInitialState } from './mocks/mocksData';
@@ -8,9 +8,10 @@ import { Provider } from 'react-redux';
 import { CardInformer } from '../components/cardInformer/CardInformer';
 
 describe('Tests for the CardInformer component', () => {
+  const mockStore = configureMockStore();
+  const mockDataStore = mockStore(mockInitialState);
+
   it('Checks that the component is rendered when there are cards selected', async () => {
-    const mockStore = configureMockStore();
-    const mockDataStore = mockStore(mockInitialState);
     render(
       <Router>
         <Provider store={mockDataStore}>
@@ -26,5 +27,25 @@ describe('Tests for the CardInformer component', () => {
     expect(textInformer).toBeInTheDocument();
     expect(downloadBtn).toBeInTheDocument();
     expect(unselectBtn).toBeInTheDocument();
+  });
+
+  it('should trigger download when Download button is clicked', async () => {
+    window.URL.createObjectURL = vitest.fn();
+    window.URL.revokeObjectURL = vitest.fn();
+    HTMLAnchorElement.prototype.click = vitest.fn();
+
+    render(
+      <Router>
+        <Provider store={mockDataStore}>
+          <CardInformer />
+        </Provider>
+      </Router>
+    );
+
+    const downloadButton = await screen.findByText('Download');
+    await fireEvent.click(downloadButton);
+
+    expect(URL.createObjectURL).toHaveBeenCalled();
+    expect(URL.revokeObjectURL).toHaveBeenCalled();
   });
 });

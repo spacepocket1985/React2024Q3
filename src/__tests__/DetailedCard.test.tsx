@@ -46,7 +46,7 @@ describe('Tests for the CardList component', () => {
         </Provider>
       </Router>
     );
-    const characterCardTitle = await screen.findByText(/Character details/g);
+    const characterCardTitle = await screen.findByText(/Character details/);
     expect(characterCardTitle).toBeInTheDocument;
     const characterName = await screen.findByText(
       mockUseGetCharacterQuery.data.attributes.name
