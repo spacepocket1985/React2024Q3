@@ -1,7 +1,20 @@
 .themeWrapper {
+  position: absolute;
+  right:5rem;
+  top:.3rem;
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  border-radius: .7rem;
+  background-color: var(--switcher-color);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all .3s;
+
+}
+
+.themeWrapper:hover {
+  transform: scale(1.05);
 }
 
 .themeWrapper button {

@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { Outlet, useSearchParams } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '../hooks/storeHooks';
 import { useGetAllCharactersQuery } from '../store/slices/apiSlice';
@@ -55,6 +55,7 @@ export const SearchPage = (): JSX.Element => {
       {charactersList[Number(cardDetails) - 1] && cardDetails && (
         <CardDetails />
       )}
+      <Outlet />
     </div>
   );
 };
