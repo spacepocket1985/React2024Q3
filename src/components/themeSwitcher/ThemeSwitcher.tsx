@@ -12,6 +12,7 @@ export const ThemeSwitcher = (): JSX.Element => {
           theme === 'light' ? `${styles.btnLight}` : `${styles.btnDark}`
         }
       ></button>
+      <h2>{theme === 'light' ? 'light' : 'dark'}</h2>
     </div>
   );
 };
