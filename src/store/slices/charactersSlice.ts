@@ -16,6 +16,12 @@ const charactersSlice = createSlice({
   reducers: {
     setCharacters: (state, action: PayloadAction<TransformCharacterType[]>) => {
       state.characterList = action.payload;
+      state.characterList = state.characterList.map((character) => {
+        const isSelected = state.selectedChacharacters.some(
+          (selected) => selected.id === character.id
+        );
+        return { ...character, isSelected };
+      });
     },
     selectCharacter: (state, action: PayloadAction<string>) => {
       const indexForUpdate = state.characterList.findIndex(
