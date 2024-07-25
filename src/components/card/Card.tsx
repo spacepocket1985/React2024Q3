@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { setCardDetails } from '../../store/slices/appDataSlice';
 import { CardCheckBox } from '../cardCheckBox/CardCheckBox';
 import { CardPropsType } from '../../types';
-import styles from './Card.module.css';
+import styles from '../../styles/Card.module.css';
 
 export const Card = (props: CardPropsType): JSX.Element => {
   const [ref, setRef] = useState<React.RefObject<HTMLInputElement> | null>(

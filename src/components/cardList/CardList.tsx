@@ -4,7 +4,7 @@ import { Card } from '../card/Card';
 import { CardInformer } from '../cardInformer/CardInformer';
 import { Spinner } from '../spinner/Spinner';
 
-import styles from './CardList.module.css';
+import styles from '../../styles/CardList.module.css';
 
 export const CardList = (): JSX.Element => {
   const results = useAppSelector((state) => state.characters.characterList);

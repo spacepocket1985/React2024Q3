@@ -7,7 +7,7 @@ import {
 } from '../../store/slices/charactersSlice';
 useAppDispatch;
 import { TransformCharacterType } from '../../types';
-import styles from './CardCheckBox.module.css';
+import styles from '../../styles/CardCheckBox.module.css';
 
 type CardCheckBoxPropsType = {
   character: TransformCharacterType;

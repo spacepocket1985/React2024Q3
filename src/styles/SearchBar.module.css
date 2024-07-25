@@ -8,6 +8,7 @@
 
 .searhWrapper img {
   max-width: 15rem;
+  height: auto;
 }
 
 .searhWrapper form {

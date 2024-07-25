@@ -3,21 +3,6 @@
   position: relative;
 }
 
-/* .wrapper input[type='checkbox'] {
-  position: absolute;
-  top: .3rem;
-  right: .3rem;
-  
-  width: 2rem;
-  height: 2rem;
-  border: .2rem solid var(--secondary-color);
-  border-radius: .3rem;
-  cursor: pointer;
-}
-
-.wrapper input[type='checkbox']:checked {
-  background-color: var(--third-color);
-} */
 
 .cardCheckBox {
   display: block;
@@ -35,13 +20,13 @@
   vertical-align: top;
   outline: none;
   transition: background 0.3s ease;
-  background: url(./checkbox1.png) 0 0 no-repeat;
+  background: url(../assets/checkbox1.png) 0 0 no-repeat;
   background-size: contain;
   cursor: pointer;
 }
 
 .cardCheckBox input[type='checkbox']:checked {
-  background-image: url(./checkbox2.png);
+  background-image: url(../assets/checkbox2.png);
 }
 
 .focused input[type='checkbox'] {

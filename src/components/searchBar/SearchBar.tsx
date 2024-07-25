@@ -1,10 +1,11 @@
+import Image from 'next/image';
+
 import { useAppDispatch, useAppSelector } from '../../hooks/storeHooks';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
-
 import { setFilterWord } from '../../store/slices/appDataSlice';
 
-import HarryPotterImg from './harry_potter.png';
-import styles from './SearchBar.module.css';
+import HarryPotterImg from '../../assets/harry_potter.png';
+import styles from '../../styles/SearchBar.module.css';
 
 export const SearchBar = (): JSX.Element => {
   const dispatch = useAppDispatch();
@@ -22,7 +23,7 @@ export const SearchBar = (): JSX.Element => {
 
   return (
     <div className={styles.searhWrapper}>
-      <img src={HarryPotterImg} alt="Harry Potter image" />
+      <Image src={HarryPotterImg} alt="Harry Potter image" priority/>
       <form>
         <input
           type="text"

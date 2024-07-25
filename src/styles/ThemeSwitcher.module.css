@@ -27,9 +27,9 @@
 }
 
 .btnLight {
-  background-image: url('../../assets/theme-light.png');
+  background-image: url('../assets/theme-light.png');
 }
 
 .btnDark {
-  background-image: url('../../assets/theme-dark.png');
+  background-image: url('../assets/theme-dark.png');
 }

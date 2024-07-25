@@ -1,10 +1,11 @@
 import { useEffect, useState, useRef } from 'react';
+import Image from 'next/image';
 import { useAppSelector, useAppDispatch } from '../../hooks/storeHooks';
 import {
   removeAllSelectedChars,
   unSelectAllCharacters,
 } from '../../store/slices/charactersSlice';
-import styles from './CardInformer.module.css';
+import styles from '../../styles/CardInformer.module.css';
 import InformerImg from '../../assets/informer.png';
 export const CardInformer = (): JSX.Element => {
   const selectedCards = useAppSelector(
@@ -86,7 +87,7 @@ export const CardInformer = (): JSX.Element => {
     <div className={styles.informweWrapper}>
       <div className={informerClass}>
         <div className={styles.informerLIne}>
-          <img src={InformerImg} alt="" />
+          <Image src={InformerImg} alt="" />
           <span>{`Selected - ${selectedCards.length} cards`}</span>
         </div>
       </div>

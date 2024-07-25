@@ -55,7 +55,7 @@ function transformCharacter(character: CharacterType): TransformCharacterType {
     updatedCharacter.attributes.gender = 'Unknown';
   }
   if (character.attributes.image === null) {
-    updatedCharacter.attributes.image = NoImage;
+    updatedCharacter.attributes.image = NoImage.src;
   }
   return updatedCharacter;
 }

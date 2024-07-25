@@ -1,7 +1,7 @@
 import { useAppSelector, useAppDispatch } from '../../hooks/storeHooks';
 
 import { setCurrentPage } from '../../store/slices/appDataSlice';
-import styles from './Pagination.module.css';
+import styles from '../../styles/Pagination.module.css';
 
 export const Pagination = (): JSX.Element => {
   const { prev, next, current } = useAppSelector(

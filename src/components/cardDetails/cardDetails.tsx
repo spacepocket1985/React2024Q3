@@ -2,12 +2,13 @@ import { ErrorMessage } from '../errorMessage/ErrorMessage';
 import { Spinner } from '../spinner/Spinner';
 
 import { TransformCharacterType } from '../../types';
-import styles from './cardDetails.module.css';
 import { useGetCharacterQuery } from '../../store/slices/apiSlice';
 import { useAppSelector } from '../../hooks/storeHooks';
 import { useDispatch } from 'react-redux';
 import { setCardDetails } from '../../store/slices/appDataSlice';
 import { CardCheckBox } from '../cardCheckBox/CardCheckBox';
+
+import styles from '../../styles/cardDetails.module.css';
 
 export const CardDetails = (): JSX.Element => {
   const dispatch = useDispatch();
