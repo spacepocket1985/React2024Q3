@@ -9,8 +9,6 @@ import { store } from '../store/store';
 
 import '../styles/globals.css';
 
-
-
 const MyApp = ({ Component, pageProps }: AppProps): React.JSX.Element => {
   return (
     <ErrorBoundary>

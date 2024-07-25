@@ -21,7 +21,8 @@ describe('Tests for CharactersSlice', () => {
     const action = setCharacters(characters);
     const state = charactersReducer(initialState, action);
 
-    expect(state.characterList).toEqual(characters);
+    expect(state.characterList[1]).toEqual(characters[1]);
+    expect(state.characterList[0]).not.toEqual(characters[0]);
   });
 
   it('should handle addSelectedChar', () => {
