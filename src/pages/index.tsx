@@ -6,46 +6,68 @@ import { SearchBar } from '../components/searchBar/SearchBar';
 import { Pagination } from '../components/pagination/Pagination';
 import { CardDetails } from '../components/cardDetails/cardDetails';
 
-import { setCharacters } from '../store/slices/charactersSlice';
-import {
-  setCardDetails,
-  setFilterWord,
-  setLoading,
-  setPagination,
-} from '../store/slices/appDataSlice';
-import { useGetAllCharactersQuery } from '../store/slices/apiSlice';
-import { useAppDispatch, useAppSelector } from '../hooks/storeHooks';
+import { getAllCharacters } from '../store/slices/apiSlice';
 import { ThemeSwitcher } from '../components/themeSwitcher/ThemeSwitcher';
 import { useTheme } from '../context/ThemeContext';
-import { GetServerSideProps } from 'next';
+import { wrapper } from '../store/store';
+import { transformApiResponseType } from '../types';
 
-const SearchPage = (): JSX.Element => {
+export const getServerSideProps = wrapper.getServerSideProps(
+  (store) => async (context) => {
+    const pageNum = context.query.pageNumber?.toString() || '1';
+    const filter = context.query.filter?.toString() || '';
+    const details = context.query.details?.toString() || '';
+    console.log('context.query ',context.query)
+    const response = await store.dispatch(
+      getAllCharacters.initiate({
+        pageNum,
+        filter
+      })
+    );
+    // const detailsResponse = details
+    //   ? await store.dispatch(
+    //       searchByValue.initiate({
+    //         pageNumber: 0,
+    //         pageSize: 1,
+    //         details: details,
+    //       })
+    //     )
+    //   : null;
+
+
+    return {
+      props: { response, details, pageNum, filter},
+    };
+  }
+);
+
+type SearchPagePropsType = {
+  response: {data:transformApiResponseType} ;
+  details: string;
+  filter: string;
+  pageNum: string;
+}
+
+
+const SearchPage = (props:SearchPagePropsType): JSX.Element => {
+  console.log('Sp Props ', props)
+  const {response, details,filter,pageNum} = props
   const router = useRouter();
-  const dispatch = useAppDispatch();
 
   const { theme } = useTheme();
 
-  const filter = useAppSelector((state) => state.appData.filterWord);
-  const cardDetails = useAppSelector((state) => state.appData.cardDetails);
-  const charactersList = useAppSelector(
-    (state) => state.characters.characterList
-  );
-   const pageNum = String(
-     useAppSelector((state) => state.appData.pagination.current)
-   );
 
-  const { data: results, isFetching } = useGetAllCharactersQuery({
-    pageNum,
-    filter,
-  });
 
-  useEffect(() => {
-    dispatch(setLoading(isFetching));
-    if (!isFetching && results) {
-      dispatch(setCharacters(results.сharacters));
-      dispatch(setPagination(results.pagination));
-    }
-  }, [results, isFetching, dispatch]);
+  // useEffect(() => {
+  //   dispatch(setLoading(isFetching));
+  //   if (!isFetching && results) {
+  //     dispatch(setCharacters(results.сharacters));
+  //     dispatch(setPagination(results.pagination));
+  //   }
+  // }, [results, isFetching, dispatch]);
+
+
+
 
   // useEffect(() => {
 
@@ -74,43 +96,24 @@ const SearchPage = (): JSX.Element => {
     const query = {
       filter,
       pageNumber: String(pageNum),
-      details: charactersList[Number(cardDetails)] ? cardDetails : '',
+      details: response.data.сharacters[Number(details)] ? details : '',
     };
     if (JSON.stringify(router.query) !== JSON.stringify(query)) {
       router.push({ pathname: '/', query }, undefined, { shallow: true });
     }
-  }, [filter, pageNum, cardDetails, charactersList, router]);
+  }, [filter, pageNum, details, response.data.сharacters, router]);
 
   return (
     <div className={`${theme} base`}>
       <ThemeSwitcher />
 
       <SearchBar />
-      <Pagination />
-      <CardList />
-      {charactersList[Number(cardDetails) - 1] && cardDetails && <CardDetails />}
+      {/* <Pagination pagination={response.pagination}/> */}
+      <CardList сharacters={response.data.сharacters}/>
+      {/* {response.сharacters[Number(details) - 1] && details && <CardDetails />} */}
     </div>
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { query } = context;
-
-  // Создаем экземпляр URLSearchParams
-  const searchParams = new URLSearchParams();
-  Object.entries(query).forEach(([key, value]) => {
-    // Добавляем параметры запроса в URLSearchParams
-    searchParams.append(key, Array.isArray(value) ? value[0] : value || '');
-  });
-
-  // Извлекаем параметры из URL
-  const pageNum = Number(searchParams.get('pageNumber')) || 1;
-  const details = searchParams.get('details') || '';
-  const filter = searchParams.get('filter') || '';
-
-  return {
-    props: { filter, details, pageNum },
-  };
-};
 
 export default SearchPage;

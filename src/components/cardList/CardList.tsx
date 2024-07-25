@@ -1,18 +1,23 @@
-import { useAppSelector } from '../../hooks/storeHooks';
-
 import { Card } from '../card/Card';
 import { CardInformer } from '../cardInformer/CardInformer';
 import { Spinner } from '../spinner/Spinner';
 
 import styles from '../../styles/CardList.module.css';
+import { TransformCharacterType } from '../../types';
 
-export const CardList = (): JSX.Element => {
-  const results = useAppSelector((state) => state.characters.characterList);
-  const isLoading = useAppSelector((state) => state.appData.isLoading);
+type CardListPropsType = {
+  сharacters: TransformCharacterType[];
+};
+
+export const CardList = (props: CardListPropsType): JSX.Element => {
+  console.log('CardList props - ', props)
+  const { сharacters } = props;
+  //const isLoading = useAppSelector((state) => state.appData.isLoading);
+  const isLoading = false;
 
   const content =
-    results &&
-    results.map((character, index) => (
+    сharacters &&
+    сharacters.map((character, index) => (
       <Card key={character.id} character={character} index={index + 1} />
     ));
 
@@ -26,9 +31,9 @@ export const CardList = (): JSX.Element => {
         </>
       )}
 
-      {!isLoading && results.length === 0 && (
+      {/* {!isLoading && сharacters.length === 0 && (
         <h2>No characters found for your last request!</h2>
-      )}
+      )} */}
     </div>
   );
 };

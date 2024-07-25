@@ -1,24 +1,20 @@
-import React from 'react';
-import { Provider } from 'react-redux';
-import type { AppProps } from 'next/app';
+import React from 'react';  
+import type { AppProps } from 'next/app';  
+import { wrapper } from '../store/store'; 
+import { ThemeProvider } from '../context/ThemeContext';  
+import ErrorBoundary from '../components/errorBoundary/ErrorBoundary';  
 
-import { ThemeProvider } from '../context/ThemeContext';
-import ErrorBoundary from '../components/errorBoundary/ErrorBoundary';
+import '../styles/globals.css';  
 
-import { store } from '../store/store';
 
-import '../styles/globals.css';
+const MyApp = ({ Component, pageProps }: AppProps): React.JSX.Element => {  
+  return (  
+    <ErrorBoundary>  
+      <ThemeProvider>  
+        <Component {...pageProps} />  
+      </ThemeProvider>  
+    </ErrorBoundary>  
+  );  
+};  
 
-const MyApp = ({ Component, pageProps }: AppProps): React.JSX.Element => {
-  return (
-    <ErrorBoundary>
-      <Provider store={store}>
-        <ThemeProvider>
-          <Component {...pageProps} />
-        </ThemeProvider>
-      </Provider>
-    </ErrorBoundary>
-  );
-};
-
-export default MyApp;
+export default wrapper.withRedux(MyApp); 

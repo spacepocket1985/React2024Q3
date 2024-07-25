@@ -1,22 +1,35 @@
-import { configureStore } from '@reduxjs/toolkit';
-import { combineReducers } from 'redux';
+import { configureStore } from '@reduxjs/toolkit';  
+import { combineReducers } from 'redux';  
+import { createWrapper } from 'next-redux-wrapper';  
 
-import charactersReducer from './slices/charactersSlice';
-import appDataReducer from './slices/appDataSlice';
-import { potterDbApiSlice } from './slices/apiSlice';
+import charactersReducer from './slices/charactersSlice';  
+import appDataReducer from './slices/appDataSlice';  
+import { potterDbApiSlice } from './slices/apiSlice';  
 
-export const rootReducer = combineReducers({
-  [potterDbApiSlice.reducerPath]: potterDbApiSlice.reducer,
-  characters: charactersReducer,
-  appData: appDataReducer,
-});
+// Создаем тип для корневого состояния  
+export type RootState = {  
+  [potterDbApiSlice.reducerPath]: ReturnType<typeof potterDbApiSlice.reducer>;  
+  characters: ReturnType<typeof charactersReducer>;  
+  appData: ReturnType<typeof appDataReducer>;  
+};  
 
-export const store = configureStore({
-  reducer: rootReducer,
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(potterDbApiSlice.middleware),
-});
+// Создаем makeStore  
+const makeStore = () => {  
+  const rootReducer = combineReducers({  
+    [potterDbApiSlice.reducerPath]: potterDbApiSlice.reducer,  
+    characters: charactersReducer,  
+    appData: appDataReducer,  
+  });  
 
-export type AppRootState = ReturnType<typeof store.getState>;
-export type AppStore = typeof store;
-export type AppDispatch = typeof store.dispatch;
+  return configureStore({  
+    reducer: rootReducer,  
+    middleware: (getDefaultMiddleware) =>  
+      getDefaultMiddleware().concat(potterDbApiSlice.middleware),  
+  });  
+};  
+
+export type AppStore = ReturnType<typeof makeStore>;
+
+export type AppDispatch = AppStore['dispatch'];
+
+export const wrapper = createWrapper<AppStore>(makeStore);

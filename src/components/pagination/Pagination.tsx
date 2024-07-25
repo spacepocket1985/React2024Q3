@@ -1,12 +1,24 @@
-import { useAppSelector, useAppDispatch } from '../../hooks/storeHooks';
+import { useAppDispatch } from '../../hooks/storeHooks';
 
 import { setCurrentPage } from '../../store/slices/appDataSlice';
 import styles from '../../styles/Pagination.module.css';
 
-export const Pagination = (): JSX.Element => {
-  const { prev, next, current } = useAppSelector(
-    (state) => state.appData.pagination
-  );
+type PaginationPropsType = {
+  pagination: {
+    current: number;
+    first: number;
+    prev: number;
+    next: number;
+    last: number;
+    records: number;
+  };
+};
+
+export const Pagination = (props: PaginationPropsType): JSX.Element => {
+  console.log('Pagination props - ', props)
+  const {
+    pagination: { current, prev, next },
+  } = props;
   const dispatch = useAppDispatch();
   const paginationHandler = (page: number) => {
     dispatch(setCurrentPage(page));
