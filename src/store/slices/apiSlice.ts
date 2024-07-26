@@ -76,4 +76,4 @@ function transformCharacter(character: CharacterType): TransformCharacterType {
 export const { useGetAllCharactersQuery, useGetCharacterQuery } =
   potterDbApiSlice;
 
-  export const { getAllCharacters } = potterDbApiSlice.endpoints; 
+  export const { getAllCharacters, getCharacter } = potterDbApiSlice.endpoints; 

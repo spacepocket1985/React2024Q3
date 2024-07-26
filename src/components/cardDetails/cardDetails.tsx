@@ -2,39 +2,47 @@ import { ErrorMessage } from '../errorMessage/ErrorMessage';
 import { Spinner } from '../spinner/Spinner';
 
 import { TransformCharacterType } from '../../types';
-import { useGetCharacterQuery } from '../../store/slices/apiSlice';
 import { useAppSelector } from '../../hooks/storeHooks';
 import { useDispatch } from 'react-redux';
 import { setCardDetails } from '../../store/slices/appDataSlice';
 import { CardCheckBox } from '../cardCheckBox/CardCheckBox';
 
 import styles from '../../styles/cardDetails.module.css';
+import Image from 'next/image';
 
-export const CardDetails = (): JSX.Element => {
+type CardDetailsPropsType = {
+  character: TransformCharacterType;
+};
+
+export const CardDetails = (props: CardDetailsPropsType): JSX.Element => {
+  const { character } = props;
+
   const dispatch = useDispatch();
-
   const cardDetails = useAppSelector((state) => state.appData.cardDetails);
-  const characterList = useAppSelector(
-    (state) => state.characters.characterList
-  );
+  // const characterList = useAppSelector(
+  //   (state) => state.characters.characterList
+  // );
 
-  const characterId = characterList[Number(cardDetails) - 1].id;
+  // const characterId = characterList[Number(cardDetails) - 1].id;
 
-  const {
-    data: character,
-    isFetching,
-    isError,
-  } = useGetCharacterQuery(characterId);
+  // const {
+  //   data: character,
+  //   isFetching,
+  //   isError,
+  // } = useGetCharacterQuery(characterId);
 
   const handleHideCardDetails = () => {
     dispatch(setCardDetails(''));
   };
 
+  const isFetching = false;
+  const isError = false;
+
   const content = !(isFetching || isError || !character) ? (
     <div>
       <div className={styles.backdrop} onClick={handleHideCardDetails}></div>
       <div className={styles.characterWrapper}>
-        <CardCheckBox character={characterList[Number(cardDetails) - 1]} />
+        <CardCheckBox character={character} />
 
         <button
           className={styles.characterTitleButton}
@@ -51,7 +59,7 @@ export const CardDetails = (): JSX.Element => {
 
   return (
     <div className={styles.cardMainContainer}>
-      {isError && <ErrorMessage errorMsg={isError.toString()} />}
+      {isError && <ErrorMessage errorMsg={'error with fetching character'} />}
       {isFetching && <Spinner />}
       {content}
     </div>
@@ -72,7 +80,7 @@ const View = (props: CharacterViewPropsType) => {
         <h2>Character details - {props.cardDetails}</h2>
       </div>
       <div className={styles.characterImgWrapper}>
-        <img src={image!} alt={name} />
+        <Image src={image!} alt={name} priority />
       </div>
       <div className={styles.characterContentWrapper}>
         <h3 className={styles.characterName}>{name}</h3>
