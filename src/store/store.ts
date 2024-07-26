@@ -6,14 +6,12 @@ import charactersReducer from './slices/charactersSlice';
 import appDataReducer from './slices/appDataSlice';  
 import { potterDbApiSlice } from './slices/apiSlice';  
 
-// Создаем тип для корневого состояния  
 export type RootState = {  
   [potterDbApiSlice.reducerPath]: ReturnType<typeof potterDbApiSlice.reducer>;  
   characters: ReturnType<typeof charactersReducer>;  
   appData: ReturnType<typeof appDataReducer>;  
 };  
 
-// Создаем makeStore  
 const makeStore = () => {  
   const rootReducer = combineReducers({  
     [potterDbApiSlice.reducerPath]: potterDbApiSlice.reducer,  
@@ -28,8 +26,8 @@ const makeStore = () => {
   });  
 };  
 
-export type AppStore = ReturnType<typeof makeStore>;
+export type AppStore = ReturnType<typeof makeStore>;  
 
-export type AppDispatch = AppStore['dispatch'];
+export type AppDispatch = AppStore['dispatch'];  
 
 export const wrapper = createWrapper<AppStore>(makeStore);

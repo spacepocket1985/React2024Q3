@@ -1,13 +1,12 @@
 import React from 'react';  
 import type { AppProps } from 'next/app';  
-import { wrapper } from '../store/store'; 
+import { wrapper } from '../store/store';   
 import { ThemeProvider } from '../context/ThemeContext';  
 import ErrorBoundary from '../components/errorBoundary/ErrorBoundary';  
-
 import '../styles/globals.css';  
 
-
 const MyApp = ({ Component, pageProps }: AppProps): React.JSX.Element => {  
+  
   return (  
     <ErrorBoundary>  
       <ThemeProvider>  
@@ -17,4 +16,4 @@ const MyApp = ({ Component, pageProps }: AppProps): React.JSX.Element => {
   );  
 };  
 
-export default wrapper.withRedux(MyApp); 
+export default wrapper.withRedux(MyApp);
