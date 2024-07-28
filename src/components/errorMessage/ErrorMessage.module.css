@@ -1,0 +1,20 @@
+.errorImg {
+  display: block;
+  width: 25rem;
+  height: 19.3rem;
+  object-fit: contain;
+  margin: 0 auto;
+}
+
+.errorTitle {
+  font-size: 2.5rem;
+}
+
+.errorInfo {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #ff4500;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  border: 0.2rem dotted #202329;
+}
