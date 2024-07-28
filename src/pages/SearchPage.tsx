@@ -18,9 +18,14 @@ import { transformApiResponseType, TransformCharacterType } from '../types';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { SerializedError } from '@reduxjs/toolkit';
 import { ErrorMessage } from '../components/errorMessage/ErrorMessage';
-import { useAppDispatch } from '../hooks/storeHooks';
-import { setCardDetails } from '../store/slices/appDataSlice';
+import { useAppDispatch, useAppSelector } from '../hooks/storeHooks';
+import {
+  setFilterWord,
+  setLoading,
+  setPagination,
+} from '../store/slices/appDataSlice';
 import { setCharacters } from '../store/slices/charactersSlice';
+import { Spinner } from '../components/spinner/Spinner';
 
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
@@ -72,75 +77,72 @@ type SearchPagePropsType = {
 };
 
 const SearchPage = (props: SearchPagePropsType): JSX.Element => {
-  console.log('Sp Props ', props);
-  const { response, details, filter, pageNum, responseWithDetails } = props;
+  
+  const { response, details, filter, responseWithDetails } = props;
+
   const router = useRouter();
 
   const { theme } = useTheme();
   const dispatch = useAppDispatch();
 
-  // useEffect(() => {
-  //   dispatch(setLoading(isFetching));
-  //   if (!isFetching && results) {
-  //     dispatch(setCharacters(results.сharacters));
-  //     dispatch(setPagination(results.pagination));
-  //   }
-  // }, [results, isFetching, dispatch]);
+  const filterWord = useAppSelector((state) => state.appData.filterWord);
+  const isLoading = useAppSelector((state) => state.appData.isLoading);
+  const currentPageNum = String(
+    useAppSelector((state) => state.appData.pagination.current)
+  );
+  const cardDetails = useAppSelector((state) => state.appData.cardDetails);
+
 
   useEffect(() => {
-    const url = new URL(window.location.href);
-    const searchParams = url.searchParams;
+    let filterSearchParam = '';
 
-    //   const filterWord = searchParams.get('filter') || '';
-    const cardDetails = searchParams.get('details') || '';
-
-    //   if (typeof window !== 'undefined') {
-    //     const storageKey = 'searchTermForHarryPotterDB';
-    //     const filterSearchParam = localStorage.getItem(storageKey) || '';
-    //     dispatch(setFilterWord(filterSearchParam));
-    //   }
-
-    //   if (filterWord) {
-    //     dispatch(setFilterWord(filterWord));
-    //   }
-
-    if (cardDetails) {
-      dispatch(setCardDetails(cardDetails));
+    if (typeof window !== 'undefined') {
+      const storageKey = 'searchTermForHarryPotterDB';
+      filterSearchParam = localStorage.getItem(storageKey) || '';
+      dispatch(setFilterWord( filterSearchParam));    
     }
-  }, [dispatch]);
+    
+    dispatch(setFilterWord(filter || filterSearchParam || ''));
+    dispatch(setLoading(false));
+    dispatch(setPagination(response.data.pagination));
+  }, [dispatch, filter, response.data.pagination]);
 
   useEffect(() => {
-    if (response.data && response.data.сharacters) {
+    if (!isLoading && response.data && response.data.сharacters) {
+      
+      
       const query = {
-        filter,
-        pageNumber: String(pageNum),
-        details: response.data.сharacters[Number(details)] ? details : '',
+        filter: filterWord,
+        pageNumber: currentPageNum,
+        details:  cardDetails ,
       };
+
       dispatch(setCharacters(response.data.сharacters));
       if (JSON.stringify(router.query) !== JSON.stringify(query)) {
-        router.push({ pathname: '/SearchPage', query }, undefined, {
-          shallow: true,
-        });
+        router.push({ pathname: '/SearchPage', query });
       }
     }
-  }, [filter, pageNum, details, response.data, router]);
+  }, [filter, details, response.data, router, dispatch, filterWord, isLoading, currentPageNum, cardDetails]);
   const errorMsg = response.error ? (
     <ErrorMessage errorMsg={JSON.stringify(response.error)} />
   ) : null;
-  const content = !errorMsg ? (
+  const content = !(errorMsg || isLoading) ? (
     <>
       <Pagination pagination={response.data.pagination}></Pagination>
       <CardList сharacters={response.data.сharacters} />
-      {response.data.сharacters[Number(details) - 1] && details && (
+      {responseWithDetails?.data && cardDetails && (
         <CardDetails character={responseWithDetails.data} />
       )}
     </>
   ) : null;
+
+  const loading = isLoading ? <Spinner /> : null;
   return (
     <div className={`${theme} base`}>
       <ThemeSwitcher />
       <SearchBar />
       {errorMsg}
+      {loading}
       {content}
     </div>
   );

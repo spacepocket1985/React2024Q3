@@ -8,13 +8,14 @@ import { setCardDetails } from '../../store/slices/appDataSlice';
 import { CardCheckBox } from '../cardCheckBox/CardCheckBox';
 
 import styles from '../../styles/cardDetails.module.css';
-import Image from 'next/image';
+
 
 type CardDetailsPropsType = {
   character: TransformCharacterType;
 };
 
 export const CardDetails = (props: CardDetailsPropsType): JSX.Element => {
+  console.log('CardDetails props ', props)
   const { character } = props;
 
   const dispatch = useDispatch();
@@ -80,7 +81,7 @@ const View = (props: CharacterViewPropsType) => {
         <h2>Character details - {props.cardDetails}</h2>
       </div>
       <div className={styles.characterImgWrapper}>
-        <Image src={image!} alt={name} priority />
+        <img src={image!} alt={name}  className={styles.cardImage}/>
       </div>
       <div className={styles.characterContentWrapper}>
         <h3 className={styles.characterName}>{name}</h3>

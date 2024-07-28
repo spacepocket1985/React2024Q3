@@ -20,7 +20,7 @@ export const Card = (props: CardPropsType): JSX.Element => {
 
   const handleCardClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target !== ref!.current)
-      dispatch(setCardDetails(String(props.index)));
+      dispatch(setCardDetails(String(props.index-1)));
   };
 
   return (

@@ -15,7 +15,7 @@ type PaginationPropsType = {
 };
 
 export const Pagination = (props: PaginationPropsType): JSX.Element => {
-  console.log('Pagination props - ', props)
+
   const {
     pagination: { current, prev, next },
   } = props;

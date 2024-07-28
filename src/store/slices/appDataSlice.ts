@@ -29,7 +29,7 @@ const initialState: AppDataStateType = {
     last: 1,  
     records: 0,  
   },  
-  isLoading: false,  
+  isLoading: true,  
 };  
 
 const appDataSlice = createSlice({  
