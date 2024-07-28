@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { useAppDispatch } from '../../hooks/storeHooks';
+import { useAppDispatch, useAppSelector } from '../../hooks/storeHooks';
 import {
   addSelectedChar,
   removeSelectedChar,
@@ -17,6 +17,14 @@ type CardCheckBoxPropsType = {
 export const CardCheckBox = (props: CardCheckBoxPropsType): JSX.Element => {
   const checkboxRef = useRef<HTMLInputElement>(null);
   const { character, onRefChange } = props;
+
+  const selectedChacharacters = useAppSelector(  
+    (state) => state.characters.selectedChacharacters as TransformCharacterType[] 
+  ); 
+
+  const isSelected = selectedChacharacters.some(
+    (item) => item.id === character.id
+  );
 
   useEffect(() => {
     if (onRefChange) onRefChange(checkboxRef);
@@ -38,7 +46,7 @@ export const CardCheckBox = (props: CardCheckBoxPropsType): JSX.Element => {
           type="checkbox"
           ref={checkboxRef}
           onChange={handleCheckboxChange}
-          checked={props.character.isSelected}
+          checked={isSelected}
         />
       </label>
     </div>

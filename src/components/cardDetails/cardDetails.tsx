@@ -9,28 +9,16 @@ import { CardCheckBox } from '../cardCheckBox/CardCheckBox';
 
 import styles from '../../styles/cardDetails.module.css';
 
-
 type CardDetailsPropsType = {
   character: TransformCharacterType;
 };
 
 export const CardDetails = (props: CardDetailsPropsType): JSX.Element => {
-  console.log('CardDetails props ', props)
+
   const { character } = props;
 
   const dispatch = useDispatch();
   const cardDetails = useAppSelector((state) => state.appData.cardDetails);
-  // const characterList = useAppSelector(
-  //   (state) => state.characters.characterList
-  // );
-
-  // const characterId = characterList[Number(cardDetails) - 1].id;
-
-  // const {
-  //   data: character,
-  //   isFetching,
-  //   isError,
-  // } = useGetCharacterQuery(characterId);
 
   const handleHideCardDetails = () => {
     dispatch(setCardDetails(''));
@@ -78,10 +66,10 @@ const View = (props: CharacterViewPropsType) => {
   return (
     <>
       <div className={styles.characterTitle}>
-        <h2>Character details - {props.cardDetails}</h2>
+        <h2>Character details - {Number(props.cardDetails) +1}</h2>
       </div>
       <div className={styles.characterImgWrapper}>
-        <img src={image!} alt={name}  className={styles.cardImage}/>
+        <img src={image!} alt={name} className={styles.cardImage} />
       </div>
       <div className={styles.characterContentWrapper}>
         <h3 className={styles.characterName}>{name}</h3>
