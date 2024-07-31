@@ -19,13 +19,8 @@ import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { SerializedError } from '@reduxjs/toolkit';
 import { ErrorMessage } from '../components/errorMessage/ErrorMessage';
 import { useAppDispatch, useAppSelector } from '../hooks/storeHooks';
-import {
-  setFilterWord,
-  setLoading,
-  setPagination,
-} from '../store/slices/appDataSlice';
+import { setLoading } from '../store/slices/appDataSlice';
 import { setCharacters } from '../store/slices/charactersSlice';
-import { Spinner } from '../components/spinner/Spinner';
 
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
@@ -63,13 +58,13 @@ export const getServerSideProps = wrapper.getServerSideProps(
   }
 );
 
-type SearchPagePropsType = {
+export type SearchPagePropsType = {
   response: {
     data: transformApiResponseType;
-    error: FetchBaseQueryError | SerializedError;
+    error: FetchBaseQueryError | SerializedError | null;
   };
   responseWithDetails: {
-    data: TransformCharacterType;
+    data: TransformCharacterType | null;
   };
   details: string;
   filter: string;
@@ -77,7 +72,6 @@ type SearchPagePropsType = {
 };
 
 const SearchPage = (props: SearchPagePropsType): JSX.Element => {
-  
   const { response, details, filter, responseWithDetails } = props;
 
   const router = useRouter();
@@ -86,7 +80,7 @@ const SearchPage = (props: SearchPagePropsType): JSX.Element => {
   const dispatch = useAppDispatch();
 
   const filterWord = useAppSelector((state) => state.appData.filterWord);
-  const isLoading = useAppSelector((state) => state.appData.isLoading);
+
   const currentPageNum = String(
     useAppSelector((state) => state.appData.pagination.current)
   );
@@ -94,39 +88,32 @@ const SearchPage = (props: SearchPagePropsType): JSX.Element => {
 
 
   useEffect(() => {
-    let filterSearchParam = '';
-
-    if (typeof window !== 'undefined') {
-      const storageKey = 'searchTermForHarryPotterDB';
-      filterSearchParam = localStorage.getItem(storageKey) || '';
-      dispatch(setFilterWord( filterSearchParam));    
-    }
-    
-    dispatch(setFilterWord(filter || filterSearchParam || ''));
-    dispatch(setLoading(false));
-    dispatch(setPagination(response.data.pagination));
-  }, [dispatch, filter, response.data.pagination]);
-
-  useEffect(() => {
-    if (!isLoading && response.data && response.data.сharacters) {
-      
-      
+    if (response.data && response.data.сharacters) {
+      dispatch(setLoading(false));
       const query = {
         filter: filterWord,
         pageNumber: currentPageNum,
-        details:  cardDetails ,
+        details: cardDetails,
       };
-
       dispatch(setCharacters(response.data.сharacters));
       if (JSON.stringify(router.query) !== JSON.stringify(query)) {
         router.push({ pathname: '/SearchPage', query });
       }
     }
-  }, [filter, details, response.data, router, dispatch, filterWord, isLoading, currentPageNum, cardDetails]);
+  }, [
+    filter,
+    details,
+    response.data,
+    router,
+    dispatch,
+    filterWord,
+    currentPageNum,
+    cardDetails,
+  ]);
   const errorMsg = response.error ? (
     <ErrorMessage errorMsg={JSON.stringify(response.error)} />
   ) : null;
-  const content = !(errorMsg || isLoading) ? (
+  const content = !errorMsg ? (
     <>
       <Pagination pagination={response.data.pagination}></Pagination>
       <CardList сharacters={response.data.сharacters} />
@@ -136,13 +123,11 @@ const SearchPage = (props: SearchPagePropsType): JSX.Element => {
     </>
   ) : null;
 
-  const loading = isLoading ? <Spinner /> : null;
   return (
     <div className={`${theme} base`}>
       <ThemeSwitcher />
       <SearchBar />
       {errorMsg}
-      {loading}
       {content}
     </div>
   );

@@ -1,4 +1,9 @@
-export async function getServerSideProps() {
+export async function getServerSideProps(): Promise<{
+  redirect: {
+      destination: string;
+      permanent: boolean;
+  };
+}> {
   return {
     redirect: {
       destination: '/SearchPage',
@@ -7,6 +12,6 @@ export async function getServerSideProps() {
   };
 }
 
-export default function Home() {
+export default function Home(): null {
   return null;
 }

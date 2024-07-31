@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { ErrorMessage } from '../errorMessage/ErrorMessage';
 import { Spinner } from '../spinner/Spinner';
 
@@ -69,7 +70,7 @@ const View = (props: CharacterViewPropsType) => {
         <h2>Character details - {Number(props.cardDetails) +1}</h2>
       </div>
       <div className={styles.characterImgWrapper}>
-        <img src={image!} alt={name} className={styles.cardImage} />
+        <Image src={image!} alt={name} width={100} height={100} className={styles.cardImage} />
       </div>
       <div className={styles.characterContentWrapper}>
         <h3 className={styles.characterName}>{name}</h3>

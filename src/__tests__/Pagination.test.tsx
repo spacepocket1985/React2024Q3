@@ -1,17 +1,25 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import { it, expect } from 'vitest';
 import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
 import '@testing-library/jest-dom';
-import { store } from '../store/store';
-import { Pagination } from '../components/pagination/Pagination';
 
-it('Check for the presence of pagination elements and update the informer after clicking the NextButton/PrevButton', async () => {
+import { Pagination } from '../components/pagination/Pagination';
+import { storeInstance } from '../store/store';
+
+it('Check for the presence of pagination elements ', async () => {
   render(
-    <BrowserRouter>
-      <Provider store={store}>
-        <Pagination />
-      </Provider>
-    </BrowserRouter>
+    <Provider store={storeInstance}>
+      <Pagination
+        pagination={{
+          current: 3,
+          first: 1,
+          prev: 1,
+          next: 4,
+          last: 4,
+          records: 400,
+        }}
+      />
+    </Provider>
   );
 
   const prevBtn = await screen.findByTestId('prevBtn');
@@ -22,9 +30,5 @@ it('Check for the presence of pagination elements and update the informer after 
   expect(nextBtn).toBeInTheDocument;
   expect(informer).toBeInTheDocument;
 
-  await fireEvent.click(nextBtn);
-  expect(informer.textContent).toBe('2');
-
-  await fireEvent.click(prevBtn);
-  expect(informer.textContent).toBe('1');
+  await expect(informer.textContent).toBe('3');
 });

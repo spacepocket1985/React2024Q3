@@ -1,4 +1,5 @@
 import { render, screen, fireEvent } from '@testing-library/react';
+import { describe, expect, it } from 'vitest';
 import '@testing-library/jest-dom';
 import { ThemeProvider } from '../context/ThemeContext';
 import { ThemeSwitcher } from '../components/themeSwitcher/ThemeSwitcher';

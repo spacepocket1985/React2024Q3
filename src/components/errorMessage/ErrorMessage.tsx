@@ -8,7 +8,7 @@ export const ErrorMessage = (props: ErrorMsgPropsType): JSX.Element => {
   return (
     <div data-testid="errorMessage">
       <h2 className={styles.errorTitle}>Error message</h2>
-      <Image className={styles.errorImg} src={errorImg} alt="Error" priority/>
+      <Image className={styles.errorImg} src={errorImg} alt="Error" width={100} height={100} priority/>
       <p className={styles.errorInfo}>{props.errorMsg}</p>
     </div>
   );

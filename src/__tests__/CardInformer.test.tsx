@@ -1,6 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react';
+import { describe, it, expect, vitest } from 'vitest';
 import configureMockStore from 'redux-mock-store';
-import { MemoryRouter as Router } from 'react-router-dom';
+
 import '@testing-library/jest-dom';
 
 import { mockInitialState } from './mocks/mocksData';
@@ -13,11 +14,9 @@ describe('Tests for the CardInformer component', () => {
 
   it('Checks that the component is rendered when there are cards selected', async () => {
     render(
-      <Router>
-        <Provider store={mockDataStore}>
-          <CardInformer />
-        </Provider>
-      </Router>
+      <Provider store={mockDataStore}>
+        <CardInformer />
+      </Provider>
     );
     const textInformer = await screen.getByText(
       `Selected - ${mockInitialState.characters.selectedChacharacters.length} cards`
@@ -35,11 +34,9 @@ describe('Tests for the CardInformer component', () => {
     HTMLAnchorElement.prototype.click = vitest.fn();
 
     render(
-      <Router>
-        <Provider store={mockDataStore}>
-          <CardInformer />
-        </Provider>
-      </Router>
+      <Provider store={mockDataStore}>
+        <CardInformer />
+      </Provider>
     );
 
     const downloadButton = await screen.findByText('Download');

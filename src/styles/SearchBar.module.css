@@ -6,9 +6,9 @@
   align-items: center;
 }
 
-.searhWrapper img {
-  max-width: 15rem;
-  height: auto;
+.searhWrapperImg {
+  max-width: 100%;
+  height: 100%;
 }
 
 .searhWrapper form {

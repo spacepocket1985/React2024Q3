@@ -1,6 +1,7 @@
 import { render } from '@testing-library/react';
 import { ErrorMsgPropsType } from '../types';
 import { ErrorMessage } from '../components/errorMessage/ErrorMessage';
+import { expect, test } from 'vitest';
 
 const mockProps: ErrorMsgPropsType = {
   errorMsg: 'An error occurred while loading data.',

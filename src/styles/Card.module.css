@@ -22,7 +22,7 @@
   height: 20rem;
   border-bottom: 0.4rem solid var(--third-color);
 }
-.characterImgWrapper img {
+.characterImg {
   width: 100%;
   height: 100%;
   transition: opacity 0.5s ease 0s;

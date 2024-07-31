@@ -4,16 +4,16 @@ import { Spinner } from '../spinner/Spinner';
 
 import styles from '../../styles/CardList.module.css';
 import { TransformCharacterType } from '../../types';
+import { useAppSelector } from '../../hooks/storeHooks';
 
 type CardListPropsType = {
   сharacters: TransformCharacterType[];
 };
 
 export const CardList = (props: CardListPropsType): JSX.Element => {
-  console.log('CardList props - ', props)
   const { сharacters } = props;
-  //const isLoading = useAppSelector((state) => state.appData.isLoading);
-  const isLoading = false;
+
+  const isLoading = useAppSelector((state) => state.appData.isLoading);
 
   const content =
     сharacters &&
@@ -28,12 +28,11 @@ export const CardList = (props: CardListPropsType): JSX.Element => {
         <>
           {content}
           <CardInformer />
+          {!isLoading && сharacters.length === 0 && (
+            <h2>No characters found for your last request!</h2>
+          )}
         </>
       )}
-
-      {/* {!isLoading && сharacters.length === 0 && (
-        <h2>No characters found for your last request!</h2>
-      )} */}
     </div>
   );
 };

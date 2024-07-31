@@ -7,8 +7,9 @@ import {
 } from '../../store/slices/charactersSlice';
 import styles from '../../styles/CardInformer.module.css';
 import InformerImg from '../../assets/informer.png';
+import { TransformCharacterType } from '../../types';
 export const CardInformer = (): JSX.Element => {
-  const selectedCards = useAppSelector(
+  const selectedCards: Array<TransformCharacterType> = useAppSelector(
     (state) => state.characters.selectedChacharacters
   );
 
@@ -87,7 +88,7 @@ export const CardInformer = (): JSX.Element => {
     <div className={styles.informweWrapper}>
       <div className={informerClass}>
         <div className={styles.informerLIne}>
-          <Image src={InformerImg} alt="" />
+          <Image src={InformerImg} alt="" width={50} height={50}/>
           <span>{`Selected - ${selectedCards.length} cards`}</span>
         </div>
       </div>

@@ -19,6 +19,10 @@
   gap: 1rem;
 }
 
+.informeImg {
+  width: 5rem;
+  height: 5rem;
+}
 @keyframes informweWrapper-appear {
   from {
     opacity: 0;

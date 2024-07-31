@@ -23,7 +23,15 @@ export const SearchBar = (): JSX.Element => {
 
   return (
     <div className={styles.searhWrapper}>
-      <Image src={HarryPotterImg} alt="Harry Potter image" priority/>
+      <Image
+        src={HarryPotterImg}
+        alt="Harry Potter image"
+        className={styles.searhWrapperImg}
+        priority
+        height={135}
+        width={250}
+     
+      />
       <form>
         <input
           type="text"
