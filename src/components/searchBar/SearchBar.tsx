@@ -1,3 +1,4 @@
+"use client"
 import Image from 'next/image';
 
 import { useAppDispatch, useAppSelector } from '../../hooks/storeHooks';
@@ -45,7 +46,6 @@ export const SearchBar = (): JSX.Element => {
           onClick={(event) => {
             onSubmitHandler(event);
           }}
-          disabled={isLoading}
         >
           Search
         </button>

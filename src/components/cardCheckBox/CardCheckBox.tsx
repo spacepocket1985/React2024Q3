@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useRef } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/storeHooks';
 import {

@@ -1,3 +1,5 @@
+"use client"
+
 import { Component, ReactNode } from 'react';  
 import Link from 'next/link';  
 import { ErrorMessage } from '../errorMessage/ErrorMessage';  

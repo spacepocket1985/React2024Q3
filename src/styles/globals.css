@@ -33,9 +33,11 @@ a:hover {
 body {
   margin: 0;
   display: flex;
+  flex-direction: column;
   text-align: center;
   font-size: 1.4rem;
   transition: background-color 0.3s;
+  color: #202329;
 }
 
 .base {

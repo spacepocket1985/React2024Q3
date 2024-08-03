@@ -1,4 +1,4 @@
-import { SearchPagePropsType } from '../../pages/SearchPage';
+import { SearchPagePropsType } from '../../app/SearchPage/page';
 import { ApiResponseType, TransformCharacterType } from '../../types';
 import { vi } from 'vitest';
 
@@ -1424,7 +1424,6 @@ export const mockNextPageData001: SearchPagePropsType = {
   },
 };
 
-
 export const tempStore = {
   potterDbApi: {
     queries: {
@@ -1434,11 +1433,11 @@ export const tempStore = {
         requestId: '9G8OjKG_-O1xNxZsPycD7',
         originalArgs: {
           pageNum: '1',
-          filter: ''
+          filter: '',
         },
         startedTimeStamp: 1722356781936,
         data: {
-          'сharacters': [
+          сharacters: [
             {
               id: '17333532-5d00-4b71-b8b1-8e762a12c793',
               type: 'character',
@@ -1468,12 +1467,12 @@ export const tempStore = {
                 titles: [],
                 wands: [],
                 weight: null,
-                wiki: 'https://harrypotter.fandom.com/wiki/1992_Gryffindor_vs_Slytherin_Quidditch_match_spectators'
+                wiki: 'https://harrypotter.fandom.com/wiki/1992_Gryffindor_vs_Slytherin_Quidditch_match_spectators',
               },
               links: {
-                self: '/v1/characters/17333532-5d00-4b71-b8b1-8e762a12c793'
+                self: '/v1/characters/17333532-5d00-4b71-b8b1-8e762a12c793',
               },
-              isSelected: false
+              isSelected: false,
             },
             {
               id: '8754cc34-552e-4f4a-baae-e78fa9487328',
@@ -1504,12 +1503,12 @@ export const tempStore = {
                 titles: [],
                 wands: [],
                 weight: null,
-                wiki: 'https://harrypotter.fandom.com/wiki/1996_Gryffindor_Quidditch_Keeper_trials_spectators'
+                wiki: 'https://harrypotter.fandom.com/wiki/1996_Gryffindor_Quidditch_Keeper_trials_spectators',
               },
               links: {
-                self: '/v1/characters/8754cc34-552e-4f4a-baae-e78fa9487328'
+                self: '/v1/characters/8754cc34-552e-4f4a-baae-e78fa9487328',
               },
-              isSelected: false
+              isSelected: false,
             },
             {
               id: '2ac83f4d-c50e-4475-b09c-15e5a80da030',
@@ -1528,10 +1527,9 @@ export const tempStore = {
                 hair_color: null,
                 height: null,
                 house: null,
-                image: 'https://static.wikia.nocookie.net/harrypotter/images/a/a6/2HeadedBaby.jpg',
-                jobs: [
-                  'Circus performers'
-                ],
+                image:
+                  'https://static.wikia.nocookie.net/harrypotter/images/a/a6/2HeadedBaby.jpg',
+                jobs: ['Circus performers'],
                 marital_status: null,
                 name: '2-Headed Baby',
                 nationality: null,
@@ -1542,12 +1540,12 @@ export const tempStore = {
                 titles: [],
                 wands: [],
                 weight: null,
-                wiki: 'https://harrypotter.fandom.com/wiki/2-Headed_Baby'
+                wiki: 'https://harrypotter.fandom.com/wiki/2-Headed_Baby',
               },
               links: {
-                self: '/v1/characters/2ac83f4d-c50e-4475-b09c-15e5a80da030'
+                self: '/v1/characters/2ac83f4d-c50e-4475-b09c-15e5a80da030',
               },
-              isSelected: false
+              isSelected: false,
             },
             {
               id: '71b093d9-f797-4cd2-acc9-e7f3d5f979d4',
@@ -1578,12 +1576,12 @@ export const tempStore = {
                 titles: [],
                 wands: [],
                 weight: null,
-                wiki: 'https://harrypotter.fandom.com/wiki/Unidentified_8-year-old_Muggle_girl'
+                wiki: 'https://harrypotter.fandom.com/wiki/Unidentified_8-year-old_Muggle_girl',
               },
               links: {
-                self: '/v1/characters/71b093d9-f797-4cd2-acc9-e7f3d5f979d4'
+                self: '/v1/characters/71b093d9-f797-4cd2-acc9-e7f3d5f979d4',
               },
-              isSelected: false
+              isSelected: false,
             },
             {
               id: '1a6fecf0-ceaa-4979-8997-62edb3d94f4c',
@@ -1614,12 +1612,12 @@ export const tempStore = {
                 titles: [],
                 wands: [],
                 weight: null,
-                wiki: 'https://harrypotter.fandom.com/wiki/Aamir_Loonat'
+                wiki: 'https://harrypotter.fandom.com/wiki/Aamir_Loonat',
               },
               links: {
-                self: '/v1/characters/1a6fecf0-ceaa-4979-8997-62edb3d94f4c'
+                self: '/v1/characters/1a6fecf0-ceaa-4979-8997-62edb3d94f4c',
               },
-              isSelected: false
+              isSelected: false,
             },
             {
               id: '1ce52877-eb5f-4e26-b653-9fe8d24453f2',
@@ -1635,9 +1633,9 @@ export const tempStore = {
                 eye_color: null,
                 family_members: [
                   'Hannah Abbott (possibly)',
-                  'Hannah Abbott\'s mother (possibly)',
+                  "Hannah Abbott's mother (possibly)",
                   'Giffard Abbott (possibly)',
-                  'Abbott family'
+                  'Abbott family',
                 ],
                 gender: 'Unknown',
                 hair_color: null,
@@ -1655,12 +1653,12 @@ export const tempStore = {
                 titles: [],
                 wands: [],
                 weight: null,
-                wiki: 'https://harrypotter.fandom.com/wiki/Abbott'
+                wiki: 'https://harrypotter.fandom.com/wiki/Abbott',
               },
               links: {
-                self: '/v1/characters/1ce52877-eb5f-4e26-b653-9fe8d24453f2'
+                self: '/v1/characters/1ce52877-eb5f-4e26-b653-9fe8d24453f2',
               },
-              isSelected: false
+              isSelected: false,
             },
             {
               id: '8b277546-c45e-4b59-aed5-97208be505b8',
@@ -1680,9 +1678,7 @@ export const tempStore = {
                 height: null,
                 house: null,
                 image: '/_next/static/media/no-image.2d33bf4b.png',
-                jobs: [
-                  'Con artist'
-                ],
+                jobs: ['Con artist'],
                 marital_status: null,
                 name: 'Abel Treetops',
                 nationality: 'American',
@@ -1693,21 +1689,19 @@ export const tempStore = {
                 titles: [],
                 wands: [],
                 weight: null,
-                wiki: 'https://harrypotter.fandom.com/wiki/Abel_Treetops'
+                wiki: 'https://harrypotter.fandom.com/wiki/Abel_Treetops',
               },
               links: {
-                self: '/v1/characters/8b277546-c45e-4b59-aed5-97208be505b8'
+                self: '/v1/characters/8b277546-c45e-4b59-aed5-97208be505b8',
               },
-              isSelected: false
+              isSelected: false,
             },
             {
               id: '7f6a015d-2cde-4658-9725-3618200836b7',
               type: 'character',
               attributes: {
                 slug: 'aberforth-dumbledore',
-                alias_names: [
-                  'Ab'
-                ],
+                alias_names: ['Ab'],
                 animagus: null,
                 blood_status: 'Half-blood',
                 boggart: null,
@@ -1721,36 +1715,31 @@ export const tempStore = {
                   'Ariana Dumbledore (youngest sister) †',
                   'Aurelius Dumbledore (biological son)',
                   'Honoria (aunt)',
-                  'Dumbledore family'
+                  'Dumbledore family',
                 ],
                 gender: 'Male',
                 hair_color: 'Grey',
                 height: null,
                 house: null,
-                image: 'https://static.wikia.nocookie.net/harrypotter/images/4/40/Aberforth_Dumbledore.jpg',
-                jobs: [
-                  'Owner and Barman of the Hog\'s Head Inn'
-                ],
+                image:
+                  'https://static.wikia.nocookie.net/harrypotter/images/4/40/Aberforth_Dumbledore.jpg',
+                jobs: ["Owner and Barman of the Hog's Head Inn"],
                 marital_status: null,
                 name: 'Aberforth Dumbledore',
                 nationality: 'English',
                 patronus: 'Goat',
-                romances: [
-                  'Aurelius Dumbledore\'s mother (former lover)'
-                ],
+                romances: ["Aurelius Dumbledore's mother (former lover)"],
                 skin_color: null,
                 species: 'Human',
                 titles: [],
-                wands: [
-                  'Unknown length, wood and core'
-                ],
+                wands: ['Unknown length, wood and core'],
                 weight: null,
-                wiki: 'https://harrypotter.fandom.com/wiki/Aberforth_Dumbledore'
+                wiki: 'https://harrypotter.fandom.com/wiki/Aberforth_Dumbledore',
               },
               links: {
-                self: '/v1/characters/7f6a015d-2cde-4658-9725-3618200836b7'
+                self: '/v1/characters/7f6a015d-2cde-4658-9725-3618200836b7',
               },
-              isSelected: false
+              isSelected: false,
             },
             {
               id: '7a0a4a56-e61f-4836-b39e-3a8d9eecb9e6',
@@ -1769,10 +1758,9 @@ export const tempStore = {
                 hair_color: null,
                 height: null,
                 house: null,
-                image: 'https://static.wikia.nocookie.net/harrypotter/images/a/a6/Abernathy_COG.png',
-                jobs: [
-                  'Supervisor for the Wand Permit Office (formerly)'
-                ],
+                image:
+                  'https://static.wikia.nocookie.net/harrypotter/images/a/a6/Abernathy_COG.png',
+                jobs: ['Supervisor for the Wand Permit Office (formerly)'],
                 marital_status: null,
                 name: 'Abernathy',
                 nationality: 'American',
@@ -1781,16 +1769,14 @@ export const tempStore = {
                 skin_color: null,
                 species: 'Human',
                 titles: [],
-                wands: [
-                  'Unknown length, wood and core (formerly)'
-                ],
+                wands: ['Unknown length, wood and core (formerly)'],
                 weight: null,
-                wiki: 'https://harrypotter.fandom.com/wiki/Abernathy'
+                wiki: 'https://harrypotter.fandom.com/wiki/Abernathy',
               },
               links: {
-                self: '/v1/characters/7a0a4a56-e61f-4836-b39e-3a8d9eecb9e6'
+                self: '/v1/characters/7a0a4a56-e61f-4836-b39e-3a8d9eecb9e6',
               },
-              isSelected: false
+              isSelected: false,
             },
             {
               id: '5aa6b0bf-b950-40ce-8691-b769496ebb01',
@@ -1808,13 +1794,14 @@ export const tempStore = {
                   'Gerard Grey (father)',
                   'Diana Grey (mother)',
                   'Siblings',
-                  'Grey family'
+                  'Grey family',
                 ],
                 gender: 'Female',
                 hair_color: 'Red',
                 height: null,
                 house: 'Gryffindor',
-                image: 'https://static.wikia.nocookie.net/harrypotter/images/a/af/Abigail_Grey_MA.jpeg',
+                image:
+                  'https://static.wikia.nocookie.net/harrypotter/images/a/af/Abigail_Grey_MA.jpeg',
                 jobs: [],
                 marital_status: null,
                 name: 'Abigail Grey',
@@ -1824,27 +1811,25 @@ export const tempStore = {
                 skin_color: 'White',
                 species: 'Human (werewolf)',
                 titles: [],
-                wands: [
-                  '11¼\', Cypress, unicorn hair'
-                ],
+                wands: ["11¼', Cypress, unicorn hair"],
                 weight: null,
-                wiki: 'https://harrypotter.fandom.com/wiki/Abigail_Grey'
+                wiki: 'https://harrypotter.fandom.com/wiki/Abigail_Grey',
               },
               links: {
-                self: '/v1/characters/5aa6b0bf-b950-40ce-8691-b769496ebb01'
+                self: '/v1/characters/5aa6b0bf-b950-40ce-8691-b769496ebb01',
               },
-              isSelected: false
-            }
+              isSelected: false,
+            },
           ],
           pagination: {
             current: 1,
             next: 2,
             last: 481,
-            records: 4804
-          }
+            records: 4804,
+          },
         },
-        fulfilledTimeStamp: 1722356782019
-      }
+        fulfilledTimeStamp: 1722356782019,
+      },
     },
     mutations: {},
     provided: {},
@@ -1858,8 +1843,8 @@ export const tempStore = {
       refetchOnMountOrArgChange: false,
       keepUnusedDataFor: 60,
       reducerPath: 'potterDbApi',
-      invalidationBehavior: 'delayed'
-    }
+      invalidationBehavior: 'delayed',
+    },
   },
   characters: {
     characterList: [
@@ -1892,12 +1877,12 @@ export const tempStore = {
           titles: [],
           wands: [],
           weight: null,
-          wiki: 'https://harrypotter.fandom.com/wiki/1992_Gryffindor_vs_Slytherin_Quidditch_match_spectators'
+          wiki: 'https://harrypotter.fandom.com/wiki/1992_Gryffindor_vs_Slytherin_Quidditch_match_spectators',
         },
         links: {
-          self: '/v1/characters/17333532-5d00-4b71-b8b1-8e762a12c793'
+          self: '/v1/characters/17333532-5d00-4b71-b8b1-8e762a12c793',
         },
-        isSelected: false
+        isSelected: false,
       },
       {
         id: '8754cc34-552e-4f4a-baae-e78fa9487328',
@@ -1928,12 +1913,12 @@ export const tempStore = {
           titles: [],
           wands: [],
           weight: null,
-          wiki: 'https://harrypotter.fandom.com/wiki/1996_Gryffindor_Quidditch_Keeper_trials_spectators'
+          wiki: 'https://harrypotter.fandom.com/wiki/1996_Gryffindor_Quidditch_Keeper_trials_spectators',
         },
         links: {
-          self: '/v1/characters/8754cc34-552e-4f4a-baae-e78fa9487328'
+          self: '/v1/characters/8754cc34-552e-4f4a-baae-e78fa9487328',
         },
-        isSelected: false
+        isSelected: false,
       },
       {
         id: '2ac83f4d-c50e-4475-b09c-15e5a80da030',
@@ -1952,10 +1937,9 @@ export const tempStore = {
           hair_color: null,
           height: null,
           house: null,
-          image: 'https://static.wikia.nocookie.net/harrypotter/images/a/a6/2HeadedBaby.jpg',
-          jobs: [
-            'Circus performers'
-          ],
+          image:
+            'https://static.wikia.nocookie.net/harrypotter/images/a/a6/2HeadedBaby.jpg',
+          jobs: ['Circus performers'],
           marital_status: null,
           name: '2-Headed Baby',
           nationality: null,
@@ -1966,12 +1950,12 @@ export const tempStore = {
           titles: [],
           wands: [],
           weight: null,
-          wiki: 'https://harrypotter.fandom.com/wiki/2-Headed_Baby'
+          wiki: 'https://harrypotter.fandom.com/wiki/2-Headed_Baby',
         },
         links: {
-          self: '/v1/characters/2ac83f4d-c50e-4475-b09c-15e5a80da030'
+          self: '/v1/characters/2ac83f4d-c50e-4475-b09c-15e5a80da030',
         },
-        isSelected: false
+        isSelected: false,
       },
       {
         id: '71b093d9-f797-4cd2-acc9-e7f3d5f979d4',
@@ -2002,12 +1986,12 @@ export const tempStore = {
           titles: [],
           wands: [],
           weight: null,
-          wiki: 'https://harrypotter.fandom.com/wiki/Unidentified_8-year-old_Muggle_girl'
+          wiki: 'https://harrypotter.fandom.com/wiki/Unidentified_8-year-old_Muggle_girl',
         },
         links: {
-          self: '/v1/characters/71b093d9-f797-4cd2-acc9-e7f3d5f979d4'
+          self: '/v1/characters/71b093d9-f797-4cd2-acc9-e7f3d5f979d4',
         },
-        isSelected: false
+        isSelected: false,
       },
       {
         id: '1a6fecf0-ceaa-4979-8997-62edb3d94f4c',
@@ -2038,12 +2022,12 @@ export const tempStore = {
           titles: [],
           wands: [],
           weight: null,
-          wiki: 'https://harrypotter.fandom.com/wiki/Aamir_Loonat'
+          wiki: 'https://harrypotter.fandom.com/wiki/Aamir_Loonat',
         },
         links: {
-          self: '/v1/characters/1a6fecf0-ceaa-4979-8997-62edb3d94f4c'
+          self: '/v1/characters/1a6fecf0-ceaa-4979-8997-62edb3d94f4c',
         },
-        isSelected: false
+        isSelected: false,
       },
       {
         id: '1ce52877-eb5f-4e26-b653-9fe8d24453f2',
@@ -2059,9 +2043,9 @@ export const tempStore = {
           eye_color: null,
           family_members: [
             'Hannah Abbott (possibly)',
-            'Hannah Abbott\'s mother (possibly)',
+            "Hannah Abbott's mother (possibly)",
             'Giffard Abbott (possibly)',
-            'Abbott family'
+            'Abbott family',
           ],
           gender: 'Unknown',
           hair_color: null,
@@ -2079,12 +2063,12 @@ export const tempStore = {
           titles: [],
           wands: [],
           weight: null,
-          wiki: 'https://harrypotter.fandom.com/wiki/Abbott'
+          wiki: 'https://harrypotter.fandom.com/wiki/Abbott',
         },
         links: {
-          self: '/v1/characters/1ce52877-eb5f-4e26-b653-9fe8d24453f2'
+          self: '/v1/characters/1ce52877-eb5f-4e26-b653-9fe8d24453f2',
         },
-        isSelected: false
+        isSelected: false,
       },
       {
         id: '8b277546-c45e-4b59-aed5-97208be505b8',
@@ -2104,9 +2088,7 @@ export const tempStore = {
           height: null,
           house: null,
           image: '/_next/static/media/no-image.2d33bf4b.png',
-          jobs: [
-            'Con artist'
-          ],
+          jobs: ['Con artist'],
           marital_status: null,
           name: 'Abel Treetops',
           nationality: 'American',
@@ -2117,21 +2099,19 @@ export const tempStore = {
           titles: [],
           wands: [],
           weight: null,
-          wiki: 'https://harrypotter.fandom.com/wiki/Abel_Treetops'
+          wiki: 'https://harrypotter.fandom.com/wiki/Abel_Treetops',
         },
         links: {
-          self: '/v1/characters/8b277546-c45e-4b59-aed5-97208be505b8'
+          self: '/v1/characters/8b277546-c45e-4b59-aed5-97208be505b8',
         },
-        isSelected: false
+        isSelected: false,
       },
       {
         id: '7f6a015d-2cde-4658-9725-3618200836b7',
         type: 'character',
         attributes: {
           slug: 'aberforth-dumbledore',
-          alias_names: [
-            'Ab'
-          ],
+          alias_names: ['Ab'],
           animagus: null,
           blood_status: 'Half-blood',
           boggart: null,
@@ -2145,36 +2125,31 @@ export const tempStore = {
             'Ariana Dumbledore (youngest sister) †',
             'Aurelius Dumbledore (biological son)',
             'Honoria (aunt)',
-            'Dumbledore family'
+            'Dumbledore family',
           ],
           gender: 'Male',
           hair_color: 'Grey',
           height: null,
           house: null,
-          image: 'https://static.wikia.nocookie.net/harrypotter/images/4/40/Aberforth_Dumbledore.jpg',
-          jobs: [
-            'Owner and Barman of the Hog\'s Head Inn'
-          ],
+          image:
+            'https://static.wikia.nocookie.net/harrypotter/images/4/40/Aberforth_Dumbledore.jpg',
+          jobs: ["Owner and Barman of the Hog's Head Inn"],
           marital_status: null,
           name: 'Aberforth Dumbledore',
           nationality: 'English',
           patronus: 'Goat',
-          romances: [
-            'Aurelius Dumbledore\'s mother (former lover)'
-          ],
+          romances: ["Aurelius Dumbledore's mother (former lover)"],
           skin_color: null,
           species: 'Human',
           titles: [],
-          wands: [
-            'Unknown length, wood and core'
-          ],
+          wands: ['Unknown length, wood and core'],
           weight: null,
-          wiki: 'https://harrypotter.fandom.com/wiki/Aberforth_Dumbledore'
+          wiki: 'https://harrypotter.fandom.com/wiki/Aberforth_Dumbledore',
         },
         links: {
-          self: '/v1/characters/7f6a015d-2cde-4658-9725-3618200836b7'
+          self: '/v1/characters/7f6a015d-2cde-4658-9725-3618200836b7',
         },
-        isSelected: false
+        isSelected: false,
       },
       {
         id: '7a0a4a56-e61f-4836-b39e-3a8d9eecb9e6',
@@ -2193,10 +2168,9 @@ export const tempStore = {
           hair_color: null,
           height: null,
           house: null,
-          image: 'https://static.wikia.nocookie.net/harrypotter/images/a/a6/Abernathy_COG.png',
-          jobs: [
-            'Supervisor for the Wand Permit Office (formerly)'
-          ],
+          image:
+            'https://static.wikia.nocookie.net/harrypotter/images/a/a6/Abernathy_COG.png',
+          jobs: ['Supervisor for the Wand Permit Office (formerly)'],
           marital_status: null,
           name: 'Abernathy',
           nationality: 'American',
@@ -2205,16 +2179,14 @@ export const tempStore = {
           skin_color: null,
           species: 'Human',
           titles: [],
-          wands: [
-            'Unknown length, wood and core (formerly)'
-          ],
+          wands: ['Unknown length, wood and core (formerly)'],
           weight: null,
-          wiki: 'https://harrypotter.fandom.com/wiki/Abernathy'
+          wiki: 'https://harrypotter.fandom.com/wiki/Abernathy',
         },
         links: {
-          self: '/v1/characters/7a0a4a56-e61f-4836-b39e-3a8d9eecb9e6'
+          self: '/v1/characters/7a0a4a56-e61f-4836-b39e-3a8d9eecb9e6',
         },
-        isSelected: false
+        isSelected: false,
       },
       {
         id: '5aa6b0bf-b950-40ce-8691-b769496ebb01',
@@ -2232,13 +2204,14 @@ export const tempStore = {
             'Gerard Grey (father)',
             'Diana Grey (mother)',
             'Siblings',
-            'Grey family'
+            'Grey family',
           ],
           gender: 'Female',
           hair_color: 'Red',
           height: null,
           house: 'Gryffindor',
-          image: 'https://static.wikia.nocookie.net/harrypotter/images/a/af/Abigail_Grey_MA.jpeg',
+          image:
+            'https://static.wikia.nocookie.net/harrypotter/images/a/af/Abigail_Grey_MA.jpeg',
           jobs: [],
           marital_status: null,
           name: 'Abigail Grey',
@@ -2248,19 +2221,17 @@ export const tempStore = {
           skin_color: 'White',
           species: 'Human (werewolf)',
           titles: [],
-          wands: [
-            '11¼\', Cypress, unicorn hair'
-          ],
+          wands: ["11¼', Cypress, unicorn hair"],
           weight: null,
-          wiki: 'https://harrypotter.fandom.com/wiki/Abigail_Grey'
+          wiki: 'https://harrypotter.fandom.com/wiki/Abigail_Grey',
         },
         links: {
-          self: '/v1/characters/5aa6b0bf-b950-40ce-8691-b769496ebb01'
+          self: '/v1/characters/5aa6b0bf-b950-40ce-8691-b769496ebb01',
         },
-        isSelected: false
-      }
+        isSelected: false,
+      },
     ],
-    selectedChacharacters: []
+    selectedChacharacters: [],
   },
   appData: {
     filterWord: '',
@@ -2271,8 +2242,8 @@ export const tempStore = {
       prev: 1,
       next: 2,
       last: 1,
-      records: 0
+      records: 0,
     },
-    isLoading: false
-  }
-}
+    isLoading: false,
+  },
+};

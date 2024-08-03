@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { HYDRATE } from 'next-redux-wrapper';
+
 import {
   ApiResponseForCharType,
   ApiResponseType,
@@ -8,8 +8,8 @@ import {
   TransformCharacterType,
 } from '../../types';
 import NoImage from '../../assets/no-image.png';
-import { Action, PayloadAction } from '@reduxjs/toolkit';
-import { RootState } from '../store';
+
+
 
 const _ApiBase = 'https://api.potterdb.com/v1/characters';
 const _Offset = '?page[size]=';
@@ -20,19 +20,12 @@ const _DefaultOffset = '10';
 const _DefaultPage = 1;
 const _DefaultFilterWord = '';
 
-function isHydrateAction(action: Action): action is PayloadAction<RootState> {
-  return action.type === HYDRATE
-}
 
 export const potterDbApiSlice = createApi({
   reducerPath: 'potterDbApi',
   baseQuery: fetchBaseQuery({ baseUrl: _ApiBase }),
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  extractRehydrationInfo(action, { reducerPath }): any {
-    if (isHydrateAction(action)) {
-      return action.payload[reducerPath]
-    }
-  },
+
   tagTypes: ['Characters'],
   endpoints: (builder) => ({
     getAllCharacters: builder.query<
@@ -62,7 +55,7 @@ export const potterDbApiSlice = createApi({
   }),
 });
 
-function transformCharacter(character: CharacterType): TransformCharacterType {
+export function transformCharacter(character: CharacterType): TransformCharacterType {
   const updatedCharacter = { ...character, isSelected: false };
   if (character.attributes.gender === null) {
     updatedCharacter.attributes.gender = 'Unknown';
