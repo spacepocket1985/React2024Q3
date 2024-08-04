@@ -15,9 +15,9 @@ export function Providers({
   return (
     <ChakraProvider>
       <ErrorBoundary>
-      <Provider store={store}>
-        <ThemeProvider>{children}</ThemeProvider>
-      </Provider>
+        <Provider store={store}>
+          <ThemeProvider>{children}</ThemeProvider>
+        </Provider>
       </ErrorBoundary>
     </ChakraProvider>
   );

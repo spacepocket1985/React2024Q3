@@ -1,4 +1,5 @@
 "use client"
+import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 
 import { useAppDispatch, useAppSelector } from '../../hooks/storeHooks';
@@ -10,8 +11,9 @@ import styles from '../../styles/SearchBar.module.css';
 
 export const SearchBar = (): JSX.Element => {
   const dispatch = useAppDispatch();
+  const router = useRouter()
   const [searchTerm, setSearchTerm] = useLocalStorage();
-  const isLoading = useAppSelector((state) => state.appData.isLoading);
+  //const isLoading = useAppSelector((state) => state.appData.isLoading);
   const onUpdateSearch = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const searchTerm = event.target.value.trim();
     setSearchTerm(searchTerm);
@@ -20,6 +22,7 @@ export const SearchBar = (): JSX.Element => {
   const onSubmitHandler = (event: React.MouseEvent): void => {
     event.preventDefault();
     dispatch(setFilterWord(searchTerm || ''));
+    router.push(`/?page[size]=10&filter[name_cont]=${searchTerm}`)
   };
 
   return (

@@ -1,5 +1,6 @@
-"use client"
+'use client';
 
+import { ChakraProvider } from '@chakra-ui/react';
 import { createContext, useContext, useState, ReactNode } from 'react';
 
 type Theme = 'light' | 'dark';
@@ -22,10 +23,12 @@ export const ThemeProvider = (props: ContextProviderPropsType): JSX.Element => {
     setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
   };
 
-  const value = { theme, toggleTheme };
-
   return (
-    <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
+    <ChakraProvider>
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+      <div className={`${theme} base`}>{children}</div>
+    </ThemeContext.Provider>
+    </ChakraProvider>
   );
 };
 

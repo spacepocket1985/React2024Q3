@@ -46,7 +46,6 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
   width: 100vw;
 }
 
@@ -88,7 +87,7 @@ button {
   font-size: 1.5rem;
   font-family: inherit;
   background-color: #272b33;
-  color: #fff;
+  color: var(--switcher-color);
   cursor: pointer;
   transition: all 0.3s;
 }
