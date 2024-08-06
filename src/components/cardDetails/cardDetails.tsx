@@ -1,3 +1,5 @@
+'use client';
+import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { ErrorMessage } from '../errorMessage/ErrorMessage';
 import { Spinner } from '../spinner/Spinner';
@@ -11,18 +13,19 @@ import { CardCheckBox } from '../cardCheckBox/CardCheckBox';
 import styles from '../../styles/cardDetails.module.css';
 
 type CardDetailsPropsType = {
-  character: TransformCharacterType;
+  character: TransformCharacterType | null;
 };
 
 export const CardDetails = (props: CardDetailsPropsType): JSX.Element => {
-
   const { character } = props;
+  const router = useRouter();
 
   const dispatch = useDispatch();
   const cardDetails = useAppSelector((state) => state.appData.cardDetails);
 
   const handleHideCardDetails = () => {
     dispatch(setCardDetails(''));
+    router.back();
   };
 
   const isFetching = false;
@@ -67,10 +70,16 @@ const View = (props: CharacterViewPropsType) => {
   return (
     <>
       <div className={styles.characterTitle}>
-        <h2>Character details - {Number(props.cardDetails) +1}</h2>
+        <h2>Character details - {Number(props.cardDetails) + 1}</h2>
       </div>
       <div className={styles.characterImgWrapper}>
-        <Image src={image!} alt={name} width={100} height={100} className={styles.cardImage} />
+        <Image
+          src={image!}
+          alt={name}
+          width={100}
+          height={100}
+          className={styles.cardImage}
+        />
       </div>
       <div className={styles.characterContentWrapper}>
         <h3 className={styles.characterName}>{name}</h3>

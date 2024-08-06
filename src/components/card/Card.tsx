@@ -1,5 +1,6 @@
 'use client'
 
+import { useRouter,useSearchParams } from 'next/navigation';
 import { useAppDispatch } from '../../hooks/storeHooks';
 import { useState } from 'react';
 import { setCardDetails } from '../../store/slices/appDataSlice';
@@ -14,14 +15,18 @@ export const Card = (props: CardPropsType): JSX.Element => {
     attributes: { image, name, gender },  
   } = props.character;  
   const dispatch = useAppDispatch();  
-
+  const router = useRouter()
+  const searchParams = useSearchParams();
+  const filter = searchParams.get('filter') || '';
+  const pageNum = searchParams.get('pageNum') || 1;
   const handleRefChange = (ref: React.RefObject<HTMLInputElement>) => {  
     setRef(ref);  
   };  
 
   const handleCardClick = (e: React.MouseEvent<HTMLDivElement>) => {  
     if (e.target !== ref!.current)  
-      dispatch(setCardDetails(String(props.index - 1)));  
+      dispatch(setCardDetails(String(props.index - 1))); 
+    router.push(`/?pageNum=${pageNum}&filter=${filter}&details=${String(props.index)}`) 
   };  
 
   return (  

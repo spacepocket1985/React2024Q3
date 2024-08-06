@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import { Card } from '../card/Card';
 import { CardInformer } from '../cardInformer/CardInformer';
@@ -6,7 +6,7 @@ import { Spinner } from '../spinner/Spinner';
 
 import styles from '../../styles/CardList.module.css';
 import { TransformCharacterType } from '../../types';
-import { useAppSelector,useAppDispatch } from '../../hooks/storeHooks';
+import { useAppSelector, useAppDispatch } from '../../hooks/storeHooks';
 import { setLoading } from '../../store/slices/appDataSlice';
 
 type CardListPropsType = {
@@ -15,10 +15,11 @@ type CardListPropsType = {
 
 export const CardList = (props: CardListPropsType): JSX.Element => {
   const { сharacters } = props;
+
   const dispatch = useAppDispatch();
 
   const isLoading = useAppSelector((state) => state.appData.isLoading);
-  if (сharacters) dispatch(setLoading(false))
+  if (сharacters) dispatch(setLoading(false));
 
   const content =
     сharacters &&

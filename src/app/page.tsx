@@ -1,6 +1,14 @@
+
+import { CardDetails } from '../components/cardDetails/cardDetails';
 import { CardList } from '../components/cardList/CardList';
+import { Pagination } from '../components/pagination/Pagination';
 import { transformCharacter } from '../store/slices/apiSlice';
-import { ApiResponseType, transformApiResponseType } from '../types';
+import {
+  ApiResponseForCharType,
+  ApiResponseType,
+  transformApiResponseType,
+  TransformCharacterType,
+} from '../types';
 
 const _ApiBase = 'https://api.potterdb.com/v1/characters';
 const _Offset = '?page[size]=';
@@ -12,27 +20,60 @@ const _DefaultPage = 1;
 const _DefaultFilterWord = '';
 
 export const getAllCharacters = async (
-  filterWord = _DefaultFilterWord,
-  pageNumber = _DefaultPage
+  filter = _DefaultFilterWord,
+  pageNum = _DefaultPage
 ): Promise<transformApiResponseType> => {
   const response = await fetch(
-    `${_ApiBase}${_Offset}${_DefaultOffset}${_Page}${pageNumber}${_Filter}${filterWord}`
+    `${_ApiBase}${_Offset}${_DefaultOffset}${_Page}${pageNum}${_Filter}${filter}`
   );
   if (!response.ok) throw new Error('Unable to fetch');
 
-  const results: Promise<ApiResponseType> = response.json();
+  const results: ApiResponseType = await response.json();
   return {
-    сharacters: (await results).data.map((item) => transformCharacter(item)),
-    pagination: (await results).meta.pagination,
+    сharacters: results.data.map((item) => transformCharacter(item)),
+    pagination: results.meta.pagination,
   };
 };
 
-export default async function SearchPage(): Promise<JSX.Element> {
-  const { сharacters } = await getAllCharacters();
+export const getCharacter = async (
+  id: string
+): Promise<TransformCharacterType> => {
+  const response = await fetch(`${_ApiBase}/${id}`);
+  if (!response.ok) throw new Error('Unable to fetch');
+
+  const results: ApiResponseForCharType = await response.json();
+  return transformCharacter(results.data);
+};
+
+export default async function SearchPage({
+  searchParams = {},
+}: {
+  searchParams?: { filter?: string; pageNum?: string; details?: string };
+}): Promise<JSX.Element> {
+  const filter = searchParams.filter || '';
+  const pageNum = Number(searchParams.pageNum || '1');
+  const details = searchParams.details || null;
+
+  // const newUrl = `/?pageNum=${pageNum}&filter=${filter}`;
+
+  // if (!searchParams.filter && !searchParams.pageNum) {
+  //   redirect(newUrl);
+  // }
+
+  const { сharacters, pagination } = await getAllCharacters(filter, pageNum);
+  const сharacterDetails =
+    сharacters &&
+    details &&
+    Number(details) >= 0 &&
+    Number(details) < сharacters.length
+      ? await getCharacter(сharacters[Number(details) - 1].id)
+      : null;
+
   return (
     <>
-      <h2>SearchPage</h2>
+      <Pagination pagination={pagination} />
       <CardList сharacters={сharacters} />
+      <CardDetails character={сharacterDetails} />
     </>
   );
 }

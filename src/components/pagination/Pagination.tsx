@@ -1,6 +1,6 @@
-import { useAppDispatch } from '../../hooks/storeHooks';
+'use client';
 
-import { setCurrentPage } from '../../store/slices/appDataSlice';
+import { useRouter, useSearchParams } from 'next/navigation';
 import styles from '../../styles/Pagination.module.css';
 
 type PaginationPropsType = {
@@ -15,13 +15,16 @@ type PaginationPropsType = {
 };
 
 export const Pagination = (props: PaginationPropsType): JSX.Element => {
-
   const {
     pagination: { current, prev, next },
   } = props;
-  const dispatch = useAppDispatch();
+
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const filter = searchParams.get('filter') || '';
+
   const paginationHandler = (page: number) => {
-    dispatch(setCurrentPage(page));
+    router.push(`/?pageNum=${page}&filter=${filter}`);
   };
 
   return (
