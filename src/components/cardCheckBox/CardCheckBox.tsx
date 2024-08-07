@@ -34,6 +34,7 @@ export const CardCheckBox = (props: CardCheckBoxPropsType): JSX.Element => {
 
   const dispatch = useAppDispatch();
   const handleCheckboxChange = () => {
+ 
     if (checkboxRef.current === null) return;
     const isChecked = checkboxRef.current.checked;
     dispatch(selectCharacter(character.id));

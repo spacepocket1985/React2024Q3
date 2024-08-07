@@ -4,7 +4,7 @@ import errorImg from '../assets/error.gif';
 import styles from '../styles/Page404.module.css';
 import Link from 'next/link';
 
-const Page404 = (): JSX.Element => {
+export default function NotFound(): JSX.Element  {
   return (
     <>
       <h2 className={styles.page404Title}>404</h2>
@@ -17,4 +17,4 @@ const Page404 = (): JSX.Element => {
   );
 };
 
-export default Page404;
+

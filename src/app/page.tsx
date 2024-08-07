@@ -1,5 +1,5 @@
-
 import { CardDetails } from '../components/cardDetails/cardDetails';
+
 import { CardList } from '../components/cardList/CardList';
 import { Pagination } from '../components/pagination/Pagination';
 import { transformCharacter } from '../store/slices/apiSlice';
@@ -20,8 +20,8 @@ const _DefaultPage = 1;
 const _DefaultFilterWord = '';
 
 export const getAllCharacters = async (
-  filter = _DefaultFilterWord,
-  pageNum = _DefaultPage
+  filter: string,
+  pageNum: number
 ): Promise<transformApiResponseType> => {
   const response = await fetch(
     `${_ApiBase}${_Offset}${_DefaultOffset}${_Page}${pageNum}${_Filter}${filter}`
@@ -54,18 +54,15 @@ export default async function SearchPage({
   const pageNum = Number(searchParams.pageNum || '1');
   const details = searchParams.details || null;
 
-  // const newUrl = `/?pageNum=${pageNum}&filter=${filter}`;
-
-  // if (!searchParams.filter && !searchParams.pageNum) {
-  //   redirect(newUrl);
-  // }
-
-  const { сharacters, pagination } = await getAllCharacters(filter, pageNum);
+  const { сharacters, pagination } = await getAllCharacters(
+    filter || _DefaultFilterWord,
+    pageNum || _DefaultPage
+  );
   const сharacterDetails =
     сharacters &&
     details &&
     Number(details) >= 0 &&
-    Number(details) < сharacters.length
+    Number(details) <= сharacters.length
       ? await getCharacter(сharacters[Number(details) - 1].id)
       : null;
 

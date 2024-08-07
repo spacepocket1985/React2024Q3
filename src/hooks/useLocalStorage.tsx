@@ -1,6 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 const storageKey = 'searchTermForHarryPotterDB';
 
@@ -12,18 +12,21 @@ export const useLocalStorage = (): [
   const router = useRouter();
   const [hasNavigated, setHasNavigated] = useState(false); // Флаг для отслеживания навигации
 
+  const searchParams = useSearchParams();
+
   useEffect(() => {
     const storedValue = localStorage.getItem(storageKey);
     setSearchTerm(storedValue);
   }, []);
 
-  // Навигация при первом рендере на основе searchTerm
   useEffect(() => {
     if (searchTerm !== null && !hasNavigated) {
-      router.push(`/?pageNum=1&filter=${searchTerm}`);
-      setHasNavigated(true); // Установите флаг после навигации
+      const filter = searchParams.get('filter');
+      const pageNum = searchParams.get('pageNum');
+      router.push(`/?pageNum=${pageNum || 1}&filter=${filter || searchTerm}`);
+      setHasNavigated(true);
     }
-  }, [searchTerm, hasNavigated, router]);
+  }, [searchTerm, hasNavigated, router, searchParams]);
 
   useEffect(() => {
     if (searchTerm !== null) {

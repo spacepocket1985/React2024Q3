@@ -2,12 +2,12 @@
 
 import { Card } from '../card/Card';
 import { CardInformer } from '../cardInformer/CardInformer';
-import { Spinner } from '../spinner/Spinner';
+import { TransformCharacterType } from '../../types';
+import { useAppDispatch } from '../../hooks/storeHooks';
+import { setLoading } from '../../store/slices/appDataSlice';
+import { setCharacters } from '../../store/slices/charactersSlice';
 
 import styles from '../../styles/CardList.module.css';
-import { TransformCharacterType } from '../../types';
-import { useAppSelector, useAppDispatch } from '../../hooks/storeHooks';
-import { setLoading } from '../../store/slices/appDataSlice';
 
 type CardListPropsType = {
   сharacters: TransformCharacterType[];
@@ -17,9 +17,10 @@ export const CardList = (props: CardListPropsType): JSX.Element => {
   const { сharacters } = props;
 
   const dispatch = useAppDispatch();
-
-  const isLoading = useAppSelector((state) => state.appData.isLoading);
-  if (сharacters) dispatch(setLoading(false));
+  if (сharacters) {
+    dispatch(setLoading(false));
+    dispatch(setCharacters(сharacters));
+  }
 
   const content =
     сharacters &&
@@ -29,16 +30,8 @@ export const CardList = (props: CardListPropsType): JSX.Element => {
 
   return (
     <div className={styles.charactersWrapper}>
-      {isLoading && <Spinner />}
-      {!isLoading && (
-        <>
-          {content}
-          <CardInformer />
-          {!isLoading && сharacters.length === 0 && (
-            <h2>No characters found for your last request!</h2>
-          )}
-        </>
-      )}
+      {content}
+      <CardInformer />
     </div>
   );
 };

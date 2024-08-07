@@ -23,3 +23,9 @@
   border: .1rem solid #000;
   border-radius: 0.8rem;
 }
+
+.searhWrapper button {
+  background-color: var(--third-color);
+  padding: 1rem;
+  color: #fff;
+}

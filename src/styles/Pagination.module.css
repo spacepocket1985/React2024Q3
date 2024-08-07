@@ -17,7 +17,8 @@
 .pagesBtnsWrapper button {
   background-color: var(--third-color);
   padding: 1rem;
-  color: var(--secondary-color);
+  color: #fff;
+ 
 }
 
 .pageInformer {

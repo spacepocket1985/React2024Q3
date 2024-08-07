@@ -2,6 +2,7 @@
 import { useRouter} from 'next/navigation';
 import Image from 'next/image';
 
+
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 
 import HarryPotterImg from '../../assets/harry_potter.png';
@@ -23,6 +24,7 @@ export const SearchBar = (): JSX.Element => {
   };
 
   return (
+    
     <div className={styles.searhWrapper}>
       <Image
         src={HarryPotterImg}
@@ -50,5 +52,6 @@ export const SearchBar = (): JSX.Element => {
         </button>
       </form>
     </div>
+  
   );
 };
