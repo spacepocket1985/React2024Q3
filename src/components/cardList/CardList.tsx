@@ -32,6 +32,9 @@ export const CardList = (props: CardListPropsType): JSX.Element => {
     <div className={styles.charactersWrapper}>
       {content}
       <CardInformer />
+      {сharacters.length === 0 && (
+        <h2>No characters found for your last request!</h2>
+      )}
     </div>
   );
 };

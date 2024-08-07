@@ -2,11 +2,12 @@ import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 
 import { describe, expect, it } from 'vitest';
-import Page404 from '../pages/404';
+import NotFound from '../app/not-found';
+
 
 describe('404 Page component:', () => {
   it('Ensure that the 404 page is displayed', () => {
-    render(<Page404 />);
+    render(<NotFound />);
 
     const messageElement = screen.getByText('page not found');
     expect(messageElement).toBeInTheDocument();

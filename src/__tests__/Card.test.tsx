@@ -1,22 +1,27 @@
 import { act, fireEvent, render, screen } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
-import configureMockStore from 'redux-mock-store';
+
 import '@testing-library/jest-dom';
 import { Card } from '../components/card/Card';
-import { mockInitialState, mockTransformCharactersData } from './mocks/mocksData';
-import { Provider } from 'react-redux';
+import { mockTransformCharactersData } from './mocks/mocksData';
+import { Providers } from '../app/providers';
 
 const mockCharacter = mockTransformCharactersData[0];
-vi.mock('next/router', () => vi.importActual('next-router-mock'));
+vi.mock('next/navigation', () => ({
+  useRouter: vi.fn(() => ({
+    push: vi.fn(),
+  })),
+  useSearchParams: vi.fn(() => ({
+    get: vi.fn(),
+  })),
+}));
 
 describe('Tests for the Card component', () => {
-  const mockStore = configureMockStore();
-  const mockDataStore = mockStore(mockInitialState);
   it('Ensure that the card component renders the relevant card data', async () => {
     render(
-      <Provider store={mockDataStore}>
+      <Providers>
         <Card character={mockCharacter} index={0} />
-      </Provider>
+      </Providers>
     );
 
     const title = await screen.findByText(
@@ -27,9 +32,9 @@ describe('Tests for the Card component', () => {
   it('Validate that clicking on a card opens a detailed card component', async () => {
     const index = 1;
     render(
-      <Provider store={mockDataStore}>
+      <Providers>
         <Card character={mockCharacter} index={index} />
-      </Provider>
+      </Providers>
     );
     const card = await screen.findByTestId('card');
     await act(async () => {
@@ -39,5 +44,3 @@ describe('Tests for the Card component', () => {
     expect(genderInformation).toBeInTheDocument;
   });
 });
-
-

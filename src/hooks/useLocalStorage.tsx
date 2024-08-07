@@ -23,7 +23,10 @@ export const useLocalStorage = (): [
     if (searchTerm !== null && !hasNavigated) {
       const filter = searchParams.get('filter');
       const pageNum = searchParams.get('pageNum');
-      router.push(`/?pageNum=${pageNum || 1}&filter=${filter || searchTerm}`);
+      //const details = searchParams.get('details');
+      router.push(
+        `/?pageNum=${pageNum || 1}&filter=${filter || searchTerm}`
+      );
       setHasNavigated(true);
     }
   }, [searchTerm, hasNavigated, router, searchParams]);

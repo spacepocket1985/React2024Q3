@@ -8,6 +8,8 @@ import { CardCheckBox } from '../cardCheckBox/CardCheckBox';
 import { CardPropsType } from '../../types';
 import styles from '../../styles/Card.module.css';
 import Image from 'next/image';
+import { useAppDispatch } from '../../hooks/storeHooks';
+import { setCardDetails } from '../../store/slices/appDataSlice';
 
 export const Card = (props: CardPropsType): JSX.Element => {
   const [ref, setRef] = useState<React.RefObject<HTMLInputElement> | null>(
@@ -25,11 +27,15 @@ export const Card = (props: CardPropsType): JSX.Element => {
     setRef(ref);
   };
 
+  const dispatch = useAppDispatch();
+
   const handleCardClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (e.target !== ref!.current)
+    if (e.target !== ref!.current) {
       router.push(
         `/?pageNum=${pageNum}&filter=${filter}&details=${String(props.index)}`
       );
+      dispatch(setCardDetails(String(props.index - 1)));
+    }
   };
 
   return (
