@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 import { useAppDispatch, useAppSelector } from '../../hooks/storeHooks';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
-import { setFilterWord } from '../../store/slices/appDataSlice';
+import { setCurrentPage, setFilterWord } from '../../store/slices/appDataSlice';
 
 import HarryPotterImg from '../../assets/harry_potter.png';
 import styles from '../../styles/SearchBar.module.css';
@@ -13,12 +13,14 @@ export const SearchBar = (): JSX.Element => {
   const isLoading = useAppSelector((state) => state.appData.isLoading);
   const onUpdateSearch = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const searchTerm = event.target.value.trim();
+
     setSearchTerm(searchTerm);
   };
 
   const onSubmitHandler = (event: React.MouseEvent): void => {
     event.preventDefault();
     dispatch(setFilterWord(searchTerm || ''));
+    dispatch(setCurrentPage(1))
   };
 
   return (

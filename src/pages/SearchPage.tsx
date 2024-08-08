@@ -19,7 +19,7 @@ import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { SerializedError } from '@reduxjs/toolkit';
 import { ErrorMessage } from '../components/errorMessage/ErrorMessage';
 import { useAppDispatch, useAppSelector } from '../hooks/storeHooks';
-import { setLoading } from '../store/slices/appDataSlice';
+import {  setLoading } from '../store/slices/appDataSlice';
 import { setCharacters } from '../store/slices/charactersSlice';
 
 export const getServerSideProps = wrapper.getServerSideProps(
@@ -27,7 +27,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
     const pageNum = context.query.pageNumber?.toString() || '1';
     const filter = context.query.filter?.toString() || '';
     const details = context.query.details?.toString() || '';
-
+    
     const response = await store.dispatch(
       getAllCharacters.initiate({
         pageNum,
@@ -88,15 +88,17 @@ const SearchPage = (props: SearchPagePropsType): JSX.Element => {
 
 
   useEffect(() => {
+ 
     if (response.data && response.data.сharacters) {
       dispatch(setLoading(false));
       const query = {
         filter: filterWord,
         pageNumber: currentPageNum,
-        details: cardDetails,
+        ...(cardDetails !== '' && { details: cardDetails }),
       };
       dispatch(setCharacters(response.data.сharacters));
       if (JSON.stringify(router.query) !== JSON.stringify(query)) {
+
         router.push({ pathname: '/SearchPage', query });
       }
     }
