@@ -20,10 +20,10 @@ export const ThemeProvider = (props: ContextProviderPropsType): JSX.Element => {
     setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
   };
 
-  const value = { theme, toggleTheme };
-
   return (
-    <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+      <div className={`${theme} base`}>{children}</div>
+    </ThemeContext.Provider>
   );
 };
 

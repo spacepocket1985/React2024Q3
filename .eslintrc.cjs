@@ -1,0 +1,57 @@
+module.exports = {
+  root: true,
+  env: { browser: true, es2020: true, node: true },
+  extends: [
+    'eslint:recommended',
+    'plugin:react/recommended',
+    'plugin:react-hooks/recommended',
+    'plugin:jsx-a11y/recommended',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:prettier/recommended',
+  ],
+  ignorePatterns: ['dist', '.eslintrc.cjs'],
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    ecmaFeatures: {
+      jsx: true,
+    },
+    ecmaVersion: 'latest',
+    sourceType: 'module',
+    project: ['./tsconfig.json', './tsconfig.node.json'],
+    tsconfigRootDir: __dirname,
+  },
+  settings: {
+    react: {
+      version: 'detect',
+    },
+  },
+  plugins: [
+    'react',
+    'react-hooks',
+    'jsx-a11y',
+    '@typescript-eslint',
+    'react-refresh',
+    'react-compiler',
+  ],
+  rules: {
+    'react-compiler/react-compiler': 'error',
+    'react-hooks/rules-of-hooks': 'error',
+    'react-hooks/exhaustive-deps': 'warn',
+    'comma-dangle': ['error', 'only-multiline'],
+    'react/prop-types': 'off',
+    'react/display-name': 'off',
+    '@typescript-eslint/interface-name-prefix': 'off',
+    '@typescript-eslint/ban-ts-comment': 'error',
+    '@typescript-eslint/no-non-null-assertion': 'off',
+    '@typescript-eslint/explicit-module-boundary-types': [
+      'error',
+      { allowArgumentsExplicitlyTypedAsAny: true },
+    ],
+    '@typescript-eslint/no-empty-function': 'off',
+    '@typescript-eslint/no-explicit-any': 'error',
+    '@typescript-eslint/no-var-requires': 'off',
+    'react/jsx-uses-react': 'off',
+    'react/react-in-jsx-scope': 'off',
+    'no-console': 'warn',
+  },
+};

@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-const storageKey = 'searchTermForHarryPotterDB';
+//const storageKey = 'searchTermForHarryPotterDB';
 
-const searchParam = new URLSearchParams(window.location.search);
-const pageNumberSearchParam = Number(searchParam.get('pageNumber')) || 1;
-const detailsSearchParam = searchParam.get('details') || '';
-const filterSearchParam =
-  searchParam.get('filter') || localStorage.getItem(storageKey) || '';
+// const searchParam = new URLSearchParams(window.location.search);
+// const pageNumberSearchParam = Number(searchParam.get('pageNumber')) || 1;
+// const detailsSearchParam = searchParam.get('details') || '';
+// const filterSearchParam =
+//   searchParam.get('filter') || localStorage.getItem(storageKey) || '';
 
 type PaginationType = {
   current: number;
@@ -24,19 +24,19 @@ type AppDataStateType = {
   isLoading: boolean;
 };
 
-const initialState: AppDataStateType = {
-  filterWord: filterSearchParam,
-  cardDetails: detailsSearchParam,
-  pagination: {
-    current: pageNumberSearchParam,
-    first: 1,
-    prev: pageNumberSearchParam > 1 ? pageNumberSearchParam - 1 : 1,
-    next: pageNumberSearchParam + 1,
-    last: 1,
-    records: 0,
-  },
-  isLoading: false,
-};
+const initialState: AppDataStateType = {  
+  filterWord: '',  
+  cardDetails: '',  
+  pagination: {  
+    current: 1,  
+    first: 1,  
+    prev: 1,  
+    next: 2,  
+    last: 1,  
+    records: 0,  
+  },  
+  isLoading: true,  
+}; 
 
 const appDataSlice = createSlice({
   name: 'appData',

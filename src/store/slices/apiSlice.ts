@@ -49,7 +49,7 @@ export const potterDbApiSlice = createApi({
   }),
 });
 
-function transformCharacter(character: CharacterType): TransformCharacterType {
+export function transformCharacter(character: CharacterType): TransformCharacterType {
   const updatedCharacter = { ...character, isSelected: false };
   if (character.attributes.gender === null) {
     updatedCharacter.attributes.gender = 'Unknown';

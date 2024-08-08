@@ -8,28 +8,26 @@ import { useAppSelector } from '../../hooks/storeHooks';
 import { useDispatch } from 'react-redux';
 import { setCardDetails } from '../../store/slices/appDataSlice';
 import { CardCheckBox } from '../cardCheckBox/CardCheckBox';
+import { useLoaderData, useSearchParams } from '@remix-run/react';
 
 export const CardDetails = (): JSX.Element => {
   const dispatch = useDispatch();
+  const { responseWithDetails:character}: { responseWithDetails: TransformCharacterType } =
+  useLoaderData();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const filter = searchParams.get('filter') || '';
+  const pageNum = searchParams.get('pageNum') || '1';
 
-  const cardDetails = useAppSelector((state) => state.appData.cardDetails);
-  const characterList = useAppSelector(
-    (state) => state.characters.characterList
-  );
-
-  const characterId = characterList[Number(cardDetails) - 1].id;
-
-  const {
-    data: character,
-    isFetching,
-    isError,
-  } = useGetCharacterQuery(characterId);
-
+  
+  const cardDetails = useAppSelector(state=>state.appData.cardDetails)
+  const characterList = useAppSelector(state=>state.characters.characterList)
+  
   const handleHideCardDetails = () => {
     dispatch(setCardDetails(''));
+    setSearchParams({filter,pageNum})
   };
 
-  const content = !(isFetching || isError || !character) ? (
+  const content = ( character) ? (
     <div>
       <div className={styles.backdrop} onClick={handleHideCardDetails}></div>
       <div className={styles.characterWrapper}>
@@ -50,8 +48,8 @@ export const CardDetails = (): JSX.Element => {
 
   return (
     <div className={styles.cardMainContainer}>
-      {isError && <ErrorMessage errorMsg={isError.toString()} />}
-      {isFetching && <Spinner />}
+
+      {/* {isFetching && <Spinner />} */}
       {content}
     </div>
   );

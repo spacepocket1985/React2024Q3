@@ -1,3 +1,4 @@
+import { useSearchParams } from '@remix-run/react';
 import { useAppDispatch, useAppSelector } from '../../hooks/storeHooks';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 
@@ -9,7 +10,9 @@ import styles from './SearchBar.module.css';
 export const SearchBar = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const [searchTerm, setSearchTerm] = useLocalStorage();
+  const [, setSearchParams] = useSearchParams();
   const isLoading = useAppSelector((state) => state.appData.isLoading);
+
   const onUpdateSearch = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const searchTerm = event.target.value.trim();
     setSearchTerm(searchTerm);
@@ -18,6 +21,7 @@ export const SearchBar = (): JSX.Element => {
   const onSubmitHandler = (event: React.MouseEvent): void => {
     event.preventDefault();
     dispatch(setFilterWord(searchTerm || ''));
+    setSearchParams({ filter: searchTerm || '', pageNum: '1' });
   };
 
   return (

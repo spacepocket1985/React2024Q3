@@ -1,15 +1,18 @@
-import { useAppSelector, useAppDispatch } from '../../hooks/storeHooks';
+import { useSearchParams } from '@remix-run/react';
 
-import { setCurrentPage } from '../../store/slices/appDataSlice';
+import { useAppSelector} from '../../hooks/storeHooks';
+
 import styles from './Pagination.module.css';
 
 export const Pagination = (): JSX.Element => {
   const { prev, next, current } = useAppSelector(
     (state) => state.appData.pagination
   );
-  const dispatch = useAppDispatch();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const filter = searchParams.get('filter') || '';
+
   const paginationHandler = (page: number) => {
-    dispatch(setCurrentPage(page));
+    setSearchParams({ filter, pageNum: String(page) });
   };
 
   return (

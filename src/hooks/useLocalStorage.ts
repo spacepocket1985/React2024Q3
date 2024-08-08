@@ -1,22 +1,27 @@
-import { useState, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useState, useEffect } from 'react';  
 
-const storageKey = 'searchTermForHarryPotterDB';
+const storageKey = 'searchTermForHarryPotterDB';  
 
-export const useLocalStorage = (): [
-  string | null,
-  React.Dispatch<React.SetStateAction<string | null>>
-] => {
-  const [searchParams] = useSearchParams();
+export const useLocalStorage = (): [  
+  string | null,  
+  React.Dispatch<React.SetStateAction<string | null>>  
+] => {  
+  const [searchTerm, setSearchTerm] = useState<string | null>(null);  
 
-  const filterSearchParam = searchParams.get('filter');
-  const [searchTerm, setSearchTerm] = useState(() => {
-    return filterSearchParam || localStorage.getItem(storageKey);
-  });
+  // Effect to initialize the state from localStorage when the component mounts in the browser  
+  useEffect(() => {  
+    const storedTerm = localStorage.getItem(storageKey);  
+    setSearchTerm(storedTerm);  
+  }, []);  
 
-  useEffect(() => {
-    localStorage.setItem(storageKey, searchTerm || '');
-  }, [searchTerm]);
+  // Effect to update localStorage when searchTerm changes  
+  useEffect(() => {  
+    if (searchTerm !== null) {  
+      localStorage.setItem(storageKey, searchTerm);  
+    } else {  
+      localStorage.removeItem(storageKey); // Optionally remove the item if searchTerm is null  
+    }  
+  }, [searchTerm]);  
 
-  return [searchTerm, setSearchTerm];
+  return [searchTerm, setSearchTerm];  
 };

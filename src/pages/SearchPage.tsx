@@ -1,8 +1,6 @@
 import { useEffect } from 'react';
-import { Outlet, useSearchParams } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '../hooks/storeHooks';
-import { useGetAllCharactersQuery } from '../store/slices/apiSlice';
 
 import { CardList } from '../components/cardList/CardList';
 import { SearchBar } from '../components/searchBar/SearchBar';
@@ -11,41 +9,39 @@ import { CardDetails } from '../components/cardDetails/cardDetails';
 
 import { setCharacters } from '../store/slices/charactersSlice';
 import { setLoading, setPagination } from '../store/slices/appDataSlice';
+import {
+  useLoaderData,
+  useNavigation,
+  useSearchParams,
+} from '@remix-run/react';
+import { transformApiResponseType } from 'src/types';
 
 export const SearchPage = (): JSX.Element => {
-  const [, setSearchParams] = useSearchParams();
+  const { data}: { data: transformApiResponseType } =
+    useLoaderData();
 
+  const { state } = useNavigation();
   const dispatch = useAppDispatch();
 
-  const filter = useAppSelector((state) => state.appData.filterWord);
   const cardDetails = useAppSelector((state) => state.appData.cardDetails);
   const charactersList = useAppSelector(
     (state) => state.characters.characterList
   );
-  const pageNum = String(
-    useAppSelector((state) => state.appData.pagination.current)
-  );
-
-  const { data: results, isFetching } = useGetAllCharactersQuery({
-    pageNum,
-    filter,
-  });
 
   useEffect(() => {
-    dispatch(setLoading(isFetching));
-    if (!isFetching && results) {
-      dispatch(setCharacters(results.сharacters));
-      dispatch(setPagination(results.pagination));
+    if (state === 'loading') {
+      dispatch(setLoading(true));
+    } else {
+      dispatch(setLoading(false));
     }
-  }, [results, isFetching, dispatch]);
+  }, [state]);
 
   useEffect(() => {
-    setSearchParams({
-      filter,
-      pageNumber: String(pageNum),
-      details: charactersList[Number(cardDetails)] ? cardDetails : '',
-    });
-  }, [filter, pageNum, cardDetails, setSearchParams, charactersList]);
+    if (data) {
+      dispatch(setCharacters(data.сharacters));
+      dispatch(setPagination(data.pagination));
+    }
+  }, [dispatch, data]);
 
   return (
     <div>
@@ -55,7 +51,6 @@ export const SearchPage = (): JSX.Element => {
       {charactersList[Number(cardDetails) - 1] && cardDetails && (
         <CardDetails />
       )}
-      <Outlet />
     </div>
   );
 };
