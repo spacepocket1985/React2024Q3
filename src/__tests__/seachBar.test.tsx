@@ -1,21 +1,22 @@
-import { describe, expect, it } from 'vitest';
-import { Provider } from 'react-redux';
+import { describe, expect, it, vi } from 'vitest';
 
 import '@testing-library/jest-dom';
-import { MemoryRouter } from 'react-router-dom';
+
 import { fireEvent, render, screen } from '@testing-library/react';
 import { SearchBar } from '../components/searchBar/SearchBar';
-import { store } from '../store/store';
+import { Providers } from '../../app/providers';
+
+vi.mock('@remix-run/react', () => ({
+  useSearchParams: () => [new URLSearchParams(), vi.fn()],
+}));
 
 describe('Tests for the Search component', () => {
   const storageKey = 'searchTermForHarryPotterDB';
   it('Clicking the Search button saves the entered value to the local storage', async () => {
     render(
-      <MemoryRouter>
-        <Provider store={store}>
-          <SearchBar />
-        </Provider>
-      </MemoryRouter>
+      <Providers>
+        <SearchBar />
+      </Providers>
     );
 
     fireEvent.change(screen.getByTestId('searchInput'), {
@@ -34,11 +35,9 @@ describe('Tests for the Search component', () => {
     localStorage.setItem(storageKey, JSON.stringify('BulbaZawr'));
 
     render(
-      <MemoryRouter>
-        <Provider store={store}>
-          <SearchBar />
-        </Provider>
-      </MemoryRouter>
+      <Providers>
+        <SearchBar />
+      </Providers>
     );
 
     const input: HTMLInputElement = screen.getByTestId('searchInput');

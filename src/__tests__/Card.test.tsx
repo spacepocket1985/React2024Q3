@@ -1,21 +1,23 @@
 import { act, fireEvent, render, screen } from '@testing-library/react';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { describe, expect, it, vi } from 'vitest';
+
 import '@testing-library/jest-dom';
 import { Card } from '../components/card/Card';
 import { mockTransformCharactersData } from './mocks/mocksData';
-import { Provider } from 'react-redux';
-import { store } from '../store/store';
+import { Providers } from '../../app/providers';
 
 const mockCharacter = mockTransformCharactersData[0];
+
+vi.mock('@remix-run/react', () => ({
+  useSearchParams: () => [new URLSearchParams(), vi.fn()],
+}));
 
 describe('Tests for the Card component', () => {
   it('Ensure that the card component renders the relevant card data', async () => {
     render(
-      <Router>
-        <Provider store={store}>
-          <Card character={mockCharacter} index={0} />
-        </Provider>
-      </Router>
+      <Providers>
+        <Card character={mockCharacter} index={0} />
+      </Providers>
     );
 
     const title = await screen.findByText(
@@ -26,11 +28,9 @@ describe('Tests for the Card component', () => {
   it('Validate that clicking on a card opens a detailed card component', async () => {
     const index = 1;
     render(
-      <Router>
-        <Provider store={store}>
-          <Card character={mockCharacter} index={index} />
-        </Provider>
-      </Router>
+      <Providers>
+        <Card character={mockCharacter} index={index} />
+      </Providers>
     );
     const card = await screen.findByTestId('card');
     await act(async () => {

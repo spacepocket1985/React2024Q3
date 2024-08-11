@@ -1,15 +1,14 @@
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
-import { Page404 } from '../pages/Page404';
+import { Page404 } from 'src/pages/Page404';
+
+import { describe, expect, it } from 'vitest';
+
+
 
 describe('404 Page component:', () => {
-  it('Ensure that the 404 page is displayed when navigating to an invalid route', () => {
-    render(
-      <MemoryRouter initialEntries={['/invalid-route']}>
-        <Page404 />
-      </MemoryRouter>
-    );
+  it('Ensure that the 404 page is displayed', () => {
+    render(<Page404 />);
 
     const messageElement = screen.getByText('page not found');
     expect(messageElement).toBeInTheDocument();

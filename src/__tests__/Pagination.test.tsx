@@ -1,17 +1,20 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
+import { it, expect, vi } from 'vitest';
 import '@testing-library/jest-dom';
-import { store } from '../store/store';
-import { Pagination } from '../components/pagination/Pagination';
 
-it('Check for the presence of pagination elements and update the informer after clicking the NextButton/PrevButton', async () => {
+import { Pagination } from '../components/pagination/Pagination';
+import { Providers } from '../../app/providers';
+
+const setSearchParamsMock = vi.fn();
+vi.mock('@remix-run/react', () => ({
+  useSearchParams: () => [new URLSearchParams(), setSearchParamsMock],
+}));
+
+it('Check for the presence of pagination elements ', async () => {
   render(
-    <BrowserRouter>
-      <Provider store={store}>
-        <Pagination />
-      </Provider>
-    </BrowserRouter>
+    <Providers>
+      <Pagination />
+    </Providers>
   );
 
   const prevBtn = await screen.findByTestId('prevBtn');
@@ -22,9 +25,11 @@ it('Check for the presence of pagination elements and update the informer after 
   expect(nextBtn).toBeInTheDocument;
   expect(informer).toBeInTheDocument;
 
-  await fireEvent.click(nextBtn);
-  expect(informer.textContent).toBe('2');
+  await expect(informer.textContent).toBe('1');
 
-  await fireEvent.click(prevBtn);
-  expect(informer.textContent).toBe('1');
+  await fireEvent.click(nextBtn);
+  expect(setSearchParamsMock).toHaveBeenCalledWith({
+    filter: '',
+    pageNum: '2',
+  });
 });

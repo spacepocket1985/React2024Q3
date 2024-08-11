@@ -12,22 +12,24 @@ import { useLoaderData, useSearchParams } from '@remix-run/react';
 
 export const CardDetails = (): JSX.Element => {
   const dispatch = useDispatch();
-  const { responseWithDetails:character}: { responseWithDetails: TransformCharacterType } =
-  useLoaderData();
+  const {
+    responseWithDetails: character,
+  }: { responseWithDetails: TransformCharacterType } = useLoaderData();
   const [searchParams, setSearchParams] = useSearchParams();
   const filter = searchParams.get('filter') || '';
   const pageNum = searchParams.get('pageNum') || '1';
 
-  
-  const cardDetails = useAppSelector(state=>state.appData.cardDetails)
-  const characterList = useAppSelector(state=>state.characters.characterList)
-  
+  const cardDetails = useAppSelector((state) => state.appData.cardDetails);
+  const characterList = useAppSelector(
+    (state) => state.characters.characterList
+  );
+
   const handleHideCardDetails = () => {
     dispatch(setCardDetails(''));
-    setSearchParams({filter,pageNum})
+    setSearchParams({ filter, pageNum });
   };
 
-  const content = ( character) ? (
+  const content = character ? (
     <div>
       <div className={styles.backdrop} onClick={handleHideCardDetails}></div>
       <div className={styles.characterWrapper}>
@@ -48,7 +50,6 @@ export const CardDetails = (): JSX.Element => {
 
   return (
     <div className={styles.cardMainContainer}>
-
       {/* {isFetching && <Spinner />} */}
       {content}
     </div>
