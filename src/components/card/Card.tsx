@@ -21,12 +21,13 @@ export const Card = (props: CardPropsType): JSX.Element => {
   };
 
   const handleCardClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (e.target !== ref!.current)
+    if (e.target !== ref!.current) {
       dispatch(setCardDetails(String(props.index)));
 
-    const filter = searchParams.get('filter') || '';
-    const pageNum = searchParams.get('pageNum') || '1';
-    setSearchParams({ filter, pageNum, details: String(props.index) });
+      const filter = searchParams.get('filter') || '';
+      const pageNum = searchParams.get('pageNum') || '1';
+      setSearchParams({ filter, pageNum, details: String(props.index) });
+    }
   };
 
   return (

@@ -1,27 +1,40 @@
-import { useState, useEffect } from 'react';  
+import { useState, useEffect } from 'react';
+import { useSearchParams, useNavigate } from '@remix-run/react';
 
-const storageKey = 'searchTermForHarryPotterDB';  
+const storageKey = 'searchTermForHarryPotterDB';
 
-export const useLocalStorage = (): [  
-  string | null,  
-  React.Dispatch<React.SetStateAction<string | null>>  
-] => {  
-  const [searchTerm, setSearchTerm] = useState<string | null>(null);  
+export const useLocalStorage = (): [
+  string | null,
+  React.Dispatch<React.SetStateAction<string | null>>
+] => {
+  const [searchTerm, setSearchTerm] = useState<string | null>(null);
+  const [hasNavigated, setHasNavigated] = useState(false);
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  // Effect to initialize the state from localStorage when the component mounts in the browser  
-  useEffect(() => {  
-    const storedTerm = localStorage.getItem(storageKey);  
-    setSearchTerm(storedTerm);  
-  }, []);  
+  useEffect(() => {
+    const storedTerm = localStorage.getItem(storageKey);
+    setSearchTerm(storedTerm);
+  }, []);
 
-  // Effect to update localStorage when searchTerm changes  
-  useEffect(() => {  
-    if (searchTerm !== null) {  
-      localStorage.setItem(storageKey, searchTerm);  
-    } else {  
-      localStorage.removeItem(storageKey); // Optionally remove the item if searchTerm is null  
-    }  
-  }, [searchTerm]);  
+  useEffect(() => {
+    if (searchTerm !== null && !hasNavigated) {
+      const filter = searchParams.get('filter');
+      const pageNum = searchParams.get('pageNum');
+      setSearchParams({
+        filter: filter || searchTerm,
+        pageNum: pageNum || '1',
+      });
 
-  return [searchTerm, setSearchTerm];  
+      setHasNavigated(true);
+    }
+  }, [searchTerm, hasNavigated, searchParams]);
+
+
+  useEffect(() => {
+    if (searchTerm !== null) {
+      localStorage.setItem(storageKey, searchTerm);
+    }
+  }, [searchTerm]);
+
+  return [searchTerm, setSearchTerm];
 };
