@@ -1,0 +1,23 @@
+.searhWrapper {
+  padding-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.searhWrapperImg {
+  max-width: 100%;
+  height: 100%;
+}
+
+.searhWrapper form {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.searhWrapper input {
+  padding: 0.7rem;
+  border-radius: 0.8rem;
+}

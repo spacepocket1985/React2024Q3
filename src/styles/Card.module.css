@@ -1,0 +1,51 @@
+.characterWrapper {
+  width: 20rem;
+  height: 30.5rem;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--main-color);
+  border-radius: 0.8rem;
+  margin: 0.75rem;
+  transition: all 0.3s;
+  border: 0.15rem solid rgba(207, 201, 201, 0.5);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.characterWrapper:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+}
+
+.characterImgWrapper {
+  width: 100%;
+  height: 20rem;
+  border-bottom: 0.4rem solid var(--third-color);
+}
+.characterImg {
+  width: 100%;
+  height: 100%;
+  transition: opacity 0.5s ease 0s;
+  object-position: top center;
+  object-fit: cover;
+}
+
+.characterContentWrapper {
+  flex: 3 1 0%;
+  position: relative;
+  padding: 0.75rem;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 1.6rem;
+}
+
+.characterContentWrapper div {
+  margin-bottom: 0.5rem;
+}
+
+.characterName {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}

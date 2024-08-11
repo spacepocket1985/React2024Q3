@@ -1,0 +1,35 @@
+.themeWrapper {
+  position: absolute;
+  right: 5rem;
+  top: 0.3rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  border-radius: 0.7rem;
+  background-color: var(--switcher-color);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.themeWrapper:hover {
+  transform: scale(1.05);
+}
+
+.themeWrapper button {
+  width: 4rem;
+  height: 3.2rem;
+  border-radius: 0.5rem;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 65%;
+  background-color: #fdb130;
+}
+
+.btnLight {
+  background-image: url('../assets/theme-light.png');
+}
+
+.btnDark {
+  background-image: url('../assets/theme-dark.png');
+}
