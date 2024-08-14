@@ -1,0 +1,15 @@
+.menuLink {
+  padding: 1rem;
+  color: var(--title-color);
+  background-color: var(--secondary-color);
+  border-radius: 1rem;
+  font-size: 1.4rem;
+  transition: all .3s;
+}
+
+.menuLink:hover {
+  scale: 1.1;
+  background-color: var(--switcher-color);
+
+}
+

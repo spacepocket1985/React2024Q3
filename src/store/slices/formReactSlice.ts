@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { FormDataType } from '../../types';
 
 const initialState: FormDataType = {
@@ -17,7 +17,8 @@ const formReactSlice = createSlice({
   name: 'formReact',
   initialState,
   reducers: {
-    setFormReactData: (state, action) => (state = action.payload),
+    setFormReactData: (state, action: PayloadAction<FormDataType>) =>
+      (state = action.payload),
   },
 });
 
