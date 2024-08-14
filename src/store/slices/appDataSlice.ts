@@ -1,73 +1,39 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
+import { FormDataType } from '../../types';
 
-const storageKey = 'searchTermForHarryPotterDB';
-
-const searchParam = new URLSearchParams(window.location.search);
-const pageNumberSearchParam = Number(searchParam.get('pageNumber')) || 1;
-const detailsSearchParam = searchParam.get('details') || '';
-const filterSearchParam =
-  searchParam.get('filter') || localStorage.getItem(storageKey) || '';
-
-type PaginationType = {
-  current: number;
-  first: number;
-  prev: number;
-  next: number;
-  last: number;
-  records: number;
+type IDataList = {
+  dataFromForms: FormDataType[];
+  dataFromLastSubmit: FormDataType;
 };
 
-type AppDataStateType = {
-  filterWord: string;
-  cardDetails: string;
-  pagination: PaginationType;
-  isLoading: boolean;
-};
-
-const initialState: AppDataStateType = {
-  filterWord: filterSearchParam,
-  cardDetails: detailsSearchParam,
-  pagination: {
-    current: pageNumberSearchParam,
-    first: 1,
-    prev: pageNumberSearchParam > 1 ? pageNumberSearchParam - 1 : 1,
-    next: pageNumberSearchParam + 1,
-    last: 1,
-    records: 0,
+const initialState: IDataList = {
+  dataFromForms: [],
+  dataFromLastSubmit: {
+    name: '',
+    age: 0,
+    gender: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+    acceptTerms: false,
+    country: '',
+    picture: '',
   },
-  isLoading: false,
 };
 
-const appDataSlice = createSlice({
-  name: 'appData',
+const datatSlice = createSlice({
+  name: 'dataFromForms',
   initialState,
   reducers: {
-    setPagination: (state, action: PayloadAction<PaginationType>) => {
-      state.pagination = action.payload;
+    addData(state) {
+      state.dataFromForms.unshift(state.dataFromLastSubmit);
     },
-    setCurrentPage: (state, action: PayloadAction<number>) => {
-      state.pagination.current = action.payload;
-      state.pagination.prev = action.payload > 1 ? action.payload - 1 : 1;
-      state.pagination.next = action.payload + 1;
-    },
-    setFilterWord: (state, action: PayloadAction<string>) => {
-      state.filterWord = action.payload;
-    },
-    setCardDetails: (state, action: PayloadAction<string>) => {
-      state.cardDetails = action.payload;
-    },
-    setLoading: (state, action: PayloadAction<boolean>) => {
-      state.isLoading = action.payload;
-    },
+    setData: (state, action) => (state.dataFromLastSubmit = action.payload),
+    setPicture: (state, action) =>
+      (state.dataFromLastSubmit.picture = action.payload),
   },
 });
 
-export const {
-  setCardDetails,
-  setFilterWord,
-  setPagination,
-  setLoading,
-  setCurrentPage,
-} = appDataSlice.actions;
+export const { addData, setData, setPicture } = datatSlice.actions;
 
-export default appDataSlice.reducer;
+export default datatSlice.reducer;

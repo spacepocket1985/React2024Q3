@@ -1,20 +1,21 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { combineReducers } from 'redux';
 
-import charactersReducer from './slices/charactersSlice';
+import countriesReducer from './slices/countrySlice';
 import appDataReducer from './slices/appDataSlice';
-import { potterDbApiSlice } from './slices/apiSlice';
+import formReactReducer from './slices/formReactSlice'
 
 export const rootReducer = combineReducers({
-  [potterDbApiSlice.reducerPath]: potterDbApiSlice.reducer,
-  characters: charactersReducer,
+
+  countries: countriesReducer,
   appData: appDataReducer,
+  formReact: formReactReducer
 });
 
 export const store = configureStore({
   reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(potterDbApiSlice.middleware),
+  getDefaultMiddleware({ immutableCheck: false, serializableCheck: false }),
 });
 
 export type AppRootState = ReturnType<typeof store.getState>;

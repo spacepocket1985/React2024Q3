@@ -1,12 +1,12 @@
-import { SearchPage } from '../pages/SearchPage';
+import { MainPage } from '../pages/MainPage';
 import { Page404 } from '../pages/Page404';
 
 import { RoutePaths } from './routePaths';
 
 export const publicRoutes = [
   {
-    path: RoutePaths.SEARCHPAGE,
-    Page: SearchPage,
+    path: RoutePaths.MainPage,
+    Page: MainPage,
   },
 
   {

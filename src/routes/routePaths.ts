@@ -1,4 +1,4 @@
 export enum RoutePaths {
-  SEARCHPAGE = '/searchPage',
+  MainPage = '/main',
   PAGE404 = '*',
 }

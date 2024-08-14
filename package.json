@@ -11,9 +11,8 @@
     "lint-staged": "lint-staged",
     "preview": "vite preview",
     "format:fix": "prettier --write .",
-    "prepare": "husky install",
-    "test": "vitest --run",
-    "coverage": "vitest --coverage"
+    "prepare": "husky install"
+
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.6",
@@ -23,16 +22,12 @@
     "react-router-dom": "^6.24.1"
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^6.4.6",
-    "@testing-library/react": "^16.0.0",
     "@types/react": "^18.2.55",
     "@types/react-dom": "^18.2.19",
     "@types/react-redux": "^7.1.33",
-    "@types/redux-mock-store": "^1.0.6",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^6.21.0",
     "@vitejs/plugin-react": "^4.2.1",
-    "@vitest/coverage-v8": "^2.0.2",
     "eslint": "^8.14.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-import-resolver-typescript": "^2.7.1",
@@ -44,11 +39,9 @@
     "jsdom": "^24.1.0",
     "lint-staged": "^12.5.0",
     "prettier": "^2.6.2",
-    "redux-mock-store": "^1.5.4",
     "typescript": "5.2.2",
     "vite": "^5.1.0",
-    "vitest": "^2.0.2",
-    "vitest-fetch-mock": "^0.3.0"
+    "vitest": "^2.0.2"
   },
   "husky": {
     "hooks": {

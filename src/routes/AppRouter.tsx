@@ -7,7 +7,7 @@ export const AppRouter = (): JSX.Element => {
     <Routes>
       <Route
         path="/"
-        element={<Navigate to={RoutePaths.SEARCHPAGE} replace />}
+        element={<Navigate to={RoutePaths.MainPage} replace />}
       ></Route>
 
       {publicRoutes.map(({ path, Page }) => (
