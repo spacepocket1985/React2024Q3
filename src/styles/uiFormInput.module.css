@@ -1,0 +1,10 @@
+.selectWrapper {
+  display: flex;
+}
+.invalidFeedback {
+  background: var();
+  color: var(--fourth-color);
+  font-size: 1.4rem;
+  text-align: center;
+  min-height: 2rem;
+}

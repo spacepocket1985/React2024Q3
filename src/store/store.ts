@@ -1,13 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { combineReducers } from 'redux';
 
-import countriesReducer from './slices/countrySlice';
+import selectDataReducer from './slices/selectDataSlice';
 import appDataReducer from './slices/appDataSlice';
 import formReactReducer from './slices/formReactSlice'
 
 export const rootReducer = combineReducers({
 
-  countries: countriesReducer,
+  selectData: selectDataReducer,
   appData: appDataReducer,
   formReact: formReactReducer
 });

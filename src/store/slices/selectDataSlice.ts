@@ -254,12 +254,13 @@ const initialState = {
     'Zambia',
     'Zimbabwe',
   ],
+  gender: ['','female', 'male', 'other'],
 };
 
-export const countrySlice = createSlice({
-  name: 'countries',
+export const selectDataSlice = createSlice({
+  name: 'selectData',
   initialState,
   reducers: {},
 });
 
-export default countrySlice.reducer;
+export default selectDataSlice.reducer;
