@@ -1,17 +1,22 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
+
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import validationSchema from '../utils/validationSchema';
-import { FormType } from '../types';
+import { FormDataType, FormType } from '../types';
 import { UIFormInput } from '../ui/UIFormInput';
 
 import styles from '../styles/form.module.css';
-import { useAppSelector } from '../hooks/storeHooks';
+import { useAppDispatch, useAppSelector } from '../hooks/storeHooks';
+import { convertBase64 } from '../utils/convertBase64';
+import { useNavigate } from 'react-router-dom';
+import { setData } from '../store/slices/formsDataSlice';
 
 export const ReactFrom = (): JSX.Element => {
   const gender = useAppSelector((state) => state.selectData.gender);
   const countries = useAppSelector((state) => state.selectData.countries);
-
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const {
     register,
     handleSubmit,
@@ -21,7 +26,19 @@ export const ReactFrom = (): JSX.Element => {
     mode: 'onChange',
   });
 
-  const onSubmit: SubmitHandler<FormType> = (data) => {};
+  const onSubmit: SubmitHandler<FormType> = async (data) => {
+
+    if (data.picture[0] instanceof File) {
+      const image2Base64 = await convertBase64(data.picture[0]);
+      const newData: FormDataType = { ...data, picture: image2Base64 };
+      console.log({ ...data, picture: image2Base64 });
+      dispatch(setData(newData));
+
+      navigate('/');
+    } else {
+      throw new Error('Invalid picture type');
+    }
+  };
   return (
     <>
       <h1>ReactFrom</h1>
@@ -104,16 +121,20 @@ export const ReactFrom = (): JSX.Element => {
           />
         </div>
         <div className={styles.lineforCheckBox}>
-        <label className="termLabel">I have read and agree to terms and conditions</label>
-        <UIFormInput
-         controlType='input'
-         type='checkbox'
-         name="acceptTerms"
-         register={register}
-         placeholder="acceptTerms"
-         required
-         error={errors.acceptTerms?.message ? errors.acceptTerms?.message : ''}
-         />
+          <label className="termLabel">
+            I have read and agree to terms and conditions
+          </label>
+          <UIFormInput
+            controlType="input"
+            type="checkbox"
+            name="acceptTerms"
+            register={register}
+            placeholder="acceptTerms"
+            required
+            error={
+              errors.acceptTerms?.message ? errors.acceptTerms?.message : ''
+            }
+          />
         </div>
         <input type="submit" disabled={!isValid} />
       </form>

@@ -2,20 +2,17 @@ import { configureStore } from '@reduxjs/toolkit';
 import { combineReducers } from 'redux';
 
 import selectDataReducer from './slices/selectDataSlice';
-import appDataReducer from './slices/appDataSlice';
-import formReactReducer from './slices/formReactSlice'
+import formsDataReducer from './slices/formsDataSlice';
 
 export const rootReducer = combineReducers({
-
   selectData: selectDataReducer,
-  appData: appDataReducer,
-  formReact: formReactReducer
+  formsData: formsDataReducer,
 });
 
 export const store = configureStore({
   reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
-  getDefaultMiddleware({ immutableCheck: false, serializableCheck: false }),
+    getDefaultMiddleware({ immutableCheck: false, serializableCheck: false }),
 });
 
 export type AppRootState = ReturnType<typeof store.getState>;

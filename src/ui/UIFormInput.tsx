@@ -38,6 +38,7 @@ export const UIFormInput = <T extends FieldValues>({
         <div className={styles.selectWrapper}>
           <span>{`Select ${name}`}</span>
           <select
+          autoComplete='on'
           id={name}
           className={`inputStyle ${error ? 'isInvalid' : ''}`}
           {...register(name, { required })}
