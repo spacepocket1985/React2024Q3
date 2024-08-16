@@ -3,7 +3,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import validationSchema from '../utils/validationSchema';
-import { FormDataType, FormType } from '../types';
+import { FormDataType, FormType, submitFormType } from '../types';
 import { UIFormInput } from '../ui/UIFormInput';
 
 import styles from '../styles/form.module.css';
@@ -21,14 +21,14 @@ export const ReactFrom = (): JSX.Element => {
     register,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm<FormType>({
+  } = useForm<submitFormType>({
     resolver: yupResolver(validationSchema),
     mode: 'onChange',
   });
 
   const onSubmit: SubmitHandler<FormType> = async (data) => {
-    if (data.picture[0] instanceof File) {
-      const image2Base64 = await convertBase64(data.picture[0]);
+    if (data.picture![0] instanceof File) {
+      const image2Base64 = await convertBase64(data.picture![0]);
       const newData: FormDataType = { ...data, picture: image2Base64 };
 
       dispatch(setData(newData));
