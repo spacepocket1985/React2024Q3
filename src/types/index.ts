@@ -1,6 +1,6 @@
 export type FormDataType = {
   name?: string;
-  age?: number| string;
+  age?: number | string;
   gender?: string;
   email?: string;
   password?: string;

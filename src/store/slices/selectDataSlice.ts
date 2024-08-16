@@ -254,7 +254,7 @@ const initialState = {
     'Zambia',
     'Zimbabwe',
   ],
-  gender: ['','female', 'male', 'other'],
+  gender: ['', 'female', 'male', 'other'],
 };
 
 export const selectDataSlice = createSlice({

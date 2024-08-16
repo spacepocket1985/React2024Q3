@@ -21,21 +21,21 @@ const initialState: IDataList = {
   },
 };
 
-const formsDatatSlice = createSlice({  
-  name: 'dataFromForms',  
-  initialState,  
-  reducers: {  
-    addData(state) {  
-      state.dataFromForms.unshift(state.dataFromLastSubmit);  
-    },  
-    setData(state, action: PayloadAction<FormDataType>) {  
+const formsDatatSlice = createSlice({
+  name: 'dataFromForms',
+  initialState,
+  reducers: {
+    addData(state) {
+      state.dataFromForms.unshift(state.dataFromLastSubmit);
+    },
+    setData(state, action: PayloadAction<FormDataType>) {
       state.dataFromLastSubmit = action.payload;
-      state.dataFromForms.unshift(action.payload);   
-    },  
-    setPicture(state, action: PayloadAction<string>) {  
-      state.dataFromLastSubmit.picture = action.payload;  
-    },  
-  },  
+      state.dataFromForms.unshift(action.payload);
+    },
+    setPicture(state, action: PayloadAction<string>) {
+      state.dataFromLastSubmit.picture = action.payload;
+    },
+  },
 });
 
 export const { addData, setData, setPicture } = formsDatatSlice.actions;

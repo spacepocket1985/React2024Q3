@@ -6,12 +6,12 @@ import { useState, useRef, FormEvent } from 'react';
 import validationSchema from '../utils/validationSchema';
 import { useAppDispatch, useAppSelector } from '../hooks/storeHooks';
 import { convertBase64 } from '../utils/convertBase64';
-import { FormDataType, FormType } from '../types';
+import { FormDataType} from '../types';
 import { setData } from '../store/slices/formsDataSlice';
 
 import styles from '../styles/form.module.css';
 
-export const SimpleFrom = () => {
+export const SimpleFrom = ():JSX.Element => {
   const navigate = useNavigate();
 
   const [formErrors, setErrors] = useState<Record<string, string>>({});
@@ -35,15 +35,15 @@ export const SimpleFrom = () => {
     e.preventDefault();
 
     const formData = {
-      name: nameRef.current?.value ,
+      name: nameRef.current?.value,
       age: ageRef.current?.value,
-      email: emailRef.current?.value ,
-      password: passwordRef.current?.value ,
-      confirmPassword: confirmPasswordRef.current?.value ,
-      gender: genderRef.current?.value ,
-      acceptTerms: tcRef.current?.checked ,
-      picture: pictureRef.current?.files ,
-      country: countriesRef.current?.value ,
+      email: emailRef.current?.value,
+      password: passwordRef.current?.value,
+      confirmPassword: confirmPasswordRef.current?.value,
+      gender: genderRef.current?.value,
+      acceptTerms: tcRef.current?.checked,
+      picture: pictureRef.current?.files,
+      country: countriesRef.current?.value,
     };
 
     const isFormValid = await validationSchema.isValid(formData);
@@ -100,7 +100,7 @@ export const SimpleFrom = () => {
           </label>
 
           <label htmlFor="age">
-            <input name="age" ref={ageRef} placeholder="age" id="name"/>
+            <input name="age" ref={ageRef} placeholder="age" id="name" />
             <div className={styles.invalidFeedback}>{formErrors.age}</div>
           </label>
         </div>

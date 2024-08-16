@@ -27,7 +27,6 @@ export const ReactFrom = (): JSX.Element => {
   });
 
   const onSubmit: SubmitHandler<FormType> = async (data) => {
-
     if (data.picture[0] instanceof File) {
       const image2Base64 = await convertBase64(data.picture[0]);
       const newData: FormDataType = { ...data, picture: image2Base64 };

@@ -39,7 +39,6 @@ body {
   --bg-color-third: #eec922e9;
   --switcher-color: #f54e0c;
   background-color: #112d49;
-  
 }
 
 #root {
@@ -101,7 +100,7 @@ select {
   border-radius: 0.5rem;
   border: 0.1rem solid var(--main-color);
   padding: 1rem 1.5rem;
-  margin-bottom: .5rem;
+  margin-bottom: 0.5rem;
   font-size: 1.4rem;
 }
 
@@ -160,6 +159,3 @@ input[type='submit']:disabled {
   opacity: 0.5;
   pointer-events: none;
 }
-
-
-

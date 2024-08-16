@@ -1,5 +1,5 @@
 import { FieldValues, Path, UseFormRegister } from 'react-hook-form';
-import styles from '../styles/uiFormInput.module.css'
+import styles from '../styles/uiFormInput.module.css';
 
 type UiFormInputProps<T extends FieldValues> = {
   controlType: 'input' | 'select';
@@ -28,7 +28,7 @@ export const UIFormInput = <T extends FieldValues>({
         <input
           id={name}
           type={type}
-          autoComplete={type === 'password'? 'on' : ''}
+          autoComplete={type === 'password' ? 'on' : ''}
           className={`${error ? 'isInvalid' : ''}`}
           {...register(name, { required })}
           placeholder={placeholder}
@@ -39,19 +39,18 @@ export const UIFormInput = <T extends FieldValues>({
         <div className={styles.selectWrapper}>
           <span>{`Select ${name}`}</span>
           <select
-          autoComplete='on'
-          id={name}
-          className={`inputStyle ${error ? 'isInvalid' : ''}`}
-          {...register(name, { required })}
-        >
-          {options.map((option) => (
-            <option key={option} value={option}>
-              {option}
-            </option>
-          ))}
-        </select>
-          </div>
-
+            autoComplete="on"
+            id={name}
+            className={`inputStyle ${error ? 'isInvalid' : ''}`}
+            {...register(name, { required })}
+          >
+            {options.map((option) => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
+          </select>
+        </div>
       )}
 
       <div className={styles.invalidFeedback}>{error}</div>

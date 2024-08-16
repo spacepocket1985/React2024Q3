@@ -11,7 +11,7 @@
   margin-bottom: 5rem;
   margin-top: 1rem;
   border: var(--secondary-color) solid 0.2rem;
-  color:var(--white)
+  color: var(--white);
 }
 
 .formTitle {
@@ -27,15 +27,15 @@
 }
 
 .lineTitle {
-  background-color:var(--secondary-color);
+  background-color: var(--secondary-color);
   padding: 0.5rem;
 }
 
-.wrapperData:first-child {
+.formPrimary {
   animation-name: blinker;
   animation-iteration-count: 2;
   animation-timing-function: cubic-bezier(1, 0, 0, 1);
-  animation-duration: 2s;
+  animation-duration: 1s;
   transition: all 0.3s;
 }
 

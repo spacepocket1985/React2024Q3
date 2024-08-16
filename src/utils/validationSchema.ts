@@ -1,6 +1,5 @@
 import * as Yup from 'yup';
 
-const gender = ['female', 'male', 'other'];
 const validationSchema = Yup.object({
   name: Yup.string()
     .required('Name is required')
