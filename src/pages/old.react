@@ -22,7 +22,7 @@ export const ReactFrom = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const {
     register,
-    handleSubmit,setValue,
+    handleSubmit,
     formState: { errors, isValid },
   } = useForm<submitFormType>({
     resolver: yupResolver(validationSchema),
@@ -31,7 +31,7 @@ export const ReactFrom = (): JSX.Element => {
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newPassword = e.target.value;
-    setValue('password', newPassword);
+    console.log(newPassword)
     setStrength(getPasswordStrength(newPassword));
   };
 
@@ -86,24 +86,20 @@ export const ReactFrom = (): JSX.Element => {
           required
           placeholder="email"
         />
-          <label htmlFor="password">
-          <input
-            type="password"
-            onChange={(e) => {  
-              handlePasswordChange(e);  
-              register('password').onChange(e); // 
-            }}  
-            
-            name="password"
-            autoComplete="on"
-            placeholder="password"
-          />
-          <div className={styles.invalidFeedback}>{errors.password?.message}</div>
-          <div className={styles.pasStrengthWrapper}>
-            <div className={styles.pasStrengthTitle}>Password strength:</div><div className={styles.pasStrengthValue}><strong>{` ${strength}`}</strong></div>
-          </div>
-        </label>
-
+        <UIFormInput
+          controlType="input"
+          name="password"
+          type="password"
+          register={register}
+          error={errors.password?.message ? errors.password?.message : ''}
+          required
+          placeholder="password"
+        />
+           {strength && (  
+          <p >  
+            Password strength: {strength}  
+          </p>  
+        )}  
         <UIFormInput
           controlType="input"
           name="confirmPassword"

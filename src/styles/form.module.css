@@ -31,3 +31,22 @@
   text-align: center;
   min-height: 2rem;
 }
+
+.pasStrengthWrapper {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-start;
+}
+
+.pasStrengthTitle {
+  border-radius: .5rem;
+  background-color: var(--bg-color-third);
+  padding: .3rem;
+  color: black;
+}
+
+.pasStrengthValue {
+  border-radius: .5rem;
+  color: var(--white);
+  background-color: none;
+}

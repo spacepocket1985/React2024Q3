@@ -6,15 +6,21 @@ import { useState, useRef, FormEvent } from 'react';
 import validationSchema from '../utils/validationSchema';
 import { useAppDispatch, useAppSelector } from '../hooks/storeHooks';
 import { convertBase64 } from '../utils/convertBase64';
-import { FormDataType} from '../types';
+import { FormDataType } from '../types';
 import { setData } from '../store/slices/formsDataSlice';
 
 import styles from '../styles/form.module.css';
+import { getPasswordStrength } from '../utils/getPasswordStrength';
 
-export const SimpleFrom = ():JSX.Element => {
+export const SimpleFrom = (): JSX.Element => {
   const navigate = useNavigate();
-
+  const [strength, setStrength] = useState('');
   const [formErrors, setErrors] = useState<Record<string, string>>({});
+
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newPassword = e.target.value;
+    setStrength(getPasswordStrength(newPassword));
+  };
 
   const nameRef = useRef<HTMLInputElement>(null);
   const ageRef = useRef<HTMLInputElement>(null);
@@ -111,12 +117,16 @@ export const SimpleFrom = ():JSX.Element => {
         <label htmlFor="password">
           <input
             type="password"
+            onChange={handlePasswordChange}
             name="password"
             ref={passwordRef}
             autoComplete="on"
             placeholder="password"
           />
           <div className={styles.invalidFeedback}>{formErrors.password}</div>
+          <div className={styles.pasStrengthWrapper}>
+            <div className={styles.pasStrengthTitle}>Password strength:</div><div className={styles.pasStrengthValue}><strong>{` ${strength}`}</strong></div>
+          </div>
         </label>
         <label htmlFor="confirmPassword">
           <input
