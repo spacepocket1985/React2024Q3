@@ -1,3 +1,7 @@
+.contentWrap {
+  display: flex;
+}
+
 .wrapperData {
   margin: auto;
   display: flex;

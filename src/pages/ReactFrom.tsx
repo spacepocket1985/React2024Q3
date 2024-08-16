@@ -31,7 +31,7 @@ export const ReactFrom = (): JSX.Element => {
     if (data.picture[0] instanceof File) {
       const image2Base64 = await convertBase64(data.picture[0]);
       const newData: FormDataType = { ...data, picture: image2Base64 };
-      console.log({ ...data, picture: image2Base64 });
+
       dispatch(setData(newData));
 
       navigate('/');
@@ -41,7 +41,7 @@ export const ReactFrom = (): JSX.Element => {
   };
   return (
     <>
-      <h1>ReactFrom</h1>
+      <h1>React-From</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
         <UIFormInput
           controlType="input"
@@ -121,7 +121,7 @@ export const ReactFrom = (): JSX.Element => {
           />
         </div>
         <div className={styles.lineforCheckBox}>
-          <label className="termLabel">
+          <label className={styles.termLabel}>
             I have read and agree to terms and conditions
           </label>
           <UIFormInput

@@ -21,3 +21,14 @@
   border: 0.1rem solid var(--white);
   border-radius: 0.5rem;
 }
+.selectWrapper {
+  display: flex;
+}
+
+
+.invalidFeedback {
+  color: var(--fourth-color);
+  font-size: 1.4rem;
+  text-align: center;
+  min-height: 2rem;
+}
