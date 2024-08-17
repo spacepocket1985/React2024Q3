@@ -17,10 +17,6 @@ export const SimpleFrom = (): JSX.Element => {
   const [strength, setStrength] = useState('');
   const [formErrors, setErrors] = useState<Record<string, string>>({});
 
-  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newPassword = e.target.value;
-    setStrength(getPasswordStrength(newPassword));
-  };
 
   const nameRef = useRef<HTMLInputElement>(null);
   const ageRef = useRef<HTMLInputElement>(null);
@@ -53,7 +49,7 @@ export const SimpleFrom = (): JSX.Element => {
     };
 
     const isFormValid = await validationSchema.isValid(formData);
-
+    setStrength(getPasswordStrength(formData.password || ''));
     if (isFormValid) {
       if (formData.picture![0] instanceof File) {
         const image2Base64 = await convertBase64(formData.picture![0]);
@@ -117,7 +113,6 @@ export const SimpleFrom = (): JSX.Element => {
         <label htmlFor="password">
           <input
             type="password"
-            onChange={handlePasswordChange}
             name="password"
             ref={passwordRef}
             autoComplete="on"
