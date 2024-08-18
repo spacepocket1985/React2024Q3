@@ -1,0 +1,50 @@
+.contentWrap {
+  display: flex;
+}
+
+.wrapperData {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  width: 35rem;
+  gap: 1rem;
+  margin-bottom: 5rem;
+  margin-top: 1rem;
+  border: var(--secondary-color) solid 0.2rem;
+  color: var(--white);
+}
+
+.formTitle {
+  text-align: center;
+  background-color: var(--secondary-color);
+  width: auto;
+}
+
+.dataLine {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.lineTitle {
+  background-color: var(--secondary-color);
+  padding: 0.5rem;
+}
+
+.formPrimary {
+  animation-name: blinker;
+  animation-iteration-count: 2;
+  border: var(--switcher-color) solid .5rem;
+  animation-timing-function: cubic-bezier(1, 0, 0, 1);
+  animation-duration: 1s;
+  transition: all 0.3s;
+}
+
+@keyframes blinker {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
