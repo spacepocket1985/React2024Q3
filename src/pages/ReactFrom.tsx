@@ -1,4 +1,5 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { useState } from 'react';
 
 import { yupResolver } from '@hookform/resolvers/yup';
 
@@ -6,13 +7,13 @@ import validationSchema from '../utils/validationSchema';
 import { FormDataType, FormType, submitFormType } from '../types';
 import { UIFormInput } from '../ui/UIFormInput';
 
-import styles from '../styles/form.module.css';
 import { useAppDispatch, useAppSelector } from '../hooks/storeHooks';
 import { convertBase64 } from '../utils/convertBase64';
 import { useNavigate } from 'react-router-dom';
 import { setData } from '../store/slices/formsDataSlice';
-import { useState } from 'react';
-import { getPasswordStrength } from '../utils/getPasswordStrength';
+import { getPasswordStrength, PasswordStrengthIndicator } from '../components/passwordStrengthIndicator/PasswordStrengthIndicator';
+
+import styles from '../styles/form.module.css';
 
 export const ReactFrom = (): JSX.Element => {
   const [strength, setStrength] = useState('');
@@ -22,7 +23,7 @@ export const ReactFrom = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const {
     register,
-    handleSubmit,setValue,
+    handleSubmit,
     formState: { errors, isValid },
   } = useForm<submitFormType>({
     resolver: yupResolver(validationSchema),
@@ -31,7 +32,7 @@ export const ReactFrom = (): JSX.Element => {
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newPassword = e.target.value;
-    setValue('password', newPassword);
+    //setValue('password', newPassword);
     setStrength(getPasswordStrength(newPassword));
   };
 
@@ -86,22 +87,20 @@ export const ReactFrom = (): JSX.Element => {
           required
           placeholder="email"
         />
-          <label htmlFor="password">
+        <label htmlFor="password">
           <input
             type="password"
-            onChange={(e) => {  
-              handlePasswordChange(e);  
-              register('password').onChange(e); // 
-            }}  
-            
+            {...register('password', {
+              onChange: (e) => handlePasswordChange(e),
+            })}
             name="password"
             autoComplete="on"
             placeholder="password"
           />
-          <div className={styles.invalidFeedback}>{errors.password?.message}</div>
-          <div className={styles.pasStrengthWrapper}>
-            <div className={styles.pasStrengthTitle}>Password strength:</div><div className={styles.pasStrengthValue}><strong>{` ${strength}`}</strong></div>
+          <div className={styles.invalidFeedback}>
+            {errors.password?.message}
           </div>
+            <PasswordStrengthIndicator password={strength}/>
         </label>
 
         <UIFormInput
@@ -117,7 +116,7 @@ export const ReactFrom = (): JSX.Element => {
           required
           placeholder="confirmPassword"
         />
-        
+
         <UIFormInput
           controlType="select"
           name="country"

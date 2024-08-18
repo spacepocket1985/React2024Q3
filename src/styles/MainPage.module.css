@@ -34,6 +34,7 @@
 .formPrimary {
   animation-name: blinker;
   animation-iteration-count: 2;
+  border: var(--switcher-color) solid .5rem;
   animation-timing-function: cubic-bezier(1, 0, 0, 1);
   animation-duration: 1s;
   transition: all 0.3s;
